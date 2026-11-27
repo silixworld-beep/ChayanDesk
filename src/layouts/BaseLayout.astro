@@ -76,6 +76,12 @@ const adsenseClient = (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim();
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     {
+      adsenseClient.startsWith('ca-pub-') && (
+        <meta name="google-adsense-account" content={adsenseClient} />
+      )
+    }
+
+    {
       adsEnabled && adsenseClient.startsWith('ca-pub-') && (
         <script
           async
