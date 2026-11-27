@@ -1,4 +1,4 @@
-# ChayanDesk — Public Sector Recruitment Portal
+# SarkariIndex — Public Sector Recruitment Portal
 
 Static, high-speed public-sector recruitment registry built with **Astro**, **Tailwind CSS v4**, **strict TypeScript**, and an automated **Python + Google GenAI (`google-genai`)** daily collection pipeline.
 

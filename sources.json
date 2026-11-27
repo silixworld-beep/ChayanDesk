@@ -1,5 +1,5 @@
 {
-  "bot_user_agent": "ChayanDeskBot/1.0 (+https://chayandesk.in/about; desk@chayandesk.in)",
+  "bot_user_agent": "SarkariIndexBot/1.0 (+https://sarkariindex.pages.dev/about; desk@sarkariindex.pages.dev)",
   "request_delay_seconds": 2.0,
   "max_items_per_source": 6,
   "sources": [

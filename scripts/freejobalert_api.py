@@ -394,7 +394,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             self._c = httpx.Client(
                 timeout=20.0,
                 follow_redirects=True,
-                headers={"User-Agent": "ChayanDeskBot/1.0 (+https://chayandesk.in/about; desk@chayandesk.in)"},
+                headers={"User-Agent": "SarkariIndexBot/1.0 (+https://sarkariindex.pages.dev/about; desk@sarkariindex.pages.dev)"},
             )
 
         def get(self, url: str, **_: Any) -> httpx.Response:

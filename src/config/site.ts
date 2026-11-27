@@ -24,15 +24,15 @@ export interface SalaryTierConfig {
 }
 
 export const SITE_CONFIG = {
-  brandName: 'ChayanDesk',
-  shortMark: 'CD',
+  brandName: 'SarkariIndex',
+  shortMark: 'SI',
   tagline: 'Verified Public Sector Recruitment',
   authorityBarLeft:
     '★ 100% GOVERNMENT & PSU JOBS ONLY • ZERO PRIVATE LISTINGS • DIRECT .GOV.IN LINKS',
   positioningTagline:
     '100% GOVERNMENT & PSU JOBS ONLY • ZERO PRIVATE LISTINGS • DIRECT OFFICIAL PORTAL LINKS',
   dailySyncLabel: 'Daily Sync: 6:00 AM IST',
-  siteUrl: 'https://chayandesk.in',
+  siteUrl: 'https://sarkariindex.pages.dev',
   correctionsEmail: 'silixworld@gmail.com',
   generalEmail: 'silixworld@gmail.com',
   navLinks: [

@@ -394,17 +394,20 @@ const adsenseClient = (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim();
           });
         }
 
-        // Global Saved Exams Store (localStorage key: chayandesk_saved_exams)
-        const STORAGE_KEY = 'chayandesk_saved_exams';
-        const LEGACY_STORAGE_KEY = 'sarkari_saved_exams';
+        // Global Saved Exams Store (localStorage key: sarkariindex_saved_exams)
+        const STORAGE_KEY = 'sarkariindex_saved_exams';
+        const LEGACY_KEYS = ['sarkari_saved_exams'];
         function getSavedSlugs() {
           try {
             let raw = localStorage.getItem(STORAGE_KEY);
             if (!raw) {
-              const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
-              if (legacy) {
-                localStorage.setItem(STORAGE_KEY, legacy);
-                raw = legacy;
+              for (const k of LEGACY_KEYS) {
+                const legacy = localStorage.getItem(k);
+                if (legacy) {
+                  localStorage.setItem(STORAGE_KEY, legacy);
+                  raw = legacy;
+                  break;
+                }
               }
             }
             const parsed = JSON.parse(raw || '[]');
@@ -452,7 +455,7 @@ const adsenseClient = (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim();
             }
           });
 
-          window.dispatchEvent(new CustomEvent('chayandesk:saved-updated', { detail: { saved } }));
+          window.dispatchEvent(new CustomEvent('sarkariindex:saved-updated', { detail: { saved } }));
         }
 
         document.addEventListener('click', function (ev) {
@@ -469,16 +472,16 @@ const adsenseClient = (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim();
           syncSavedUI();
         });
 
-        window.__chayanGetSaved = getSavedSlugs;
-        window.__chayanSetSaved = function (arr) {
+        window.__siGetSaved = getSavedSlugs;
+        window.__siSetSaved = function (arr) {
           setSavedSlugs(arr);
           syncSavedUI();
         };
-        window.__chayanSyncSaved = syncSavedUI;
+        window.__siSyncSaved = syncSavedUI;
 
         syncSavedUI();
       })();
     </script>
-    <Analytics />
+    {import.meta.env.VERCEL === '1' && <Analytics />}
   </body>
 </html>

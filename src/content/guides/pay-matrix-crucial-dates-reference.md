@@ -5,7 +5,7 @@ published_date: "2026-11-15"
 updated_date: "2026-11-22"
 category: "Applicant Reference"
 reading_time: "6 min read"
-author: "ChayanDesk Editorial Desk"
+author: "SarkariIndex Editorial Desk"
 ---
 
 Central government, PSU, and autonomous institute notifications express compensation, age cutoffs, and reservation eligibility in standardized administrative formats. Knowing how to read these entries prevents avoidable disqualifications during document verification.

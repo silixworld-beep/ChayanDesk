@@ -73,7 +73,7 @@
     scrollbar-width: none;
   }
 
-  @keyframes chayan-marquee {
+  @keyframes sarkariindex-marquee {
     0% {
       transform: translate3d(0, 0, 0);
     }
@@ -82,7 +82,7 @@
     }
   }
 
-  .chayan-marquee-viewport {
+  .sarkariindex-marquee-viewport {
     overflow: hidden;
     min-width: 0;
     flex: 1 1 0%;
@@ -102,27 +102,27 @@
     );
   }
 
-  .chayan-marquee-track {
+  .sarkariindex-marquee-track {
     display: flex;
     width: max-content;
     align-items: center;
     will-change: transform;
-    animation: chayan-marquee 34s linear infinite;
+    animation: sarkariindex-marquee 34s linear infinite;
   }
 
-  .chayan-marquee-viewport:hover .chayan-marquee-track,
-  .chayan-marquee-viewport:focus-within .chayan-marquee-track {
+  .sarkariindex-marquee-viewport:hover .sarkariindex-marquee-track,
+  .sarkariindex-marquee-viewport:focus-within .sarkariindex-marquee-track {
     animation-play-state: paused;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .chayan-marquee-viewport {
+    .sarkariindex-marquee-viewport {
       overflow-x: auto;
       mask-image: none;
       -webkit-mask-image: none;
     }
 
-    .chayan-marquee-track {
+    .sarkariindex-marquee-track {
       animation: none;
     }
   }

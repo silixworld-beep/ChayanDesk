@@ -5,7 +5,7 @@ published_date: "2026-11-18"
 updated_date: "2026-11-24"
 category: "Verification Standards"
 reading_time: "5 min read"
-author: "ChayanDesk Editorial Desk"
+author: "SarkariIndex Editorial Desk"
 ---
 
 Lookalike recruitment websites routinely mirror official commission branding during peak application cycles such as SSC CGL, RRB NTPC, and India Post GDS drives. Before entering personal identity numbers or initiating a fee payment, confirm every link against the issuing agency's authoritative domain.
@@ -36,6 +36,6 @@ Official portals collect examination fees solely through recognized government o
 - Demands for "document verification fees" or "joining security deposits" prior to formal appointment.
 - Promises of guaranteed selection without clearing notified CBT, written, or merit stages.
 
-## 4. How ChayanDesk Verifies Entries
+## 4. How SarkariIndex Verifies Entries
 
-Every listing published on ChayanDesk records the issuing agency's canonical domain (`source_domain`), direct links to the official application portal and PDF circular, and an explicit UTC verification timestamp (`last_verified_at`). ChayanDesk never hosts application forms or collects fees—applicants always submit forms directly on the issuing agency's domain.
+Every listing published on SarkariIndex records the issuing agency's canonical domain (`source_domain`), direct links to the official application portal and PDF circular, and an explicit UTC verification timestamp (`last_verified_at`). SarkariIndex never hosts application forms or collects fees—applicants always submit forms directly on the issuing agency's domain.

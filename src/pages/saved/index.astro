@@ -140,7 +140,7 @@ const manifest = [...jobManifest, ...admissionManifest];
       }
 
       function renderSavedPage() {
-        const saved = typeof window.__chayanGetSaved === 'function' ? window.__chayanGetSaved() : [];
+        const saved = typeof window.__siGetSaved === 'function' ? window.__siGetSaved() : [];
         const matched = saved.map((s) => itemsBySlug[s]).filter(Boolean);
 
         if (countEl) countEl.textContent = `${matched.length} Saved`;
@@ -178,16 +178,16 @@ const manifest = [...jobManifest, ...admissionManifest];
             </article>
           `;
         }).join('');
-        if (typeof window.__chayanSyncSaved === 'function') window.__chayanSyncSaved();
+        if (typeof window.__siSyncSaved === 'function') window.__siSyncSaved();
       }
 
       if (clearBtn) {
         clearBtn.addEventListener('click', function () {
-          if (typeof window.__chayanSetSaved === 'function') window.__chayanSetSaved([]);
+          if (typeof window.__siSetSaved === 'function') window.__siSetSaved([]);
           renderSavedPage();
         });
       }
-      window.addEventListener('chayandesk:saved-updated', renderSavedPage);
+      window.addEventListener('sarkariindex:saved-updated', renderSavedPage);
       renderSavedPage();
     })();
   </script>

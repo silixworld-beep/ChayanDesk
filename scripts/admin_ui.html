@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Control Center | ChayanDesk</title>
+    <title>Admin Control Center | SarkariIndex</title>
     <style>
       :root {
         --canvas: #F8F9FA;
@@ -374,9 +374,9 @@
       <div class="container">
         <div class="topbar-inner">
           <div class="brand">
-            <span class="brand-mark mono">CD</span>
+            <span class="brand-mark mono">SI</span>
             <div>
-              <div>ChayanDesk — Admin Control Center</div>
+              <div>SarkariIndex — Admin Control Center</div>
               <div class="brand-sub mono">Localhost Pipeline, PDF Verification &amp; Review Console</div>
             </div>
           </div>
@@ -1325,7 +1325,7 @@
               const p = state.overview.pending_pdf_count;
               const s = state.overview.staged_count;
               if (p > 0 || s > 0) {
-                new Notification('ChayanDesk Admin', {
+                new Notification('SarkariIndex Admin', {
                   body: `Run finished. Pending PDFs: ${p}, Staged for Review: ${s}.`,
                 });
               }

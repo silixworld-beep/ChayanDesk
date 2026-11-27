@@ -1,10 +1,10 @@
 ---
 trigger: glob
 globs: "*.astro, *.css, *.ts"
-description: "ChayanDesk Command Desk editorial design system, light-theme tokens, and strict anti-AI UI constraints."
+description: "SarkariIndex Command Desk editorial design system, light-theme tokens, and strict anti-AI UI constraints."
 ---
 
-# ChayanDesk Command Desk — Editorial Light Design System
+# SarkariIndex Command Desk — Editorial Light Design System
 
 ## Brand & Visual Philosophy
 Design like an authoritative, flagship Indian Government Employment Gazette (editorial clarity of Mint / Employment News, utility speed of Sarkari Result—never a generic SaaS dashboard and never a 3-column 1990s link dump). Every viewport must communicate: "100% Verified Government & PSU Recruitment Only."

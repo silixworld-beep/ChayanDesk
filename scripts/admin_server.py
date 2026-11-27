@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local Admin Control Server for ChayanDesk.
+"""Local Admin Control Server for SarkariIndex.
 
 Runs on 127.0.0.1:8787 (localhost-only) to provide manual/automatic pipeline
 execution, staging review, manual job creation, pending PDF upload + Gemini scan,
@@ -668,7 +668,7 @@ def _read_admissions_in_dir(directory: Path) -> list[dict[str, Any]]:
 class AdminHandler(BaseHTTPRequestHandler):
     """HTTP request handler for the local Admin Panel UI and JSON API."""
 
-    server_version = "ChayanDeskAdmin/1.0"
+    server_version = "SarkariIndexAdmin/1.0"
 
     def log_message(self, format: str, *args: Any) -> None:
         return
@@ -1349,7 +1349,7 @@ class AdminHandler(BaseHTTPRequestHandler):
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Start the ChayanDesk Local Admin Panel.")
+    parser = argparse.ArgumentParser(description="Start the SarkariIndex Local Admin Panel.")
     parser.add_argument("--host", default="127.0.0.1", help="Bind host (default: 127.0.0.1)")
     parser.add_argument("--port", type=int, default=8787, help="Bind port (default: 8787)")
     args = parser.parse_args()
@@ -1358,7 +1358,7 @@ def main() -> int:
     _init_runner_from_disk()
     threading.Thread(target=_scheduler_loop, daemon=True).start()
     server = ThreadingHTTPServer((args.host, args.port), AdminHandler)
-    print(f"ChayanDesk Admin Panel running at http://{args.host}:{args.port}/", flush=True)
+    print(f"SarkariIndex Admin Panel running at http://{args.host}:{args.port}/", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

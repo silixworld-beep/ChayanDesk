@@ -184,8 +184,8 @@ const websiteJsonLd = {
     <span class="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-urgent-bg text-urgent-text border border-urgent-border rounded-[3px] shrink-0">
       LATEST UPDATES
     </span>
-    <div class="chayan-marquee-viewport">
-      <div class="chayan-marquee-track">
+    <div class="sarkariindex-marquee-viewport">
+      <div class="sarkariindex-marquee-track">
         {
           [0, 1].map((copyIdx) => (
             <div
@@ -486,7 +486,7 @@ const websiteJsonLd = {
 
     <!-- Right (32%): Live Action Rail -->
     <aside aria-label="Live Action Rail" class="space-y-4">
-      <!-- Module 1: ChayanDesk Updates Desk (Result | Admit Card | Answer Key — linked to Job Pages) -->
+      <!-- Module 1: SarkariIndex Updates Desk (Result | Admit Card | Answer Key — linked to Job Pages) -->
       <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
         <div class="bg-canvas border-b border-border-strong px-2.5 pt-2.5 pb-0 flex items-center justify-between">
           <div class="flex items-center gap-1" role="tablist" aria-label="Official Exam Desk Tabs">
@@ -1212,8 +1212,8 @@ const websiteJsonLd = {
       }
 
       function renderRailSaved() {
-        if (!railSavedList || typeof window.__chayanGetSaved !== 'function') return;
-        const slugs = window.__chayanGetSaved();
+        if (!railSavedList || typeof window.__siGetSaved !== 'function') return;
+        const slugs = window.__siGetSaved();
         const items = slugs.map((s) => savedLookup[s]).filter(Boolean).slice(0, 5);
         if (items.length === 0) {
           railSavedList.innerHTML =
@@ -1235,7 +1235,7 @@ const websiteJsonLd = {
           .join('');
       }
 
-      window.addEventListener('chayandesk:saved-updated', renderRailSaved);
+      window.addEventListener('sarkariindex:saved-updated', renderRailSaved);
 
       // Initialize
       syncQuickPillStyles();

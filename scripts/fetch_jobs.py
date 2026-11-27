@@ -54,9 +54,9 @@ JOBS_DIR = REPO_ROOT / "src" / "data" / "jobs"
 ADMISSIONS_DIR = REPO_ROOT / "src" / "data" / "admissions"
 
 DEFAULT_USER_AGENT = (
-    "ChayanDeskBot/1.0 (+https://chayandesk.in/about; desk@chayandesk.in)"
+    "SarkariIndexBot/1.0 (+https://sarkariindex.pages.dev/about; desk@sarkariindex.pages.dev)"
 )
-SITE_BASE_URL = os.getenv("PUBLIC_SITE_URL", "https://chayandesk.in").rstrip("/")
+SITE_BASE_URL = os.getenv("PUBLIC_SITE_URL", "https://sarkariindex.pages.dev").rstrip("/")
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 FALLBACK_GEMINI_MODELS = [
     "gemini-2.5-flash",
@@ -1729,7 +1729,7 @@ def infer_authority_type(
     source_domain: str,
     gov_level: Literal["central", "state"],
 ) -> Literal["central", "state", "psu-bank", "defence-police", "teaching"]:
-    """Classify issuing authority into ChayanDesk recruitment vertical."""
+    """Classify issuing authority into SarkariIndex recruitment vertical."""
     org_title_domain = f"{organization} {title} {source_domain}".lower()
     if re.search(r"\b(bank|sbi|bob|canara|exim|sidbi|sebi|rbi|nabard|ibps|ecil|eil|oil india|ongc|ntpc|bhel|gail|sail|dfccil|edcil|c-?dit|cmd)\b", org_title_domain):
         return "psu-bank"
@@ -1946,7 +1946,7 @@ def serialize_job_payload(record: ValidatedJobRecord, *, for_staging: bool = Fal
     route_prefix = "admissions" if (for_staging and record.post_type == "admission") else "jobs"
     ordered: dict[str, Any] = {
         "slug": payload["slug"],
-        "chayandesk_url": f"{SITE_BASE_URL}/{route_prefix}/{record.slug}",
+        "sarkariindex_url": f"{SITE_BASE_URL}/{route_prefix}/{record.slug}",
     }
     for k, v in payload.items():
         if k not in ordered:
@@ -2003,7 +2003,7 @@ def serialize_admission_payload(record: ValidatedJobRecord) -> dict[str, Any]:
         payload.pop("homepage_menus", None)
     ordered: dict[str, Any] = {
         "slug": payload["slug"],
-        "chayandesk_url": f"{SITE_BASE_URL}/admissions/{record.slug}",
+        "sarkariindex_url": f"{SITE_BASE_URL}/admissions/{record.slug}",
     }
     for k, v in payload.items():
         if k not in ordered:
