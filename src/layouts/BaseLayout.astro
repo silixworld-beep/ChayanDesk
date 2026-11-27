@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import AdSlot from '../components/AdSlot.astro';
 import { SITE_CONFIG } from '../config/site';
 
@@ -478,5 +479,6 @@ const adsenseClient = (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim();
         syncSavedUI();
       })();
     </script>
+    <Analytics />
   </body>
 </html>
