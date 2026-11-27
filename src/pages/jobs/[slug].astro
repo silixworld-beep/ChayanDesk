@@ -1,0 +1,655 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/Badge.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import OfficialShareActions from '../../components/OfficialShareActions.astro';
+import { SITE_CONFIG } from '../../config/site';
+import {
+  displayOrFallback,
+  FALLBACK_TEXT,
+  formatDisplayDate,
+  formatFlexibleDisplayDate,
+  formatSalaryBadge,
+  formatVacancies,
+  getAuthorityLabel,
+  getAuthorityType,
+  getDeadlineBadge,
+  getGovernmentLevel,
+  getGovernmentLevelLabel,
+  getRelatedJobs,
+  getSalaryTier,
+  getStateName,
+  slugify,
+} from '../../lib/jobs';
+
+export async function getStaticPaths() {
+  const allJobs = await getCollection('jobs');
+  return allJobs.map((job) => ({
+    params: { slug: job.data.slug },
+    props: {
+      job,
+      allJobs,
+    },
+  }));
+}
+
+const { job, allJobs } = Astro.props;
+const d = job.data;
+
+const deptSlug = slugify(d.department);
+const qualSlug = slugify(d.qualification_level);
+const govLevel = getGovernmentLevel(job);
+const govLabel = getGovernmentLevelLabel(govLevel);
+const stateName = getStateName(job);
+const stateSlug = stateName ? slugify(stateName) : null;
+const categoryBadgeLabel = govLevel === 'state' && stateName ? `${stateName} Govt` : govLabel;
+const categoryHref = govLevel === 'central' ? '/central-jobs' : stateSlug ? `/states/${stateSlug}` : '/states';
+
+const authType = getAuthorityType(job);
+const authLabel = getAuthorityLabel(authType);
+const salaryTier = getSalaryTier(job);
+const salaryBadge = formatSalaryBadge(job);
+const hasNumericSalary = Boolean((d.salary_min && d.salary_min > 0) || (d.salary_max && d.salary_max > 0));
+const hasRealVacancies = d.total_vacancies !== null && d.total_vacancies !== undefined;
+const vacanciesText = hasRealVacancies ? formatVacancies(d.total_vacancies) : FALLBACK_TEXT;
+
+const badge = getDeadlineBadge(
+  d.application_deadline,
+  new Date(),
+  Boolean(d.archived),
+);
+const relatedJobs = getRelatedJobs(job, allJobs, 5);
+
+const siteOrigin = Astro.site ?? new URL(SITE_CONFIG.siteUrl);
+const canonicalPath = `/jobs/${d.slug}`;
+const canonicalUrl = new URL(canonicalPath, siteOrigin).toString();
+
+const totalBreakdownVacancies = d.vacancy_breakdown.reduce(
+  (sum, row) => sum + (row.vacancies ?? 0),
+  0,
+);
+const effectiveTotalVacancies = hasRealVacancies
+  ? formatVacancies(d.total_vacancies)
+  : totalBreakdownVacancies > 0
+    ? formatVacancies(totalBreakdownVacancies)
+    : FALLBACK_TEXT;
+
+const customLinks = (d.important_links ?? []).map((item) => ({
+  label: item.label.trim(),
+  url: item.url.trim(),
+}));
+
+const hasFeeTable = Boolean(d.fee_structure && d.fee_structure.length > 0);
+const hasEligibilityDetailColumn = d.vacancy_breakdown.some((r) => Boolean(r.eligibility || r.notes));
+
+function splitEligibilityPrefix(bullet: string): { prefix: string | null; rest: string } {
+  const colonIdx = bullet.indexOf(':');
+  if (colonIdx > 2 && colonIdx <= 60) {
+    return {
+      prefix: bullet.slice(0, colonIdx).trim(),
+      rest: bullet.slice(colonIdx + 1).trim(),
+    };
+  }
+  return { prefix: null, rest: bullet };
+}
+
+const jobPostingJsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org/',
+  '@type': 'JobPosting',
+  title: d.title,
+  description: [d.summary, ...d.eligibility_bullets].join(' '),
+  datePosted: d.posted_date,
+  ...(d.application_deadline
+    ? { validThrough: `${d.application_deadline}T23:59:59+05:30` }
+    : {}),
+  employmentType: 'FULL_TIME',
+  hiringOrganization: {
+    '@type': 'Organization',
+    name: d.organization,
+    sameAs: `https://${d.source_domain}`,
+  },
+  jobLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: d.location,
+      addressCountry: 'IN',
+    },
+  },
+  ...(hasNumericSalary
+    ? {
+        baseSalary: {
+          '@type': 'MonetaryAmount',
+          currency: 'INR',
+          value: {
+            '@type': 'QuantitativeValue',
+            ...(d.salary_min ? { minValue: d.salary_min } : {}),
+            ...(d.salary_max ? { maxValue: d.salary_max } : {}),
+            unitText: 'MONTH',
+          },
+        },
+      }
+    : {}),
+  identifier: {
+    '@type': 'PropertyValue',
+    name: d.organization,
+    value: d.notification_code ?? d.slug,
+  },
+  directApply: false,
+  url: canonicalUrl,
+};
+---
+
+<BaseLayout
+  title={`${d.title} — ${d.organization}`}
+  description={`${d.organization} recruitment notice (${d.qualification_level}). Total vacancies: ${vacanciesText}. Last date: ${formatDisplayDate(d.application_deadline)}.`}
+  canonicalPath={canonicalPath}
+  ogType="article"
+  jsonLd={jobPostingJsonLd}
+>
+  <nav aria-label="Breadcrumb" class="mb-3 text-[13px] text-ink-secondary">
+    <ol class="flex flex-wrap items-center gap-1.5">
+      <li><a href="/" class="hover:text-navy hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li><a href="/jobs" class="hover:text-navy hover:underline">Latest Jobs</a></li>
+      <li aria-hidden="true">/</li>
+      <li>
+        <a href={categoryHref} class="hover:text-navy hover:underline">
+          {categoryBadgeLabel}
+        </a>
+      </li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium truncate max-w-xs sm:max-w-md">
+        {d.title}
+      </li>
+    </ol>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[64fr_36fr] gap-5 items-start">
+    <article class="space-y-5 min-w-0">
+      <!-- 1. Header Card with Bookmark Icon & Share neatly integrated -->
+      <header class="bg-surface border border-border-strong rounded-[3px] p-4 sm:p-5 space-y-3">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <Badge variant={badge.variant}>{badge.label}</Badge>
+            <a
+              href={categoryHref}
+              class="text-xs font-semibold text-navy bg-canvas border border-border rounded-[3px] px-2 py-0.5 hover:border-navy no-underline"
+            >
+              {categoryBadgeLabel}
+            </a>
+            <a
+              href={`/qualifications/${qualSlug}`}
+              class="text-xs font-medium text-ink bg-canvas border border-border rounded-[3px] px-2 py-0.5 hover:border-navy no-underline"
+            >
+              {d.qualification_level}
+            </a>
+            {
+              d.notification_code && (
+                <span class="font-mono text-xs text-ink-secondary">
+                  Advt: {d.notification_code}
+                </span>
+              )
+            }
+          </div>
+
+          <OfficialShareActions
+            slug={d.slug}
+            iconBookmark={true}
+            shareTitle={d.title}
+            shareMeta={`Vacancies: ${vacanciesText} | Last Date: ${formatDisplayDate(d.application_deadline)}`}
+            canonicalUrl={canonicalUrl}
+          />
+        </div>
+
+        <h1 class="text-xl sm:text-[26px] font-bold text-ink tracking-tight leading-snug m-0">
+          {d.title}
+        </h1>
+        <div class="text-[13px] font-semibold text-ink-secondary">
+          {d.organization} &middot; {d.location} &middot;{' '}
+          <a href={`/departments/${deptSlug}`} class="text-accent hover:underline">
+            {d.department}
+          </a>
+        </div>
+        <p class="text-[15px] text-ink-secondary leading-[1.65] m-0">{d.summary}</p>
+      </header>
+
+      <!-- 2. Organized 2-Column Tables: Important Dates | Application Fee & Age Limit -->
+      <section aria-label="Important Dates, Fee and Age Summary" class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+        <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden flex flex-col">
+          <div class="px-3.5 py-2.5 bg-navy text-white flex items-center justify-between gap-2">
+            <h2 class="text-[13px] font-bold uppercase tracking-wider m-0">
+              Important Dates
+            </h2>
+            <span class="font-mono text-[11px] opacity-85">IST Schedule</span>
+          </div>
+          <table class="w-full border-collapse text-[13px]">
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-canvas/50">
+                <th scope="row" class="py-2.5 px-3.5 text-left font-medium text-ink-secondary">
+                  Notice Published Date
+                </th>
+                <td class="py-2.5 px-3.5 text-right font-mono font-semibold text-ink tabular-nums whitespace-nowrap">
+                  {formatDisplayDate(d.posted_date)}
+                </td>
+              </tr>
+              <tr class="hover:bg-canvas/50">
+                <th scope="row" class="py-2.5 px-3.5 text-left font-semibold text-ink">
+                  Application Last Date
+                </th>
+                <td class="py-2.5 px-3.5 text-right font-mono font-bold text-urgent-text tabular-nums whitespace-nowrap">
+                  {formatDisplayDate(d.application_deadline)}
+                </td>
+              </tr>
+              {
+                d.important_dates.map((row) => (
+                  <tr class="hover:bg-canvas/50">
+                    <th scope="row" class="py-2.5 px-3.5 text-left font-medium text-ink-secondary">
+                      {row.label}
+                    </th>
+                    <td class="py-2.5 px-3.5 text-right font-mono font-semibold text-ink tabular-nums whitespace-nowrap">
+                      {formatFlexibleDisplayDate(row.date)}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden flex flex-col">
+          <div class="px-3.5 py-2.5 bg-navy text-white">
+            <h2 class="text-[13px] font-bold uppercase tracking-wider m-0">
+              Application Fee &amp; Age Limit
+            </h2>
+          </div>
+
+          <div class="divide-y divide-border text-[13px] flex-1">
+            {
+              hasFeeTable ? (
+                <div>
+                  <table class="w-full border-collapse text-[13px]">
+                    <thead class="bg-canvas border-b border-border">
+                      <tr>
+                        <th scope="col" class="py-2 px-3.5 text-left text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                          Category / Group
+                        </th>
+                        <th scope="col" class="py-2 px-3.5 text-right text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                          Application Fee
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-border">
+                      {d.fee_structure!.map((f) => (
+                        <tr class="hover:bg-canvas/50">
+                          <td class="py-2 px-3.5 text-ink font-medium">{f.category}</td>
+                          <td class="py-2 px-3.5 text-right font-mono font-bold text-ink tabular-nums whitespace-nowrap">
+                            {f.amount}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {d.application_fee && (
+                    <div class="px-3.5 py-2 bg-canvas/50 border-t border-border text-xs text-ink-secondary leading-relaxed">
+                      <strong class="text-ink">Note:</strong> {d.application_fee}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div class="px-3.5 py-3 space-y-1">
+                  <div class="text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                    Application Fee
+                  </div>
+                  <div class="text-ink font-medium leading-relaxed">
+                    {displayOrFallback(d.application_fee)}
+                  </div>
+                </div>
+              )
+            }
+
+            <div class="px-3.5 py-3 space-y-1">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                Age Limit
+              </div>
+              <div class="text-ink font-medium leading-relaxed tabular-nums">
+                {displayOrFallback(d.age_limit)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Ad Slot (detail-mid) with generous buffer -->
+      <AdSlot variant="detail-mid" />
+
+      <!-- 4. Payscale & Posts Summary Box (Directly Above Eligibility Section) -->
+      <section
+        aria-labelledby="salary-callout-heading"
+        class="bg-active-bg border border-border-strong rounded-[3px] p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"
+      >
+        <div>
+          <div id="salary-callout-heading" class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Monthly Pay
+          </div>
+          {
+            hasNumericSalary ? (
+              <div class="font-mono text-lg font-bold text-active-text tabular-nums mt-0.5">
+                {salaryBadge.headline}
+              </div>
+            ) : (
+              <div class="text-[15px] font-bold text-ink mt-1">
+                {FALLBACK_TEXT}
+              </div>
+            )
+          }
+          {d.salary_range && (
+            <div class="text-xs text-ink-secondary mt-0.5 leading-snug">{d.salary_range}</div>
+          )}
+        </div>
+
+        <div>
+          <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Pay Matrix / Level
+          </div>
+          <div class="text-[15px] font-bold text-ink mt-1 leading-snug">
+            {d.pay_level ?? FALLBACK_TEXT}
+          </div>
+          {salaryTier !== 'not-specified' && (
+            <a
+              href={`/jobs/salary/${salaryTier}`}
+              class="text-xs font-semibold text-active-text hover:underline inline-block mt-0.5"
+            >
+              More in this scale &rarr;
+            </a>
+          )}
+        </div>
+
+        <div>
+          <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Total Posts / Vacancies
+          </div>
+          <div class="font-mono text-lg font-bold text-ink tabular-nums mt-0.5">
+            {effectiveTotalVacancies}
+          </div>
+          <a
+            href="#vacancy-breakdown-heading"
+            class="text-xs font-semibold text-active-text hover:underline inline-block mt-0.5"
+          >
+            {d.vacancy_breakdown.length > 0 ? 'View post breakdown ↓' : d.qualification_level}
+          </a>
+        </div>
+
+        <div>
+          <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Recruiting Authority
+          </div>
+          <div class="text-[15px] font-bold text-ink mt-1">{authLabel}</div>
+          <div class="text-xs text-ink-secondary mt-0.5">{categoryBadgeLabel}</div>
+        </div>
+      </section>
+
+      <!-- 5. Post-Wise Eligibility Criteria, Vacancy Breakdown & How to Apply -->
+      <section aria-labelledby="eligibility-heading" class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-4 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between gap-2">
+          <h2 id="eligibility-heading" class="text-[13px] font-bold uppercase tracking-wider text-navy m-0">
+            Eligibility Criteria (Post-Wise Points)
+          </h2>
+          <span class="font-mono text-xs text-ink-secondary">{d.qualification_level}</span>
+        </div>
+        <ul class="p-4 space-y-2.5 text-[15px] text-ink leading-[1.65] m-0">
+          {
+            d.eligibility_bullets.length > 0 ? (
+              d.eligibility_bullets.map((bullet) => {
+                const { prefix, rest } = splitEligibilityPrefix(bullet);
+                return (
+                  <li class="flex items-start gap-2.5">
+                    <span aria-hidden="true" class="mt-2.5 w-1.5 h-1.5 rounded-[2px] bg-navy shrink-0" />
+                    <span>
+                      {prefix ? (
+                        <>
+                          <strong class="text-navy">{prefix}:</strong> {rest}
+                        </>
+                      ) : (
+                        bullet
+                      )}
+                    </span>
+                  </li>
+                );
+              })
+            ) : (
+              <li class="text-[13px] text-ink-secondary">
+                {FALLBACK_TEXT} for post-wise educational qualification and experience requirements.
+              </li>
+            )
+          }
+        </ul>
+      </section>
+
+      <section aria-labelledby="vacancy-breakdown-heading" class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-4 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between gap-2">
+          <h2 id="vacancy-breakdown-heading" class="text-[13px] font-bold uppercase tracking-wider text-navy m-0">
+            Vacancy Breakdown &amp; Post Eligibility
+          </h2>
+          <span class="font-mono text-[13px] text-ink-secondary tabular-nums">
+            Total Posts: <strong class="text-ink">{effectiveTotalVacancies}</strong>
+          </span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse text-left text-[15px]">
+            <thead class="bg-canvas/60 border-b border-border">
+              <tr>
+                <th scope="col" class="py-2.5 px-4 text-[13px] font-semibold text-ink-secondary">Post / Category</th>
+                {hasEligibilityDetailColumn && (
+                  <th scope="col" class="py-2.5 px-4 text-[13px] font-semibold text-ink-secondary">Eligibility / Notes</th>
+                )}
+                <th scope="col" class="py-2.5 px-4 text-[13px] font-semibold text-ink-secondary text-right">Vacancies</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              {
+                d.vacancy_breakdown.length > 0 ? (
+                  d.vacancy_breakdown.map((row) => {
+                    const detailText = [row.eligibility, row.notes].filter(Boolean).join(' · ');
+                    return (
+                      <tr>
+                        <td class="py-2.5 px-4 font-medium text-ink align-top">{row.category}</td>
+                        {hasEligibilityDetailColumn && (
+                          <td class="py-2.5 px-4 text-[13px] text-ink-secondary align-top leading-relaxed">
+                            {detailText || '—'}
+                          </td>
+                        )}
+                        <td class="py-2.5 px-4 text-right font-mono font-bold text-ink tabular-nums align-top whitespace-nowrap">
+                          {formatVacancies(row.vacancies)}
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colspan={hasEligibilityDetailColumn ? 3 : 2} class="py-3.5 px-4 text-[13px] text-ink-secondary">
+                      {FALLBACK_TEXT} for post and category-wise vacancy distribution.
+                    </td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="how-to-apply-heading" class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-4 py-2.5 bg-canvas border-b border-border-strong">
+          <h2 id="how-to-apply-heading" class="text-[13px] font-bold uppercase tracking-wider text-navy m-0">
+            Step-by-Step How to Apply
+          </h2>
+        </div>
+        <ol class="p-4 space-y-2.5 text-[15px] text-ink leading-[1.65] m-0">
+          {
+            d.how_to_apply_steps.length > 0 ? (
+              d.how_to_apply_steps.map((step, index) => (
+                <li class="flex items-start gap-3">
+                  <span class="w-6 h-6 rounded-[3px] bg-canvas border border-border text-xs font-mono font-bold text-navy flex items-center justify-center shrink-0 tabular-nums">
+                    {index + 1}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))
+            ) : (
+              <li class="text-[13px] text-ink-secondary">
+                Visit <a href={`https://${d.source_domain}`} target="_blank" rel="noopener noreferrer" class="text-accent font-semibold hover:underline">{d.source_domain}</a> and follow the official online/offline application submission guidelines.
+              </li>
+            )
+          }
+        </ol>
+      </section>
+    </article>
+
+    <!-- Right Action Rail Sidebar: Important Official Links FIRST, then Related Active Jobs, then AdSlot -->
+    <aside class="space-y-4">
+      <section aria-labelledby="official-links-heading" class="bg-surface border-2 border-navy rounded-[3px] overflow-hidden">
+        <div class="px-3.5 py-2.5 bg-navy text-white flex items-center justify-between gap-2">
+          <h2 id="official-links-heading" class="text-[13px] font-bold uppercase tracking-wider m-0">
+            Important Official Links
+          </h2>
+          <span class="font-mono text-xs opacity-90">{d.source_domain}</span>
+        </div>
+        <table class="w-full border-collapse text-[14px]">
+          <tbody class="divide-y divide-border">
+            {
+              customLinks.map((link) => (
+                <tr class="hover:bg-canvas/60">
+                  <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink leading-snug">
+                    {link.label}
+                  </th>
+                  <td class="py-2.5 px-3.5 text-right whitespace-nowrap align-middle">
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-bold text-accent visited:text-visited hover:underline"
+                    >
+                      Click Here &rarr;
+                    </a>
+                  </td>
+                </tr>
+              ))
+            }
+            <tr class="hover:bg-canvas/60">
+              <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink">
+                Apply Online / Official Portal
+              </th>
+              <td class="py-2.5 px-3.5 text-right whitespace-nowrap">
+                <a
+                  href={d.official_apply_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-bold text-accent visited:text-visited hover:underline"
+                >
+                  Click Here &rarr;
+                </a>
+              </td>
+            </tr>
+            <tr class="hover:bg-canvas/60">
+              <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink">
+                Download Official Notification
+              </th>
+              <td class="py-2.5 px-3.5 text-right whitespace-nowrap">
+                {
+                  d.official_pdf_url ? (
+                    <a
+                      href={d.official_pdf_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-bold text-accent visited:text-visited hover:underline"
+                    >
+                      Click Here &rarr;
+                    </a>
+                  ) : (
+                    <a
+                      href={`https://${d.source_domain}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-semibold text-ink-secondary hover:text-navy hover:underline text-[13px]"
+                    >
+                      {FALLBACK_TEXT} &rarr;
+                    </a>
+                  )
+                }
+              </td>
+            </tr>
+            <tr class="hover:bg-canvas/60">
+              <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink">
+                Official Website
+              </th>
+              <td class="py-2.5 px-3.5 text-right whitespace-nowrap">
+                <a
+                  href={`https://${d.source_domain}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-bold text-accent visited:text-visited hover:underline"
+                >
+                  Click Here &rarr;
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="px-3.5 py-2 bg-canvas border-t border-border text-[11px] text-ink-secondary leading-snug">
+          Not affiliated with any government agency or {d.organization}. Apply solely on official source links above.
+        </div>
+      </section>
+
+      <!-- Related Active Jobs (Omit salary pill unless real pay scale is specified) -->
+      <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between gap-2">
+          <h2 class="text-[13px] font-bold uppercase tracking-wider text-navy m-0">
+            Related Active Jobs
+          </h2>
+          <a href={`/jobs/salary/${salaryTier}`} class="text-xs font-semibold text-accent hover:underline">
+            More &rarr;
+          </a>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            relatedJobs.map((rel) => {
+              const relBadge = getDeadlineBadge(rel.data.application_deadline);
+              const relSal = formatSalaryBadge(rel);
+              return (
+                <li class="px-3.5 py-3 space-y-1">
+                  <div class="flex items-center justify-between gap-2">
+                    {
+                      relSal.isSpecified ? (
+                        <span class="font-mono text-xs font-bold text-active-text tabular-nums">
+                          {relSal.headline}
+                        </span>
+                      ) : (
+                        <span class="font-mono text-[11px] text-ink-secondary">
+                          {rel.data.qualification_level}
+                        </span>
+                      )
+                    }
+                    <Badge variant={relBadge.variant}>{relBadge.label}</Badge>
+                  </div>
+                  <a
+                    href={`/jobs/${rel.data.slug}`}
+                    class="block text-[13px] font-semibold notice-link hover:underline leading-snug"
+                  >
+                    {rel.data.title}
+                  </a>
+                  <div class="text-xs text-ink-secondary truncate">
+                    {rel.data.organization} &middot; {formatDisplayDate(rel.data.application_deadline)}
+                  </div>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+
+      <!-- AdSlot separated safely below Related Active Jobs -->
+      <AdSlot variant="sidebar-sticky" />
+    </aside>
+  </div>
+</BaseLayout>

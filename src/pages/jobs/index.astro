@@ -1,0 +1,182 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JobTable from '../../components/JobTable.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import {
+  getDepartmentFacets,
+  getJurisdictionSummary,
+  getQualificationFacets,
+  getStateFacets,
+  isJobActive,
+  sortJobsByPostedDesc,
+} from '../../lib/jobs';
+
+const allJobs = sortJobsByPostedDesc(await getCollection('jobs'));
+const activeJobs = allJobs.filter((job) => isJobActive(job));
+const archivedJobs = allJobs.filter((job) => !isJobActive(job));
+const departments = getDepartmentFacets(activeJobs);
+const qualifications = getQualificationFacets(activeJobs);
+const states = getStateFacets(activeJobs);
+const jurisdictionSummary = getJurisdictionSummary(activeJobs);
+---
+
+<BaseLayout
+  title="All Recruitment Notices Archive"
+  description="Complete chronological archive of verified government and public-sector job notifications sorted by posting date."
+  canonicalPath="/jobs"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Latest Jobs</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div>
+      <h1 class="text-xl font-bold text-ink tracking-tight">
+        Latest Government Recruitment Notices
+      </h1>
+      <p class="text-xs text-ink-secondary mt-1">
+        Chronological index of active and recently verified public-sector notifications.
+      </p>
+    </div>
+    <div class="flex items-center gap-3 text-xs tabular-nums">
+      <span class="bg-canvas border border-border rounded-sm px-2.5 py-1 font-medium text-ink">
+        Active: <strong>{activeJobs.length}</strong>
+      </span>
+      <span class="bg-canvas border border-border rounded-sm px-2.5 py-1 font-medium text-ink">
+        Total Indexed: <strong>{allJobs.length}</strong>
+      </span>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-5 items-start">
+    <section aria-label="All Jobs Table" class="lg:col-span-7 space-y-4">
+      <JobTable
+        jobs={activeJobs}
+        tableId="archive-jobs-table"
+        emptyMessage="No active recruitment notices currently open."
+      />
+
+      {
+        archivedJobs.length > 0 && (
+          <div class="space-y-2 pt-2">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-ink-secondary">
+              Expired / Archived Notices ({archivedJobs.length})
+            </h2>
+            <JobTable jobs={archivedJobs} tableId="expired-jobs-table" />
+          </div>
+        )
+      }
+
+      <AdSlot position="in-feed" />
+    </section>
+
+    <aside class="lg:col-span-3 space-y-4">
+      <div class="bg-surface border border-border-strong rounded-[3px]">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-ink">
+            Central &amp; State Jobs
+          </h2>
+          <a href="/states" class="text-xs font-medium text-accent hover:underline">
+            States
+          </a>
+        </div>
+        <ul class="divide-y divide-border">
+          <li>
+            <a
+              href="/central-jobs"
+              class="px-3.5 py-2 flex items-center justify-between text-xs font-semibold text-ink hover:bg-canvas hover:text-accent no-underline"
+            >
+              <span>Central Government</span>
+              <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                {jurisdictionSummary.centralActive}
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/states"
+              class="px-3.5 py-2 flex items-center justify-between text-xs font-semibold text-ink hover:bg-canvas hover:text-accent no-underline"
+            >
+              <span>All State Governments</span>
+              <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                {jurisdictionSummary.stateActive}
+              </span>
+            </a>
+          </li>
+          {
+            states.map((st) => (
+              <li>
+                <a
+                  href={`/states/${st.slug}`}
+                  class="px-3.5 py-2 flex items-center justify-between text-xs text-ink hover:bg-canvas hover:text-accent no-underline"
+                >
+                  <span>{st.name}</span>
+                  <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                    {st.count}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="bg-surface border border-border-strong rounded-[3px]">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-ink">
+            Filter by Department
+          </h2>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            departments.map((dept) => (
+              <li>
+                <a
+                  href={`/departments/${dept.slug}`}
+                  class="px-3.5 py-2 flex items-center justify-between text-xs text-ink hover:bg-canvas hover:text-accent no-underline"
+                >
+                  <span>{dept.name}</span>
+                  <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                    {dept.count}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="bg-surface border border-border-strong rounded-[3px]">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-ink">
+            Filter by Qualification
+          </h2>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            qualifications.map((qual) => (
+              <li>
+                <a
+                  href={`/qualifications/${qual.slug}`}
+                  class="px-3.5 py-2 flex items-center justify-between text-xs text-ink hover:bg-canvas hover:text-accent no-underline"
+                >
+                  <span>{qual.name}</span>
+                  <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                    {qual.count}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <AdSlot position="sidebar" />
+    </aside>
+  </div>
+</BaseLayout>

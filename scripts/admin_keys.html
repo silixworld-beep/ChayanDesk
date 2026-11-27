@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini API Keys &amp; Quota Limits — ChayanDesk Admin</title>
+    <style>
+      :root {
+        --canvas: #F8F9FA;
+        --surface: #FFFFFF;
+        --ink: #111827;
+        --ink-2: #4B5563;
+        --border: #E5E7EB;
+        --border-strong: #D1D5DB;
+        --accent: #1D4ED8;
+        --accent-hover: #1E40AF;
+        --urgent-text: #991B1B;
+        --urgent-bg: #FEF2F2;
+        --urgent-border: #FECACA;
+        --active-text: #065F46;
+        --active-bg: #ECFDF5;
+        --active-border: #A7F3D0;
+        --warn-text: #92400E;
+        --warn-bg: #FFFBEB;
+        --warn-border: #FDE68A;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--canvas);
+        color: var(--ink);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .tabular { font-variant-numeric: tabular-nums; }
+      .container { max-width: 1280px; margin: 0 auto; padding: 0 18px; }
+
+      .topbar {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border-strong);
+        position: sticky;
+        top: 0;
+        z-index: 30;
+      }
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--ink);
+      }
+      .brand-mark {
+        width: 28px;
+        height: 28px;
+        border: 1px solid var(--border-strong);
+        background: var(--canvas);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+        border-radius: 3px;
+      }
+      .brand-sub { font-size: 11px; color: var(--ink-2); font-weight: 500; }
+      .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+      main { padding: 18px 0 40px; }
+      .notice-box {
+        background: var(--surface);
+        border: 1px solid var(--border-strong);
+        border-left: 4px solid var(--accent);
+        border-radius: 3px;
+        padding: 12px 14px;
+        margin-bottom: 16px;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .notice-box strong { color: var(--ink); }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .metric-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .metric-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-2); }
+      .metric-val { font-size: 22px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 16px;
+      }
+      .card-head {
+        background: var(--canvas);
+        border-bottom: 1px solid var(--border-strong);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); margin: 0; }
+      .card-body { padding: 14px; }
+
+      .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+      label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ink-2); margin-bottom: 4px; }
+      input[type="text"], input[type="number"], select, textarea {
+        width: 100%;
+        padding: 7px 10px;
+        font-size: 13px;
+        color: var(--ink);
+        background: var(--canvas);
+        border: 1px solid var(--border-strong);
+        border-radius: 3px;
+        font-family: inherit;
+      }
+      textarea { min-height: 82px; resize: vertical; }
+      input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 7px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 3px;
+        border: 1px solid var(--border-strong);
+        background: var(--surface);
+        color: var(--ink);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+      .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+      .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
+      .btn-danger { color: var(--urgent-text); border-color: var(--urgent-border); background: var(--urgent-bg); }
+      .btn-danger:hover { border-color: var(--urgent-text); color: var(--urgent-text); }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 1px 7px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 3px;
+        border: 1px solid var(--border);
+        background: var(--canvas);
+        color: var(--ink-2);
+        font-variant-numeric: tabular-nums;
+      }
+      .badge-urgent { color: var(--urgent-text); background: var(--urgent-bg); border-color: var(--urgent-border); }
+      .badge-active { color: var(--active-text); background: var(--active-bg); border-color: var(--active-border); }
+      .badge-warn { color: var(--warn-text); background: var(--warn-bg); border-color: var(--warn-border); }
+
+      table { width: 100%; border-collapse: collapse; text-align: left; }
+      th {
+        background: var(--canvas);
+        border-bottom: 1px solid var(--border-strong);
+        padding: 9px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--ink-2);
+      }
+      td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 13px; }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background: #FCFCFD; }
+
+      .progress-track {
+        width: 150px;
+        height: 6px;
+        background: var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-top: 5px;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--accent);
+      }
+      .progress-fill.warn { background: #D97706; }
+      .progress-fill.full { background: var(--urgent-text); }
+
+      .row-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+      .check-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink); cursor: pointer; }
+      .check-row input { width: auto; }
+      .hidden { display: none !important; }
+      .toast {
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        z-index: 60;
+        background: var(--surface);
+        border: 1px solid var(--border-strong);
+        border-left: 4px solid var(--accent);
+        padding: 10px 14px;
+        border-radius: 3px;
+        font-size: 13px;
+        max-width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <div class="topbar-inner">
+          <div class="brand">
+            <span class="brand-mark mono">GK</span>
+            <div>
+              <div>Gemini API Keys &amp; Quota Limits</div>
+              <div class="brand-sub mono">Multi-Key Vault, Live Quota Probe &amp; Automatic Failover Pool</div>
+            </div>
+          </div>
+          <div class="top-actions">
+            <a href="/" class="btn">&larr; Admin Control Center</a>
+            <a href="https://aistudio.google.com/usage" target="_blank" rel="noopener" class="btn">Google AI Studio Usage &rarr;</a>
+            <a href="http://localhost:4321/" target="_blank" rel="noopener" class="btn">Open Public Site &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="notice-box">
+        <strong>How Quota &amp; Automatic Failover Work:</strong>
+        Google's Gemini REST API does not expose a direct remaining-credit lookup endpoint. This dedicated monitor combines
+        <strong>live HTTP probes</strong> (<span class="mono">200</span> ready, <span class="mono">429 RESOURCE_EXHAUSTED</span> parsed <span class="mono">quotaMetric</span> / <span class="mono">quotaValue</span>, or <span class="mono">403</span> invalid)
+        with <strong>per-key daily request &amp; token tracking</strong> against your configured daily RPD cap. During extraction, if the active key exhausts its quota (<span class="mono">429</span>) or fails auth,
+        <span class="mono">fetch_jobs.py</span> automatically marks it in cooldown and fails over to the next enabled key by priority.
+      </div>
+
+      <section class="metrics-grid" aria-label="Gemini Key Pool Metrics">
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Configured Keys</div>
+            <div style="font-size:11px;color:var(--ink-2)">Stored in local vault</div>
+          </div>
+          <div id="k-total" class="metric-val">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Active Keys</div>
+            <div style="font-size:11px;color:var(--ink-2)">Ready for failover</div>
+          </div>
+          <div id="k-active" class="metric-val" style="color:var(--active-text)">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Exhausted (429)</div>
+            <div style="font-size:11px;color:var(--ink-2)">In cooldown / capped</div>
+          </div>
+          <div id="k-exhausted" class="metric-val" style="color:var(--warn-text)">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Invalid / Error</div>
+            <div style="font-size:11px;color:var(--ink-2)">Needs replacement</div>
+          </div>
+          <div id="k-invalid" class="metric-val" style="color:var(--urgent-text)">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Requests Today</div>
+            <div style="font-size:11px;color:var(--ink-2)">Across all keys (UTC)</div>
+          </div>
+          <div id="k-req-today" class="metric-val">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Est. RPD Remaining</div>
+            <div style="font-size:11px;color:var(--ink-2)">Across active pool</div>
+          </div>
+          <div id="k-rem-today" class="metric-val" style="color:var(--accent)">0</div>
+        </div>
+      </section>
+
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">Paste Single or Multiple Gemini API Keys</h2>
+          <span class="mono" style="font-size:11px;color:var(--ink-2)">Never committed (.gitignore: scripts/gemini_keys.json)</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <label for="paste-keys-text">Gemini API Key(s) * (paste 1 key, or multiple keys separated by new lines)</label>
+            <textarea id="paste-keys-text" class="mono" placeholder="AIzaSy...&#10;AIzaSy..."></textarea>
+          </div>
+          <div class="form-grid">
+            <div>
+              <label for="paste-label">Label / Account Note</label>
+              <input id="paste-label" type="text" placeholder="e.g. Personal Free Tier #2" />
+            </div>
+            <div>
+              <label for="paste-priority">Failover Priority (1 = used first)</label>
+              <input id="paste-priority" type="number" min="1" max="99" value="2" />
+            </div>
+            <div>
+              <label for="paste-cap">Daily RPD Limit (default 250 free / 1500+ Tier 1)</label>
+              <input id="paste-cap" type="number" min="1" max="100000" value="250" />
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <label class="check-row" style="text-transform:none;font-weight:500;">
+              <input id="paste-test-now" type="checkbox" checked />
+              Run live Gemini API probe immediately on save (checks 200 / 429 / 403)
+            </label>
+            <div class="row-actions">
+              <button id="btn-add-keys" type="button" class="btn btn-primary">Save &amp; Verify Key(s)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">Configured API Keys &amp; Live Quota Status</h2>
+          <div class="row-actions">
+            <select id="probe-model-select" style="width:210px;">
+              <option value="gemini-3.5-flash-lite">Probe Model: gemini-3.5-flash-lite</option>
+              <option value="gemini-2.5-flash">Probe Model: gemini-2.5-flash</option>
+              <option value="gemini-3.5-flash">Probe Model: gemini-3.5-flash</option>
+              <option value="gemini-3.1-flash-lite">Probe Model: gemini-3.1-flash-lite</option>
+            </select>
+            <button id="btn-test-all" type="button" class="btn btn-primary">Probe All Enabled Keys Live</button>
+            <button id="btn-refresh-keys" type="button" class="btn">Refresh</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Priority &amp; Key</th>
+                <th>Live Status &amp; Probe</th>
+                <th>Daily Usage &amp; Est. Remaining</th>
+                <th>Tokens Today (UTC)</th>
+                <th>Google Quota / 429 Details</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="keys-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script>
+      let keysData = [];
+
+      function showToast(msg, isErr = false) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.style.borderLeftColor = isErr ? '#991B1B' : '#1D4ED8';
+        el.classList.remove('hidden');
+        setTimeout(() => el.classList.add('hidden'), 4500);
+      }
+
+      function esc(str) {
+        return String(str ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      async function api(url, opts = {}) {
+        const res = await fetch(url, {
+          headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
+          ...opts,
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || data.message || `HTTP ${res.status}`);
+        return data;
+      }
+
+      function statusBadge(k) {
+        if (!k.enabled) return '<span class="badge">Disabled</span>';
+        if (k.status === 'active') return '<span class="badge badge-active">Active</span>';
+        if (k.status === 'exhausted') return '<span class="badge badge-warn">Exhausted (Cooldown)</span>';
+        if (k.status === 'invalid') return '<span class="badge badge-urgent">Invalid Key</span>';
+        return `<span class="badge">${esc(k.status || 'Unknown')}</span>`;
+      }
+
+      function renderSummary(data) {
+        keysData = data.keys || [];
+        document.getElementById('k-total').textContent = data.total_count ?? keysData.length;
+        document.getElementById('k-active').textContent = data.active_count ?? 0;
+        document.getElementById('k-exhausted').textContent = data.exhausted_count ?? 0;
+        document.getElementById('k-invalid').textContent = data.invalid_count ?? 0;
+        document.getElementById('k-req-today').textContent = (data.total_requests_today ?? 0).toLocaleString();
+        document.getElementById('k-rem-today').textContent = (data.total_estimated_remaining ?? 0).toLocaleString();
+
+        const tbody = document.getElementById('keys-tbody');
+        if (keysData.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--ink-2);padding:22px;">No Gemini API keys configured yet. Paste a key above to get started.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = keysData.map((k) => {
+          const used = Number(k.requests_today || 0);
+          const cap = Math.max(1, Number(k.daily_rpd_limit || 250));
+          const rem = Number(k.estimated_remaining ?? Math.max(0, cap - used));
+          const pct = Math.min(100, Math.round((used / cap) * 100));
+          const fillCls = pct >= 95 ? 'full' : pct >= 70 ? 'warn' : '';
+          const exhaustedModels = k.exhausted_models && typeof k.exhausted_models === 'object'
+            ? Object.keys(k.exhausted_models)
+            : [];
+
+          return `
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                  <span class="badge tabular">P${esc(k.priority)}</span>
+                  <strong>${esc(k.label)}</strong>
+                </div>
+                <div class="mono" style="font-size:12px;color:var(--ink-2)">${esc(k.masked_key)}</div>
+                <div class="mono" style="font-size:11px;color:var(--ink-2)">ID: ${esc(k.id)}</div>
+              </td>
+              <td>
+                <div style="margin-bottom:4px;">${statusBadge(k)}</div>
+                <div class="mono tabular" style="font-size:11px;color:var(--ink-2)">
+                  HTTP: ${k.last_http_status ?? '—'} &middot; Flash models: ${k.available_flash_models ?? '—'}
+                </div>
+                <div class="mono tabular" style="font-size:11px;color:var(--ink-2)">
+                  Checked: ${esc(k.last_checked_at || 'Never')}
+                </div>
+                ${k.cooldown_until ? `<div class="mono tabular" style="font-size:11px;color:var(--warn-text)">Cooldown until: ${esc(k.cooldown_until)}</div>` : ''}
+              </td>
+              <td>
+                <div class="mono tabular" style="font-weight:700;">
+                  ${used} / ${cap} req &middot; <span style="color:var(--accent)">${rem} left</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill ${fillCls}" style="width:${pct}%"></div></div>
+                <div class="mono tabular" style="font-size:11px;color:var(--ink-2);margin-top:4px;">
+                  OK: ${k.success_today || 0} &middot; 429 hits: ${k.rate_limit_hits_today || 0}
+                </div>
+              </td>
+              <td class="mono tabular">
+                <div><strong>${Number(k.tokens_today || 0).toLocaleString()}</strong></div>
+                <div style="font-size:11px;color:var(--ink-2)">Date: ${esc(k.usage_date || '—')}</div>
+                <div style="font-size:11px;color:var(--ink-2)">Last: ${esc(k.last_used_at || 'Never')}</div>
+              </td>
+              <td style="max-width:290px;">
+                <div class="mono" style="font-size:11px;">
+                  Metric: <strong>${esc(k.last_quota_metric || 'None observed')}</strong>
+                </div>
+                <div class="mono tabular" style="font-size:11px;color:var(--ink-2);">
+                  Reported Quota Value: ${esc(k.last_quota_value || '—')}
+                </div>
+                ${exhaustedModels.length > 0 ? `<div class="mono" style="font-size:11px;color:var(--warn-text);">429 models: ${esc(exhaustedModels.join(', '))}</div>` : ''}
+                ${k.last_error ? `<div style="font-size:11px;color:var(--urgent-text);margin-top:3px;word-break:break-word;">${esc(k.last_error)}</div>` : ''}
+              </td>
+              <td>
+                <div class="row-actions">
+                  <button class="btn btn-primary" onclick="testSingleKey('${esc(k.id)}')">Test Live</button>
+                  <button class="btn" onclick="editKeySettings('${esc(k.id)}')">Edit Cap/Priority</button>
+                  ${(k.status === 'exhausted' || k.status === 'invalid') ? `<button class="btn" onclick="updateKey('${esc(k.id)}', {reset: true, enabled: true})">Reset Status</button>` : ''}
+                  <button class="btn" onclick="updateKey('${esc(k.id)}', {enabled: ${!k.enabled}})">${k.enabled ? 'Disable' : 'Enable'}</button>
+                  <button class="btn btn-danger" onclick="deleteKey('${esc(k.id)}')">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      async function loadKeys() {
+        try {
+          const data = await api('/api/keys');
+          renderSummary(data);
+        } catch (e) {
+          showToast(e.message, true);
+        }
+      }
+
+      async function testSingleKey(id) {
+        const model = document.getElementById('probe-model-select').value;
+        showToast(`Testing key '${id}' against ${model}...`);
+        try {
+          const res = await api(`/api/keys/${encodeURIComponent(id)}/test`, {
+            method: 'POST',
+            body: JSON.stringify({ model }),
+          });
+          renderSummary(res.summary);
+          const k = res.key;
+          showToast(`Key '${k.label}': status=${k.status} (HTTP ${k.last_http_status ?? '?'})`, k.status !== 'active');
+        } catch (e) {
+          showToast(e.message, true);
+        }
+      }
+
+      async function updateKey(id, payload) {
+        try {
+          const res = await api(`/api/keys/${encodeURIComponent(id)}/update`, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+          });
+          renderSummary(res.summary);
+          showToast('Updated Gemini key configuration.');
+        } catch (e) {
+          showToast(e.message, true);
+        }
+      }
+
+      function editKeySettings(id) {
+        const k = keysData.find((x) => x.id === id);
+        if (!k) return;
+        const newLabel = prompt('Key label:', k.label);
+        if (newLabel === null) return;
+        const newPriority = prompt('Failover priority (1 = first):', String(k.priority ?? 1));
+        if (newPriority === null) return;
+        const newCap = prompt('Daily RPD cap:', String(k.daily_rpd_limit ?? 250));
+        if (newCap === null) return;
+        updateKey(id, {
+          label: newLabel.trim() || k.label,
+          priority: Math.max(1, Number(newPriority) || 1),
+          daily_rpd_limit: Math.max(1, Number(newCap) || 250),
+        });
+      }
+
+      async function deleteKey(id) {
+        if (!confirm(`Remove key '${id}' from the vault?`)) return;
+        try {
+          const res = await api(`/api/keys/${encodeURIComponent(id)}`, { method: 'DELETE' });
+          renderSummary(res.summary);
+          showToast('Deleted key from pool.');
+        } catch (e) {
+          showToast(e.message, true);
+        }
+      }
+
+      document.getElementById('btn-add-keys').addEventListener('click', async () => {
+        const rawText = document.getElementById('paste-keys-text').value.trim();
+        if (!rawText) return showToast('Paste at least one Gemini API key.', true);
+        const btn = document.getElementById('btn-add-keys');
+        btn.disabled = true;
+        try {
+          const res = await api('/api/keys', {
+            method: 'POST',
+            body: JSON.stringify({
+              api_keys_text: rawText,
+              label: document.getElementById('paste-label').value.trim(),
+              priority: Number(document.getElementById('paste-priority').value || 1),
+              daily_rpd_limit: Number(document.getElementById('paste-cap').value || 250),
+              test_now: document.getElementById('paste-test-now').checked,
+            }),
+          });
+          document.getElementById('paste-keys-text').value = '';
+          document.getElementById('paste-label').value = '';
+          renderSummary(res.summary);
+          showToast(`Saved ${res.added.length} Gemini key(s).`);
+        } catch (e) {
+          showToast(e.message, true);
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      document.getElementById('btn-test-all').addEventListener('click', async () => {
+        const btn = document.getElementById('btn-test-all');
+        const model = document.getElementById('probe-model-select').value;
+        btn.disabled = true;
+        showToast(`Probing all enabled keys with ${model}...`);
+        try {
+          const res = await api('/api/keys/test-all', {
+            method: 'POST',
+            body: JSON.stringify({ model }),
+          });
+          renderSummary(res.summary);
+          showToast(`Probe complete: ${res.summary.active_count} active, ${res.summary.exhausted_count} exhausted.`);
+        } catch (e) {
+          showToast(e.message, true);
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      document.getElementById('btn-refresh-keys').addEventListener('click', loadKeys);
+
+      loadKeys();
+      setInterval(loadKeys, 5000);
+    </script>
+  </body>
+</html>

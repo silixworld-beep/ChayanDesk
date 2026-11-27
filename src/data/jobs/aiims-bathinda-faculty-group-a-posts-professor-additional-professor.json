@@ -1,0 +1,91 @@
+{
+  "slug": "aiims-bathinda-faculty-group-a-posts-professor-additional-professor",
+  "title": "Faculty (Group-A) Posts - Professor, Additional Professor, Associate Professor, and Assistant Professor",
+  "organization": "AIIMS Bathinda",
+  "department": "Healthcare & Medical",
+  "location": "Bathinda, Punjab",
+  "qualification_level": "Post Graduate",
+  "total_vacancies": 55,
+  "salary_range": "Level-12 to Level-14-A (Rs. 1,01,500 - 2,20,400)",
+  "application_fee": "Rs. 2360 for General/OBC/EWS, Rs. 1180 for SC/ST, Free for PwBD",
+  "age_limit": "Max 58 years for Professor/Additional Professor, Max 50 years for Associate Professor/Assistant Professor",
+  "important_dates": [
+    {
+      "label": "Opening Date",
+      "date": "9 Nov 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "30 Nov 2026"
+    },
+    {
+      "label": "Hard Copy Submission Deadline",
+      "date": "3 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-11-30",
+  "posted_date": "2026-11-09",
+  "last_verified_at": "2026-11-26T12:22:52Z",
+  "summary": "All India Institute of Medical Sciences (AIIMS) Bathinda invites offline and online applications from eligible candidates for faculty positions (Group-A) including Professor, Additional Professor, Associate Professor, and Assistant Professor across various departments on a direct recruitment basis. Interested candidates must submit their online Google Form by November 30, 2026, and send the printed hard copy along with required documents by December 3, 2026.",
+  "eligibility_bullets": [
+    "Must possess essential educational qualifications and experience as recognized by MCI/NMC/Govt. of India.",
+    "Age limit is determined as of 30 November 2026, with relaxations applicable for reserved categories as per DOPT guidelines.",
+    "Valid category certificates (OBC/EWS/SC/ST/PwBD) must be in the prescribed Central Government format."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Professor",
+      "vacancies": 17,
+      "notes": "Group-A Direct Recruitment"
+    },
+    {
+      "category": "Additional Professor",
+      "vacancies": 4,
+      "notes": "Group-A Direct Recruitment"
+    },
+    {
+      "category": "Associate Professor",
+      "vacancies": 16,
+      "notes": "Group-A Direct Recruitment"
+    },
+    {
+      "category": "Assistant Professor",
+      "vacancies": 18,
+      "notes": "Group-A Direct Recruitment"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Fill out the mandatory online Google Form via the official link by 30 November 2026 (05:00 PM IST).",
+    "Download the application form from the AIIMS Bathinda website and fill it out in MS Word format.",
+    "Pay the applicable application fee online via SBI Collect and retain the transaction receipt.",
+    "Send the printed hard copy of the application form along with self-attested supporting documents, fee receipt, and NOC (if employed) via Registered/Speed Post or by hand to the Recruitment Cell, AIIMS Bathinda by 03 December 2026."
+  ],
+  "official_apply_url": "https://www.aiimsbathinda.edu.in/",
+  "official_pdf_url": "https://aiimsbathinda.edu.in/images/Reqruitment/20261109052537.pdf",
+  "source_domain": "aiimsbathinda.edu.in",
+  "source_url": "https://aiimsbathinda.edu.in/images/Reqruitment/20261109052537.pdf",
+  "notification_code": "AIIMS/BTI/RC/Faculty/2026/2490",
+  "fee_structure": [
+    {
+      "category": "General / OBC / EWS",
+      "amount": "Rs. 2360/-"
+    },
+    {
+      "category": "SC / ST",
+      "amount": "Rs. 1180/-"
+    },
+    {
+      "category": "Persons with Benchmark Disabilities (PwBD)",
+      "amount": "NIL"
+    }
+  ],
+  "archived": false,
+  "government_level": "central",
+  "state_name": null,
+  "salary_min": 101500,
+  "salary_max": 220400,
+  "pay_level": "Level-12 To Level-14 (7th CPC)",
+  "salary_tier": "above-1l",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

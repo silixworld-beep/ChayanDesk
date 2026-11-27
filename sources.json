@@ -1,0 +1,456 @@
+{
+  "bot_user_agent": "ChayanDeskBot/1.0 (+https://chayandesk.in/about; desk@chayandesk.in)",
+  "request_delay_seconds": 2.0,
+  "max_items_per_source": 6,
+  "sources": [
+    {
+      "id": "Admission",
+      "name": "Admission — All Indian University, NTA, Counselling & State Entrance Portals (14 Organisations)",
+      "type": "admission_hub",
+      "enabled": true,
+      "source_domain": "nta.ac.in",
+      "max_items": 20,
+      "portals": [
+        {
+          "id": "nta",
+          "name": "National Testing Agency (NTA) — NEET, JEE, CUET, AISSEE, CMAT, NIFT, RIMC, SWAYAM",
+          "short_name": "NTA (National Testing Agency)",
+          "category": "Central Testing Body",
+          "url": "https://nta.ac.in/NoticeBoardArchive",
+          "source_domain": "nta.ac.in",
+          "default_organization": "National Testing Agency (NTA)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "table a[href*='Download/Notice'], .card a[href*='Download/Notice'], a[href*='Download/Notice']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": ["Download/Notice", ".pdf"],
+          "exclude_url_patterns": ["14.139.", "Notice_2018", "Notice_2019", "Notice_2020", "Notice_2021", "Notice_2022", "Notice_2023", "Notice_2024", "Notice_2025", "2020", "2021", "2022", "2023", "2024", "Duplicate_Score", "AnswerKey", "AdmitCard"],
+          "include_title_keywords": ["admission", "application", "invitation", "bulletin", "aissee", "neet", "jee", "cuet", "cmat", "nift", "swayam", "rimc", "ugc-net", "csir", "2026", "2027"],
+          "exclude_title_keywords": ["score card", "scorecard", "admit card", "answer key", "city intimation", "duplicate", "corrigendum", "toppers"]
+        },
+        {
+          "id": "cuet-ug",
+          "name": "NTA CUET (UG) — Central & State University Undergraduate Admissions",
+          "short_name": "CUET (UG) Portal",
+          "category": "University Entrance",
+          "url": "https://cuet.nta.nic.in/",
+          "source_domain": "cuet.nta.nic.in",
+          "default_organization": "National Testing Agency (NTA) — CUET (UG)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='.pdf'], .vc_tta-panel a[href]",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": [".pdf", "Notice", "Bulletin", "2026", "2027"],
+          "exclude_url_patterns": ["2023", "2024", "2025/"],
+          "exclude_title_keywords": ["admit card", "score card", "answer key", "city"]
+        },
+        {
+          "id": "clat-nlu",
+          "name": "Consortium of National Law Universities (CLAT UG / PG Law Admissions)",
+          "short_name": "CLAT (Consortium of NLUs)",
+          "category": "Law Entrance",
+          "url": "https://consortiumofnlus.ac.in/",
+          "source_domain": "consortiumofnlus.ac.in",
+          "default_organization": "Consortium of National Law Universities (CLAT)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='.pdf'], a[href*='notifications'], a[href*='clat-202']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": [".pdf", "notifications", "Press_Release", "notification", "notice"],
+          "exclude_url_patterns": ["objectives", "general_body", "executive_committee", "governing"],
+          "exclude_title_keywords": ["answer key", "admit card", "score", "objection", "objectives", "governing body", "executive committee"]
+        },
+        {
+          "id": "josaa",
+          "name": "Joint Seat Allocation Authority (JoSAA — IIT, NIT, IIIT & GFTI Admissions)",
+          "short_name": "JoSAA (IIT/NIT Counselling)",
+          "category": "Engineering Counselling",
+          "url": "https://josaa.nic.in/",
+          "source_domain": "josaa.nic.in",
+          "default_organization": "Joint Seat Allocation Authority (JoSAA)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "main a[href*='/document/'], main a[href*='.pdf'], .gen-list a[href]",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": ["/document/", ".pdf", "notice", "schedule", "bulletin"],
+          "exclude_title_keywords": ["seat matrix only", "opening and closing", "hindi"]
+        },
+        {
+          "id": "jeecup",
+          "name": "JEECUP — Uttar Pradesh Polytechnic Diploma Entrance & Counselling",
+          "short_name": "JEECUP (UP Polytechnic)",
+          "category": "State Polytechnic",
+          "url": "https://jeecup.admissions.nic.in/",
+          "source_domain": "jeecup.admissions.nic.in",
+          "default_organization": "Joint Entrance Examination Council (Polytechnic), Uttar Pradesh (JEECUP)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "main a[href*='/document/'], main a[href*='.pdf'], #whats-new a[href]",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": ["/document/", ".pdf", "schedule", "bulletin", "notice"],
+          "exclude_title_keywords": ["admit card", "answer key", "result"]
+        },
+        {
+          "id": "wbjeeb",
+          "name": "WBJEEB — West Bengal Joint Entrance Examinations Board (WBJEE / JECA / ANM-GNM)",
+          "short_name": "WBJEEB (West Bengal JEE)",
+          "category": "State Entrance Board",
+          "url": "https://wbjeeb.nic.in/",
+          "source_domain": "wbjeeb.nic.in",
+          "default_organization": "West Bengal Joint Entrance Examinations Board (WBJEEB)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "main a[href*='.pdf'], main a[href*='wbjee'], main a[href*='/document/']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": [".pdf", "/document/", "wbjee", "bulletin", "notice"],
+          "exclude_title_keywords": ["admit card", "rank card", "question paper", "omr"]
+        },
+        {
+          "id": "maha-cet",
+          "name": "Maharashtra State Common Entrance Test Cell (MHT-CET / CAP Admissions)",
+          "short_name": "MAHA-CET Cell (Maharashtra)",
+          "category": "State Entrance Board",
+          "url": "https://cetcell.mahacet.org/",
+          "source_domain": "cetcell.mahacet.org",
+          "default_organization": "State Common Entrance Test Cell, Maharashtra",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "main a[href*='.pdf'], a[href*='cap-'], a[href*='2026'], a[href*='2027']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": [".pdf", "cap", "notification", "notice", "2026", "2027"],
+          "exclude_url_patterns": ["Digilocker", "2022", "2023", "2024"],
+          "exclude_title_keywords": ["admit card", "hall ticket", "answer key", "score card", "merit list", "digilocker"]
+        },
+        {
+          "id": "bceceb-bihar",
+          "name": "BCECEB Bihar — Polytechnic (DCECE), Paramedical, Engineering (UGEAC) & Agriculture",
+          "short_name": "BCECEB (Bihar Board)",
+          "category": "State Entrance Board",
+          "url": "https://bceceboard.bihar.gov.in/",
+          "source_domain": "bceceboard.bihar.gov.in",
+          "default_organization": "Bihar Combined Entrance Competitive Examination Board (BCECEB)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='.pdf'], a[href*='NoticeBoard']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": [".pdf", "NoticeBoard"],
+          "exclude_url_patterns": ["Gazat", "2021", "2022", "2023", "2024", "2025"],
+          "include_title_keywords": ["admission", "counselling", "online application", "important notice", "bcece", "dcece", "ugeac", "iticat", "ugmac", "pgmac", "2026", "2027"],
+          "exclude_title_keywords": ["act, 1995", "admit card", "rank card", "answer key"]
+        },
+        {
+          "id": "kea-karnataka",
+          "name": "KEA Karnataka Examinations Authority (KCET / PGCET / NEET Counselling)",
+          "short_name": "KEA (Karnataka CET)",
+          "category": "State Entrance Board",
+          "url": "https://cetonline.karnataka.gov.in/kea/",
+          "source_domain": "cetonline.karnataka.gov.in",
+          "default_organization": "Karnataka Examinations Authority (KEA)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='.pdf']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": [".pdf", "2026", "2027"],
+          "exclude_url_patterns": ["2022", "2023", "2024"],
+          "exclude_title_keywords": ["recruitment", "admit card", "hall ticket", "key answer", "mock allotment"]
+        },
+        {
+          "id": "du-admissions",
+          "name": "University of Delhi (DU CSAS UG, PG, B.Tech, Law & Ph.D. Admissions)",
+          "short_name": "University of Delhi (DU)",
+          "category": "Central University",
+          "url": "https://admission.uod.ac.in/",
+          "source_domain": "admission.uod.ac.in",
+          "default_organization": "University of Delhi (DU)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='.pdf'], a[href*='BoI'], a[href*='Admissions'], a[href*='Press']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": [".pdf", "Admissions", "BoI", "Press", "2026", "2027"],
+          "exclude_url_patterns": ["2021", "2022", "2023", "2024"],
+          "exclude_title_keywords": ["merit list", "cutoff", "cut-off"]
+        },
+        {
+          "id": "amu-exams",
+          "name": "Aligarh Muslim University (AMU — School, UG, PG, Medical & Professional Admissions)",
+          "short_name": "AMU (Aligarh Muslim University)",
+          "category": "Central University",
+          "url": "https://www.amucontrollerexams.com/",
+          "source_domain": "amucontrollerexams.com",
+          "default_organization": "Aligarh Muslim University (AMU)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='admission'], a[href*='.pdf'], a[href*='notice'], a[href*='view/']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": ["admission", ".pdf", "notice", "guide"],
+          "exclude_title_keywords": ["admit card", "answer key", "result", "selection list", "interview"]
+        },
+        {
+          "id": "jmi-coe",
+          "name": "Jamia Millia Islamia (JMI — School, UG, PG, Diploma & Entrance Admissions)",
+          "short_name": "Jamia Millia Islamia (JMI)",
+          "category": "Central University",
+          "url": "https://jmicoe.in/",
+          "source_domain": "jmicoe.in",
+          "default_organization": "Jamia Millia Islamia (JMI)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='/uploads/Notifications/'], a[href*='.pdf']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": ["/uploads/Notifications/", ".pdf", "2026", "2027"],
+          "include_title_keywords": ["admission", "prospectus", "application", "entrance", "school", "registration", "extension"],
+          "exclude_title_keywords": ["admit card", "answer key", "result", "list of selected", "timetable", "date sheet"]
+        },
+        {
+          "id": "ignou",
+          "name": "IGNOU — Indira Gandhi National Open University (ODL & Online Admissions)",
+          "short_name": "IGNOU (Open University)",
+          "category": "Open University",
+          "url": "https://www.ignou.ac.in/",
+          "source_domain": "ignou.ac.in",
+          "default_organization": "Indira Gandhi National Open University (IGNOU)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='samarth'], a[href*='admission'], a[href*='.pdf']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": ["admission", "samarth", "prospectus", ".pdf"],
+          "exclude_title_keywords": ["hall ticket", "grade card", "result", "datesheet", "convocation"]
+        },
+        {
+          "id": "aiims-exams",
+          "name": "AIIMS Examinations (INI-CET, B.Sc Nursing, M.Sc & Paramedical Admissions)",
+          "short_name": "AIIMS Exams (Medical)",
+          "category": "Medical Institute",
+          "url": "https://www.aiimsexams.ac.in/",
+          "source_domain": "aiimsexams.ac.in",
+          "default_organization": "All India Institute of Medical Sciences (AIIMS)",
+          "default_department": "Admissions & Entrances",
+          "selectors": {
+            "item_selector": "a[href*='notice'], a[href*='.pdf'], a[href*='course']",
+            "link_selector": "a[href]",
+            "title_selector": "a"
+          },
+          "include_url_patterns": ["notice", ".pdf"],
+          "exclude_title_keywords": ["result", "admit card", "seat allocation", "recruitment"]
+        }
+      ]
+    },
+    {
+      "id": "freejobalert-latest",
+      "name": "FreeJobAlert API Discovery — Latest All-India Recruitment",
+      "type": "freejobalert_api",
+      "enabled": true,
+      "endpoint": "latest-notifications",
+      "api_base_url_env": "JOBFUL_API_URL",
+      "source_domain": "freejobalert.com",
+      "max_items": 20
+    },
+    {
+      "id": "freejobalert-statewise",
+      "name": "FreeJobAlert State-Wise Government Jobs (UP, MH, BR, RJ, MP, UK, KA, TN, GJ, WB, DL, HR)",
+      "type": "freejobalert_api",
+      "enabled": true,
+      "endpoint": "state:UP",
+      "endpoints": [
+        "state:UP",
+        "state:MH",
+        "state:BR",
+        "state:RJ",
+        "state:MP",
+        "state:UK",
+        "state:KA",
+        "state:TN",
+        "state:GJ",
+        "state:WB",
+        "state:DL",
+        "state:HR"
+      ],
+      "api_base_url_env": "JOBFUL_API_URL",
+      "source_domain": "freejobalert.com",
+      "max_items": 12
+    },
+    {
+      "id": "sbi-current-openings",
+      "name": "State Bank of India — Current Openings",
+      "type": "html_list",
+      "enabled": true,
+      "url": "https://sbi.bank.in/web/careers/current-openings",
+      "source_domain": "sbi.bank.in",
+      "default_organization": "State Bank of India (SBI)",
+      "default_department": "Banking & Finance",
+      "selectors": {
+        "item_selector": "div.card",
+        "link_selector": "a[href*='ADV'], a[href*='Adv'], a[href*='DETAILED'], a[href*='FINAL'], a[href*='.pdf']",
+        "title_selector": "h4, h5, .card-title, p, strong"
+      },
+      "include_url_patterns": [
+        "2026",
+        ".pdf"
+      ],
+      "exclude_url_patterns": [
+        "hindi",
+        "biodata",
+        "ctc",
+        "select",
+        "result",
+        "int_sch"
+      ],
+      "exclude_title_keywords": [
+        "provisionally selected",
+        "interview schedule",
+        "final result",
+        "preliminary exam result",
+        "main examination result"
+      ]
+    },
+    {
+      "id": "uksssc-recruitments",
+      "name": "Uttarakhand Subordinate Service Selection Commission (UKSSSC)",
+      "type": "html_list",
+      "enabled": true,
+      "url": "https://sssc.uk.gov.in/",
+      "source_domain": "sssc.uk.gov.in",
+      "default_organization": "Uttarakhand Subordinate Service Selection Commission (UKSSSC)",
+      "default_department": "State Civil & Police Services",
+      "selectors": {
+        "item_selector": "a[href*='s3waas.gov.in']",
+        "link_selector": "a[href]",
+        "title_selector": "a"
+      },
+      "include_url_patterns": [
+        "/uploads/2026/",
+        ".pdf"
+      ],
+      "exclude_title_keywords": [
+        "प्रवेश पत्र",
+        "संवाद",
+        "exam calender",
+        "calendar",
+        "answer key",
+        "result"
+      ]
+    },
+    {
+      "id": "cmd-kerala-recruitments",
+      "name": "Centre for Management Development (CMD) Kerala — Public Sector Recruitment",
+      "type": "html_list",
+      "enabled": true,
+      "url": "https://cmd.kerala.gov.in/recruitment/",
+      "source_domain": "cmd.kerala.gov.in",
+      "default_organization": "Centre for Management Development (CMD Kerala)",
+      "default_department": "State PSU & Infrastructure",
+      "selectors": {
+        "item_selector": "article, .job-item, main li, main h2, main h3",
+        "link_selector": "a[href*='/recruitment/']",
+        "title_selector": "a"
+      },
+      "include_url_patterns": [
+        "/recruitment/"
+      ],
+      "exclude_url_patterns": [
+        "addendum",
+        "corrigendum",
+        "syllabus",
+        "rank-list"
+      ],
+      "exclude_title_keywords": [
+        "rank list",
+        "syllabus",
+        "answer key",
+        "addendum",
+        "corrigendum",
+        "view job"
+      ]
+    },
+    {
+      "id": "isro-careers",
+      "name": "ISRO Centralised Recruitment Board (ICRB)",
+      "type": "html_list",
+      "enabled": true,
+      "url": "https://www.isro.gov.in/Careers.html",
+      "source_domain": "isro.gov.in",
+      "default_organization": "Indian Space Research Organisation (ISRO)",
+      "default_department": "Science & Defense Research",
+      "selectors": {
+        "item_selector": "table tbody tr, .career-list li, main li",
+        "link_selector": "a[href]",
+        "title_selector": "a"
+      },
+      "include_url_patterns": [
+        "Recruitment",
+        "ICRB",
+        "Advt",
+        ".pdf"
+      ],
+      "exclude_url_patterns": [
+        "Results",
+        "AnswerKey",
+        "Syllabus"
+      ],
+      "exclude_title_keywords": [
+        "admit card",
+        "shortlisted",
+        "results",
+        "answer key",
+        "interview schedule",
+        "selection panel",
+        "response sheet",
+        "objections"
+      ]
+    },
+    {
+      "id": "usajobs-open-api",
+      "name": "USAJOBS Federal Recruitment Open API",
+      "type": "api_json",
+      "enabled": true,
+      "url": "https://data.usajobs.gov/api/search?ResultsPerPage=10&WhoMayApply=public",
+      "source_domain": "usajobs.gov",
+      "required_env": [
+        "USAJOBS_API_KEY",
+        "USAJOBS_USER_AGENT"
+      ],
+      "headers_env": {
+        "Host": "data.usajobs.gov",
+        "Authorization-Key": "USAJOBS_API_KEY",
+        "User-Agent": "USAJOBS_USER_AGENT"
+      },
+      "items_path": "SearchResult.SearchResultItems",
+      "field_map": {
+        "title": "MatchedObjectDescriptor.PositionTitle",
+        "url": "MatchedObjectDescriptor.PositionURI",
+        "organization": "MatchedObjectDescriptor.OrganizationName",
+        "department": "MatchedObjectDescriptor.DepartmentName",
+        "location": "MatchedObjectDescriptor.PositionLocationDisplay",
+        "posted_date": "MatchedObjectDescriptor.PublicationStartDate",
+        "deadline": "MatchedObjectDescriptor.ApplicationCloseDate",
+        "summary": "MatchedObjectDescriptor.UserArea.Details.JobSummary"
+      }
+    }
+  ]
+}

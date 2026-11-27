@@ -1,0 +1,110 @@
+{
+  "slug": "uttarakhand-subordinate-service-selection-commission-uksssc",
+  "title": "Advertisement for recruitment to vacant posts of Uniformed Sub Inspector (Group 'C')",
+  "organization": "Uttarakhand Subordinate Service Selection Commission (UKSSSC)",
+  "department": "State Civil & Police Services",
+  "location": "Uttarakhand",
+  "qualification_level": "Graduate",
+  "total_vacancies": 200,
+  "salary_range": "Rs. 44,900-Rs. 1,42,400 (Level-07) for SI posts; Rs. 29,200-Rs. 92,300 (Level-05) for Sub Inspector Excise",
+  "application_fee": "General/OBC: Rs. 300, SC/ST/EWS: Rs. 150, Orphan: Rs. 0",
+  "age_limit": "21 to 35 years for SI posts, 21 to 42 years for Sub Inspector Excise, as on 2026-07-01",
+  "important_dates": [
+    {
+      "label": "Advertisement Publication Date",
+      "date": "25 Nov 2026"
+    },
+    {
+      "label": "Online Application Start Date",
+      "date": "1 Dec 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "31 Dec 2026"
+    },
+    {
+      "label": "Correction Period for Online Application",
+      "date": "4 Jan 2027"
+    },
+    {
+      "label": "Tentative Date of Written Competitive Examination",
+      "date": "18 Apr 2027"
+    }
+  ],
+  "application_deadline": "2026-12-31",
+  "posted_date": "2026-11-25",
+  "last_verified_at": "2026-11-25T15:23:37Z",
+  "summary": "The Uttarakhand Subordinate Service Selection Commission (UKSSSC) has invited online applications for a total of 200 vacant posts of Uniformed Sub Inspector (Group 'C') across various departments. These include Sub Inspector Civil Police, Intelligence, Platoon Commander, Fire Service Second Officer, and Sub Inspector Excise. The application process begins on December 1, 2026, with a deadline of December 31, 2026.",
+  "eligibility_bullets": [
+    "For Sub Inspector Civil Police, Intelligence, Platoon Commander, Fire Service Second Officer: Bachelor's degree from a recognized university.",
+    "For Fire Service Second Officer: Bachelor's degree in Science from a recognized university.",
+    "For Sub Inspector Excise: Intermediate (12th Pass) from Uttarakhand Board of Secondary Education or equivalent.",
+    "For Ex-servicemen (all posts): Intermediate (12th Pass) or equivalent.",
+    "Age Limit: 21 to 35 years for Sub Inspector Civil Police, Intelligence, Platoon Commander, Fire Service Second Officer, and 21 to 42 years for Sub Inspector Excise, as on July 1, 2026. Age relaxation applicable for reserved categories as per government rules.",
+    "Must be a citizen of India, possess good mental and physical health, and meet prescribed physical standards and efficiency test criteria.",
+    "Registration with an employment office in Uttarakhand or a permanent resident certificate of Uttarakhand is mandatory."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Sub Inspector Civil Police (Male/Female)",
+      "vacancies": 93,
+      "notes": "Pay Level-07"
+    },
+    {
+      "category": "Sub Inspector Intelligence (Male/Female)",
+      "vacancies": 19,
+      "notes": "Pay Level-07"
+    },
+    {
+      "category": "Platoon Commander (Male) PAC / IRB",
+      "vacancies": 81,
+      "notes": "Pay Level-07"
+    },
+    {
+      "category": "Fire Service Second Officer",
+      "vacancies": 5,
+      "notes": "Pay Level-07"
+    },
+    {
+      "category": "Sub Inspector Excise (Excise Department, Uttarakhand)",
+      "vacancies": 2,
+      "notes": "Pay Level-05"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Register online using Aadhaar number, mobile number, and email ID.",
+    "Keep your email ID and password secure for future logins.",
+    "Note down your registration number for future reference.",
+    "Upload a live photo captured via webcam, signature, and left thumb impression as per specified dimensions (150w x 100H px for signature and thumb impression).",
+    "Pay the application fee online using Credit/Debit Card, Net Banking, or UPI.",
+    "Print the final application form for your records."
+  ],
+  "official_apply_url": "https://www.sssc.uk.gov.in/",
+  "official_pdf_url": "https://cdnbbsr.s3waas.gov.in/s34ffd0e19d2069412274bd3025b0e176c/uploads/2026/11/202611251036354999.pdf",
+  "source_domain": "sssc.uk.gov.in",
+  "source_url": "https://cdnbbsr.s3waas.gov.in/s34ffd0e19d2069412274bd3025b0e176c/uploads/2026/11/202611251036354999.pdf",
+  "notification_code": "85/उ०अ० से०च०आ०/2026",
+  "fee_structure": [
+    {
+      "category": "Unreserved / Uttarakhand OBC",
+      "amount": "Rs. 300.00"
+    },
+    {
+      "category": "Uttarakhand SC / ST / EWS",
+      "amount": "Rs. 150.00"
+    },
+    {
+      "category": "Orphan",
+      "amount": "Rs. 0.00"
+    }
+  ],
+  "archived": false,
+  "government_level": "state",
+  "state_name": "Uttarakhand",
+  "salary_min": 29200,
+  "salary_max": 142400,
+  "pay_level": "Level-07 (7th CPC)",
+  "salary_tier": "25k-45k",
+  "authority_type": "state",
+  "exam_group_id": null
+}

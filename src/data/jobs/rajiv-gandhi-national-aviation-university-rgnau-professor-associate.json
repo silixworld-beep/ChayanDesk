@@ -1,0 +1,93 @@
+{
+  "slug": "rajiv-gandhi-national-aviation-university-rgnau-professor-associate",
+  "title": "Professor, Associate Professor, and Assistant Professor",
+  "organization": "Rajiv Gandhi National Aviation University (RGNAU)",
+  "department": "Science & Defense Research",
+  "government_level": "central",
+  "state_name": null,
+  "location": "Amethi, Uttar Pradesh",
+  "qualification_level": "Post Graduate",
+  "total_vacancies": 32,
+  "salary_range": "Rs. 57,700 - 2,18,200 (Pay Matrix Levels 10, 13A, 14)",
+  "application_fee": null,
+  "age_limit": "50 years for Professor, 45 years for Associate Professor (direct recruitment)",
+  "important_dates": [
+    {
+      "label": "Notification Date",
+      "date": "22 Oct 2026"
+    },
+    {
+      "label": "Application Deadline",
+      "date": "22 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-22",
+  "posted_date": "2026-10-22",
+  "last_verified_at": "2026-11-26T13:36:34Z",
+  "summary": "Rajiv Gandhi National Aviation University (RGNAU) invites online applications for direct recruitment (or deputation) of teaching positions including Professor, Associate Professor, and Assistant Professor across various aviation, management, and engineering disciplines.",
+  "eligibility_bullets": [
+    "Possess Master's Degree, Ph.D., or equivalent professional qualifications depending on the specific post.",
+    "Fulfill required teaching, research, or industry experience as per UGC guidelines.",
+    "National Eligibility Test (NET) or equivalent qualification where applicable."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Professor (Aviation Science Courses)",
+      "vacancies": 4,
+      "notes": "Pay Level 14"
+    },
+    {
+      "category": "Professor (Management or Business Administration Courses)",
+      "vacancies": 1,
+      "notes": "Pay Level 14"
+    },
+    {
+      "category": "Professor (Engineering and Technology Courses)",
+      "vacancies": 1,
+      "notes": "Pay Level 14"
+    },
+    {
+      "category": "Associate Professor (Aviation Science Courses)",
+      "vacancies": 16,
+      "notes": "Pay Level 13A"
+    },
+    {
+      "category": "Associate Professor (Management or Business Administration Courses)",
+      "vacancies": 4,
+      "notes": "Pay Level 13A"
+    },
+    {
+      "category": "Associate Professor (Engineering and Technology Courses)",
+      "vacancies": 6,
+      "notes": "Pay Level 13A"
+    },
+    {
+      "category": "Assistant Professor (Aviation Science Courses)",
+      "vacancies": 12,
+      "notes": "Academic Level 10"
+    },
+    {
+      "category": "Assistant Professor (Management or Business Administration Courses)",
+      "vacancies": 6,
+      "notes": "Academic Level 10"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Visit the official recruitment portal at the provided link.",
+    "Register and fill out the online application form with required personal and academic details.",
+    "Upload necessary documents, certificates, and research publications.",
+    "Submit the application before the specified closing date."
+  ],
+  "official_apply_url": "https://rgnaurec.samarth.edu.in/",
+  "official_pdf_url": "https://rgnau.ac.in/sites/default/files/inline-files/Advertisemnt-Faculty%20(including%20backlog)-Oct%202026-Final%20-22.10.2026.pdf",
+  "source_domain": "rgnaurec.samarth.edu.in",
+  "source_url": "https://rgnau.ac.in/sites/default/files/inline-files/Advertisemnt-Faculty%20(including%20backlog)-Oct%202026-Final%20-22.10.2026.pdf",
+  "notification_code": "RGNAU/5360/01/ADMIN/669",
+  "archived": false,
+  "salary_min": 57700,
+  "salary_max": 218200,
+  "pay_level": null,
+  "salary_tier": "45k-70k",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

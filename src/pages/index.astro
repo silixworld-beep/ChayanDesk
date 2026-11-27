@@ -1,0 +1,1246 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JobTable from '../components/JobTable.astro';
+import Badge from '../components/Badge.astro';
+import AdSlot from '../components/AdSlot.astro';
+import {
+  SALARY_TIERS,
+  SITE_CONFIG,
+} from '../config/site';
+import {
+  type AdmissionEntry,
+  type JobEntry,
+  formatDisplayDate,
+  formatVacancies,
+  getDeadlineBadge,
+  getJurisdictionSummary,
+  getQualificationFacets,
+  getSalaryTierFacets,
+  getStateFacets,
+  isJobActive,
+  isJobClosingSoon,
+  orderJobsLowExperienceFirst,
+  parseCalendarDateUtc,
+  sortJobsByDeadlineAsc,
+  sortJobsByPostedDesc,
+} from '../lib/jobs';
+
+const allJobs = await getCollection('jobs');
+const activeJobs = orderJobsLowExperienceFirst(
+  sortJobsByPostedDesc(allJobs.filter((job) => isJobActive(job))),
+);
+const closingSoonJobs = sortJobsByDeadlineAsc(
+  allJobs.filter((job) => isJobClosingSoon(job, 7)),
+);
+const admissions = (await getCollection('admissions')).sort((a, b) =>
+  (a.data.application_deadline ?? '9999-12-31').localeCompare(
+    b.data.application_deadline ?? '9999-12-31',
+  ),
+);
+
+type MenuCategory = 'result' | 'admit-card' | 'answer-key';
+const MENU_FALLBACK_LABEL: Record<MenuCategory, string> = {
+  result: 'Result Out',
+  'admit-card': 'Admit Card',
+  'answer-key': 'Answer Key',
+};
+
+interface MenuFeedItem {
+  title: string;
+  href: string;
+  linkLabel: string;
+  sortDate: string;
+}
+
+function getPostsForMenuCategory(
+  jobs: JobEntry[],
+  adms: AdmissionEntry[],
+  category: MenuCategory,
+): MenuFeedItem[] {
+  const fromJobs: MenuFeedItem[] = jobs
+    .filter(
+      (job) =>
+        (job.data.homepage_menus ?? []).includes(category) ||
+        (job.data.important_links ?? []).some((link) => link.category === category),
+    )
+    .map((job) => {
+      const matching = (job.data.important_links ?? []).filter((link) => link.category === category);
+      const primary = matching[0];
+      const sortDate = primary?.added_at ?? job.data.posted_date;
+      return {
+        title: job.data.title,
+        href: `/jobs/${job.data.slug}`,
+        linkLabel: primary?.label ?? MENU_FALLBACK_LABEL[category],
+        sortDate,
+      };
+    });
+
+  const fromAdms: MenuFeedItem[] = adms
+    .filter(
+      (adm) =>
+        (adm.data.homepage_menus ?? []).includes(category) ||
+        (adm.data.important_links ?? []).some((link) => link.category === category),
+    )
+    .map((adm) => {
+      const matching = (adm.data.important_links ?? []).filter((link) => link.category === category);
+      const primary = matching[0];
+      const sortDate = primary?.added_at ?? adm.data.posted_date ?? '2026-11-26';
+      return {
+        title: adm.data.title,
+        href: `/admissions/${adm.data.slug}`,
+        linkLabel: primary?.label ?? MENU_FALLBACK_LABEL[category],
+        sortDate,
+      };
+    });
+
+  return [...fromJobs, ...fromAdms].sort(
+    (a, b) => parseCalendarDateUtc(b.sortDate) - parseCalendarDateUtc(a.sortDate),
+  );
+}
+
+const resultJobs = getPostsForMenuCategory(allJobs, admissions, 'result');
+const admitCardJobs = getPostsForMenuCategory(allJobs, admissions, 'admit-card');
+const answerKeyJobs = getPostsForMenuCategory(allJobs, admissions, 'answer-key');
+
+const guides = (await getCollection('guides')).sort(
+  (a, b) =>
+    parseCalendarDateUtc(b.data.published_date) -
+    parseCalendarDateUtc(a.data.published_date),
+);
+
+// Marquee Ticker: Latest tagged releases (Result / Admit Card / Answer Key) + Closing Soon jobs
+const tickerDrops = [
+  ...resultJobs.slice(0, 3).map((item) => ({
+    tag: 'RESULT',
+    tagType: 'crimson' as const,
+    title: `${item.title} — ${item.linkLabel}`,
+    href: item.href,
+    date: item.sortDate,
+  })),
+  ...admitCardJobs.slice(0, 3).map((item) => ({
+    tag: 'ADMIT CARD',
+    tagType: 'crimson' as const,
+    title: `${item.title} — ${item.linkLabel}`,
+    href: item.href,
+    date: item.sortDate,
+  })),
+  ...answerKeyJobs.slice(0, 3).map((item) => ({
+    tag: 'ANSWER KEY',
+    tagType: 'navy' as const,
+    title: `${item.title} — ${item.linkLabel}`,
+    href: item.href,
+    date: item.sortDate,
+  })),
+  ...closingSoonJobs.slice(0, 6).map((j) => ({
+    tag: 'CLOSING SOON',
+    tagType: 'navy' as const,
+    title: `${j.data.title} (Last Date: ${formatDisplayDate(j.data.application_deadline)})`,
+    href: `/jobs/${j.data.slug}`,
+    date: j.data.posted_date,
+  })),
+]
+  .sort((a, b) => parseCalendarDateUtc(b.date) - parseCalendarDateUtc(a.date))
+  .slice(0, 8);
+
+const qualifications = getQualificationFacets(activeJobs);
+const states = getStateFacets(activeJobs);
+const salaryFacets = getSalaryTierFacets(allJobs);
+const jurisdictionSummary = getJurisdictionSummary(activeJobs);
+
+const savedManifest = activeJobs.map((j) => {
+  const b = getDeadlineBadge(j.data.application_deadline);
+  return {
+    slug: j.data.slug,
+    title: j.data.title,
+    organization: j.data.organization,
+    deadline: formatDisplayDate(j.data.application_deadline),
+    badgeLabel: b.label,
+    badgeVariant: b.variant,
+    url: `/jobs/${j.data.slug}`,
+  };
+});
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_CONFIG.brandName,
+  url: (Astro.site ?? new URL(SITE_CONFIG.siteUrl)).toString(),
+  description: SITE_CONFIG.positioningTagline,
+};
+---
+
+<BaseLayout
+  title={`${SITE_CONFIG.brandName} — Verified Government & PSU Recruitment Portal`}
+  description="Browse verified Central & State Government jobs, 7th CPC pay matrix scales, official notifications, admit cards, and government admissions."
+  canonicalPath="/"
+  jsonLd={websiteJsonLd}
+>
+  <!-- 1. Scrolling Notice Marquee (~38px compact editorial strip) -->
+  <section
+    aria-label="Latest Official Releases"
+    class="bg-surface border border-border-strong rounded-[3px] px-3 py-2 mb-3 flex items-center gap-3 overflow-hidden"
+  >
+    <span class="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-urgent-bg text-urgent-text border border-urgent-border rounded-[3px] shrink-0">
+      LATEST UPDATES
+    </span>
+    <div class="chayan-marquee-viewport">
+      <div class="chayan-marquee-track">
+        {
+          [0, 1].map((copyIdx) => (
+            <div
+              class="flex items-center gap-5 shrink-0 pr-5 text-xs whitespace-nowrap"
+              aria-hidden={copyIdx === 1 ? 'true' : undefined}
+            >
+              {tickerDrops.map((item) => {
+                const isJobLink = item.href.startsWith('/jobs/');
+                return (
+                  <a
+                    href={item.href}
+                    target={isJobLink ? '_blank' : undefined}
+                    rel={isJobLink ? 'noopener noreferrer' : undefined}
+                    tabindex={copyIdx === 1 ? -1 : undefined}
+                    class="inline-flex items-center gap-1.5 text-ink hover:text-navy no-underline transition-colors duration-150"
+                  >
+                    <span
+                      class:list={[
+                        'font-mono text-[10px] font-bold px-1.5 py-0.25 rounded-[3px] border',
+                        item.tagType === 'crimson'
+                          ? 'bg-urgent-bg text-urgent-text border-urgent-border'
+                          : 'bg-canvas text-navy border-border',
+                      ]}
+                    >
+                      [{item.tag}]
+                    </span>
+                    <span class="font-semibold hover:underline">{item.title}</span>
+                  </a>
+                );
+              })}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Identity Filter Dock (Compact single-band command bar — Authority removed) -->
+  <section
+    aria-label="Command Desk Job Filters"
+    class="bg-surface border border-border-strong rounded-[3px] p-3 mb-2 space-y-2.5"
+  >
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2 items-center">
+      <div class="lg:col-span-4">
+        <label for="job-search-input" class="sr-only">Search Jobs</label>
+        <input
+          id="job-search-input"
+          type="search"
+          placeholder="Search post, SSC CGL, UPSC, JEE, NEET, AIIMS..."
+          class="w-full h-9 px-2.5 text-xs text-ink bg-canvas border border-border rounded-[3px] focus:outline-none focus:border-navy"
+        />
+      </div>
+
+      <div class="lg:col-span-2">
+        <label for="salary-filter" class="sr-only">Salary Scale</label>
+        <select
+          id="salary-filter"
+          class="w-full h-9 px-2 text-xs font-medium text-ink bg-canvas border border-border rounded-[3px] focus:outline-none focus:border-navy"
+        >
+          <option value="all">Salary Scale: All</option>
+          {
+            SALARY_TIERS.map((t) => (
+              <option value={t.slug}>{t.shortLabel}</option>
+            ))
+          }
+          <option value="not-specified">Unspecified Scale</option>
+        </select>
+      </div>
+
+      <div class="lg:col-span-3">
+        <label for="qualification-filter" class="sr-only">Qualification</label>
+        <select
+          id="qualification-filter"
+          class="w-full h-9 px-2 text-xs font-medium text-ink bg-canvas border border-border rounded-[3px] focus:outline-none focus:border-navy"
+        >
+          <option value="all">Qualification: All</option>
+          {
+            qualifications.map((q) => (
+              <option value={q.slug}>
+                {q.name} ({q.activeCount})
+              </option>
+            ))
+          }
+        </select>
+      </div>
+
+      <div class="lg:col-span-2">
+        <label for="jurisdiction-filter" class="sr-only">State or Central</label>
+        <select
+          id="jurisdiction-filter"
+          class="w-full h-9 px-2 text-xs font-medium text-ink bg-canvas border border-border rounded-[3px] focus:outline-none focus:border-navy"
+        >
+          <option value="all">State / Central: All</option>
+          <option value="level:central">Central Govt ({jurisdictionSummary.centralActive})</option>
+          <option value="level:state">All State Govts ({jurisdictionSummary.stateActive})</option>
+          {
+            states.map((st) => (
+              <option value={`state:${st.slug}`}>
+                {st.name} ({st.activeCount})
+              </option>
+            ))
+          }
+        </select>
+      </div>
+
+      <div class="lg:col-span-1 flex justify-end">
+        <button
+          id="reset-filters-btn"
+          type="button"
+          class="w-full h-9 px-2.5 text-xs font-semibold text-ink-secondary bg-canvas border border-border rounded-[3px] hover:bg-surface hover:text-navy hover:border-navy transition-colors duration-150 cursor-pointer"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Most-Clicked Exam & Qualification Filters -->
+    <div class="pt-2 border-t border-border">
+      <div id="quick-filter-pills" class="flex flex-wrap items-center gap-1.5">
+        <button type="button" data-quick="all" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-navy text-white border border-navy hover:bg-navy-hover hover:text-white rounded-[3px] transition-colors duration-150 cursor-pointer">
+          All
+        </button>
+        <button type="button" data-quick="kw:ssc|cgl|chsl|mts|staff selection" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          SSC CGL / CHSL
+        </button>
+        <button type="button" data-quick="kw:upsc|civil services|ias|ies|nda|cds" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          UPSC
+        </button>
+        <button type="button" data-quick="kw:railway|rrb|dfccil|loco" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          Railway / RRB
+        </button>
+        <button type="button" data-quick="kw:bank|ibps|sbi|rbi|sidbi|sebi|nabard" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          Banking / IBPS
+        </button>
+        <button type="button" data-quick="kw:police|defence|defense|army|ordnance|weapons|tribunal" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          Police / Defence
+        </button>
+        <button type="button" data-quick="kw:jee|joint entrance|jeecup" data-prefer-stream="admissions" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          JEE
+        </button>
+        <button type="button" data-quick="kw:neet|medical entrance" data-prefer-stream="admissions" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          NEET
+        </button>
+        <button type="button" data-quick="kw:cuet" data-prefer-stream="admissions" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          CUET
+        </button>
+        <button type="button" data-quick="qualgroup:10-12" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          10th / 12th Pass
+        </button>
+        <button type="button" data-quick="qual:graduate" class="q-pill px-2.5 py-1 text-[11px] font-semibold bg-canvas text-ink border border-border hover:bg-navy/5 hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer">
+          Graduate
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Ad Slot 1 (Leaderboard) -->
+  <AdSlot variant="leaderboard" />
+
+  <!-- 4. Primary Dual-Intent Workspace (68% Left / 32% Right) -->
+  <div class="grid grid-cols-1 lg:grid-cols-[68fr_32fr] gap-5 items-start mt-2">
+    <!-- Left (68%): Master Recruitment Stream -->
+    <section aria-label="Master Recruitment Stream" class="min-w-0 space-y-3">
+      <div class="bg-surface border border-border-strong rounded-[3px] px-3 py-2 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-1.5" role="tablist" aria-label="Recruitment Stream Tabs">
+          <button
+            id="stream-tab-jobs"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            class="stream-tab px-3 py-1.5 text-xs font-bold bg-navy text-white border border-navy hover:bg-navy-hover hover:text-white rounded-[3px] transition-colors duration-150 cursor-pointer"
+          >
+            Latest Jobs ({activeJobs.length})
+          </button>
+          <button
+            id="stream-tab-closing"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            class="stream-tab px-3 py-1.5 text-xs font-semibold bg-canvas text-ink-secondary border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer tabular-nums"
+          >
+            Closing in 7 Days ({closingSoonJobs.length})
+          </button>
+          <button
+            id="stream-tab-admissions"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            class="stream-tab px-3 py-1.5 text-xs font-semibold bg-canvas text-ink-secondary border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer tabular-nums"
+          >
+            Admissions ({admissions.length})
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2.5 ml-auto">
+          <span
+            id="visible-count-label"
+            class="font-mono text-[11px] text-ink-secondary tabular-nums"
+          >
+            Showing {Math.min(18, activeJobs.length)} of {activeJobs.length}
+          </span>
+          <label for="job-sort-select" class="sr-only">Sort Jobs</label>
+          <select
+            id="job-sort-select"
+            class="h-8 px-2 text-xs font-medium text-ink bg-canvas border border-border rounded-[3px] hover:border-navy focus:outline-none focus:border-navy transition-colors duration-150"
+          >
+            <option value="newest">Sort: Newest Verified</option>
+            <option value="salary">Sort: Highest Salary First</option>
+            <option value="closing">Sort: Closing Soonest</option>
+            <option value="vacancies">Sort: Most Vacancies</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Jobs Stream Panel -->
+      <div id="jobs-stream-panel" class="space-y-3">
+        <JobTable
+          jobs={activeJobs}
+          tableId="homepage-jobs-table"
+          enableFilterTargets={true}
+          defaultHiddenAfter={18}
+          injectInFeedAdAfterIndex={5}
+          openInNewTab={true}
+          emptyMessage="No verified government jobs match your current filter selection."
+        />
+
+        <div class="bg-surface border border-border-strong rounded-[3px] px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <button
+            id="show-all-stream-btn"
+            type="button"
+            class="px-3 py-1.5 font-semibold bg-canvas text-navy border border-border hover:bg-navy hover:text-white hover:border-navy rounded-[3px] transition-colors duration-150 cursor-pointer"
+          >
+            Show All {activeJobs.length} Active Openings
+          </button>
+          <a href="/jobs" class="font-bold text-accent hover:underline">
+            View Full Jobs Archive &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Admissions Stream Panel (shown when Admissions tab or Admission quick filter is active) -->
+      <div id="admissions-stream-panel" class="hidden space-y-3">
+        <div class="bg-surface border border-border-strong rounded-[3px] divide-y divide-border">
+          {
+            admissions.map((item) => {
+              const admSearch = [item.data.title, item.data.organization, item.data.course_level, item.data.location, item.data.source_domain].join(' ').toLowerCase();
+              return (
+                <article
+                  data-adm-row="true"
+                  data-search={admSearch}
+                  class="p-3.5 hover:bg-canvas/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                >
+                  <div class="min-w-0 space-y-1">
+                    <div class="flex flex-wrap items-center gap-2 text-[11px]">
+                      <span class="px-1.5 py-0.25 bg-canvas border border-border rounded-[3px] font-semibold text-navy">
+                        {item.data.course_level}
+                      </span>
+                      <span class="font-mono text-ink-secondary">{item.data.source_domain}</span>
+                    </div>
+                    <h3 class="text-sm font-bold m-0">
+                      <a href={`/admissions/${item.data.slug}`} class="notice-link hover:underline">
+                        {item.data.title}
+                      </a>
+                    </h3>
+                    <div class="text-xs text-ink-secondary">
+                      {item.data.organization} &middot; {item.data.location}
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 shrink-0">
+                    <div class="text-right">
+                      <span class="block font-mono text-[10px] text-ink-secondary uppercase">Last Date</span>
+                      <span class="font-mono text-xs font-bold text-ink tabular-nums">
+                        {formatDisplayDate(item.data.application_deadline)}
+                      </span>
+                    </div>
+                    <a
+                      href={`/admissions/${item.data.slug}`}
+                      class="px-3 py-1.5 text-xs font-semibold bg-navy text-white rounded-[3px] no-underline hover:bg-navy-hover whitespace-nowrap"
+                    >
+                      Details &rarr;
+                    </a>
+                  </div>
+                </article>
+              );
+            })
+          }
+          <div id="admissions-empty-state" class="hidden px-4 py-8 text-center text-xs text-ink-secondary">
+            No matching active entrance or admission notices found for this filter.
+          </div>
+        </div>
+        <div class="text-right text-xs">
+          <a href="/admissions" class="font-bold text-accent hover:underline">
+            View All Government Admissions &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right (32%): Live Action Rail -->
+    <aside aria-label="Live Action Rail" class="space-y-4">
+      <!-- Module 1: ChayanDesk Updates Desk (Result | Admit Card | Answer Key — linked to Job Pages) -->
+      <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="bg-canvas border-b border-border-strong px-2.5 pt-2.5 pb-0 flex items-center justify-between">
+          <div class="flex items-center gap-1" role="tablist" aria-label="Official Exam Desk Tabs">
+            <button
+              type="button"
+              data-rail-tab="result"
+              class="rail-tab px-2.5 py-1.5 text-xs font-bold bg-navy text-white border border-b-0 border-navy hover:bg-navy-hover hover:text-white rounded-t-[3px] transition-colors duration-150 cursor-pointer"
+            >
+              Result
+            </button>
+            <button
+              type="button"
+              data-rail-tab="admit-card"
+              class="rail-tab px-2.5 py-1.5 text-xs font-semibold bg-transparent text-ink-secondary border border-b-0 border-transparent hover:bg-surface hover:text-navy hover:border-border rounded-t-[3px] transition-colors duration-150 cursor-pointer"
+            >
+              Admit Card
+            </button>
+            <button
+              type="button"
+              data-rail-tab="answer-key"
+              class="rail-tab px-2.5 py-1.5 text-xs font-semibold bg-transparent text-ink-secondary border border-b-0 border-transparent hover:bg-surface hover:text-navy hover:border-border rounded-t-[3px] transition-colors duration-150 cursor-pointer"
+            >
+              Answer Key
+            </button>
+          </div>
+        </div>
+
+        <div id="rail-panel-result" class="rail-panel divide-y divide-border">
+          {
+            resultJobs.length > 0 ? (
+              resultJobs.slice(0, 8).map((item) => (
+                <a
+                  href={item.href}
+                  target={item.href.startsWith('/jobs/') ? '_blank' : undefined}
+                  rel={item.href.startsWith('/jobs/') ? 'noopener noreferrer' : undefined}
+                  class="px-3 py-2.5 block hover:bg-canvas no-underline space-y-0.5 transition-colors duration-150"
+                >
+                  <div class="flex items-center justify-between gap-2 text-[11px]">
+                    <span class="font-mono text-ink-secondary tabular-nums">
+                      {formatDisplayDate(item.sortDate)}
+                    </span>
+                    <span class="font-mono text-[10px] font-bold px-1.5 py-0 bg-urgent-bg text-urgent-text border border-urgent-border rounded-[3px] truncate max-w-[140px]">
+                      {item.linkLabel}
+                    </span>
+                  </div>
+                  <div class="text-xs font-semibold notice-link leading-snug">
+                    {item.title}
+                  </div>
+                </a>
+              ))
+            ) : (
+              <div class="px-3.5 py-4 text-xs text-ink-secondary">
+                No official result links attached yet. Notices posted to Result appear here automatically.
+              </div>
+            )
+          }
+          <div class="px-3 py-2 bg-canvas text-right">
+            <a href="/jobs" class="text-xs font-bold text-accent hover:underline">
+              Browse All Recruitment Posts &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div id="rail-panel-admit-card" class="rail-panel hidden divide-y divide-border">
+          {
+            admitCardJobs.length > 0 ? (
+              admitCardJobs.slice(0, 8).map((item) => (
+                <a
+                  href={item.href}
+                  target={item.href.startsWith('/jobs/') ? '_blank' : undefined}
+                  rel={item.href.startsWith('/jobs/') ? 'noopener noreferrer' : undefined}
+                  class="px-3 py-2.5 block hover:bg-canvas no-underline space-y-0.5 transition-colors duration-150"
+                >
+                  <div class="flex items-center justify-between gap-2 text-[11px]">
+                    <span class="font-mono text-ink-secondary tabular-nums">
+                      {formatDisplayDate(item.sortDate)}
+                    </span>
+                    <span class="font-mono text-[10px] font-bold px-1.5 py-0 bg-canvas text-navy border border-border rounded-[3px] truncate max-w-[140px]">
+                      {item.linkLabel}
+                    </span>
+                  </div>
+                  <div class="text-xs font-semibold notice-link leading-snug">
+                    {item.title}
+                  </div>
+                </a>
+              ))
+            ) : (
+              <div class="px-3.5 py-4 text-xs text-ink-secondary">
+                No admit card links attached yet. Notices posted to Admit Card appear here automatically.
+              </div>
+            )
+          }
+          <div class="px-3 py-2 bg-canvas text-right">
+            <a href="/jobs" class="text-xs font-bold text-accent hover:underline">
+              Browse All Recruitment Posts &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div id="rail-panel-answer-key" class="rail-panel hidden divide-y divide-border">
+          {
+            answerKeyJobs.length > 0 ? (
+              answerKeyJobs.slice(0, 8).map((item) => (
+                <a
+                  href={item.href}
+                  target={item.href.startsWith('/jobs/') ? '_blank' : undefined}
+                  rel={item.href.startsWith('/jobs/') ? 'noopener noreferrer' : undefined}
+                  class="px-3 py-2.5 block hover:bg-canvas no-underline space-y-0.5 transition-colors duration-150"
+                >
+                  <div class="flex items-center justify-between gap-2 text-[11px]">
+                    <span class="font-mono text-ink-secondary tabular-nums">
+                      {formatDisplayDate(item.sortDate)}
+                    </span>
+                    <span class="font-mono text-[10px] font-bold px-1.5 py-0 bg-active-bg text-active-text border border-active-border rounded-[3px] truncate max-w-[140px]">
+                      {item.linkLabel}
+                    </span>
+                  </div>
+                  <div class="text-xs font-semibold notice-link leading-snug">
+                    {item.title}
+                  </div>
+                </a>
+              ))
+            ) : (
+              <div class="px-3.5 py-4 text-xs text-ink-secondary">
+                No answer key links attached yet. Notices posted to Answer Key appear here automatically.
+              </div>
+            )
+          }
+          <div class="px-3 py-2 bg-canvas text-right">
+            <a href="/jobs" class="text-xs font-bold text-accent hover:underline">
+              Browse All Recruitment Posts &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 2: Government Admissions & Entrances (Moved to Right Action Rail) -->
+      <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-navy m-0">
+            Admissions &amp; Entrances
+          </h2>
+          <a href="/admissions" class="text-xs font-semibold text-accent hover:underline">
+            All ({admissions.length}) &rarr;
+          </a>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            admissions.length > 0 ? (
+              admissions.slice(0, 5).map((item) => (
+                <li class="px-3.5 py-2.5 space-y-0.5">
+                  <div class="flex items-center justify-between gap-2 text-[11px]">
+                    <span class="font-semibold text-navy">{item.data.course_level}</span>
+                    <span class="font-mono text-ink-secondary tabular-nums shrink-0">
+                      {formatDisplayDate(item.data.application_deadline)}
+                    </span>
+                  </div>
+                  <a
+                    href={`/admissions/${item.data.slug}`}
+                    class="block text-xs font-semibold notice-link hover:underline leading-snug"
+                  >
+                    {item.data.title}
+                  </a>
+                  <div class="text-[11px] text-ink-secondary truncate">
+                    {item.data.organization}
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li class="px-3.5 py-4 text-xs text-ink-secondary">
+                No verified admission notices yet. Run the <strong>Admission</strong> target source in Admin Panel to collect live portals.
+              </li>
+            )
+          }
+        </ul>
+      </div>
+
+      <!-- Module 3: Closing Soon Urgency List -->
+      <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-urgent-text m-0">
+            Closing Soon (&le; 7 Days)
+          </h2>
+          <a href="/closing-soon" class="text-xs font-semibold text-accent hover:underline">
+            All ({closingSoonJobs.length})
+          </a>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            closingSoonJobs.slice(0, 5).map((job) => {
+              const badge = getDeadlineBadge(job.data.application_deadline);
+              return (
+                <li class="px-3.5 py-2.5 space-y-1">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                      {formatDisplayDate(job.data.application_deadline)}
+                    </span>
+                    <Badge variant={badge.variant}>{badge.label}</Badge>
+                  </div>
+                  <a
+                    href={`/jobs/${job.data.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block text-xs font-semibold notice-link hover:underline leading-snug"
+                  >
+                    {job.data.title}
+                  </a>
+                  <div class="text-[11px] text-ink-secondary truncate">
+                    {job.data.organization}
+                  </div>
+                </li>
+              );
+            })
+          }
+          {
+            closingSoonJobs.length === 0 && (
+              <li class="px-3.5 py-3 text-xs text-ink-secondary">
+                No active deadlines expiring within 7 days.
+              </li>
+            )
+          }
+        </ul>
+      </div>
+
+      <!-- Module 4: My Saved Exams Widget -->
+      <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-navy m-0">
+            My Saved Exams
+          </h2>
+          <a href="/saved" class="text-xs font-semibold text-accent hover:underline">
+            Tracker &rarr;
+          </a>
+        </div>
+        <div id="rail-saved-list" class="divide-y divide-border text-xs">
+          <div class="px-3.5 py-3 text-ink-secondary">
+            Tap the bookmark icon on any job to pin deadlines here.
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 5: Sticky Sidebar Ad Slot -->
+      <AdSlot variant="sidebar-sticky" />
+    </aside>
+  </div>
+
+  <!-- 5. Section 2: Explore by 7th CPC Salary Ladder -->
+  <section aria-label="Explore by 7th CPC Salary Ladder" class="mt-8 pt-6 border-t border-border-strong">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+      <div>
+        <h2 class="text-base font-bold text-navy tracking-tight m-0">
+          Explore by 7th CPC Salary Ladder
+        </h2>
+        <p class="text-xs text-ink-secondary m-0 mt-0.5">
+          Filter verified government notifications directly by official Pay Matrix Level and monthly bracket.
+        </p>
+      </div>
+      <a href="/jobs/by-salary" class="text-xs font-bold text-accent hover:underline">
+        Compare All Pay Scales &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      {
+        salaryFacets.map((tier) => (
+          <a
+            href={`/jobs/salary/${tier.slug}`}
+            class="bg-surface border border-border-strong hover:border-active-text hover:bg-canvas/70 rounded-[3px] p-3.5 no-underline flex flex-col justify-between gap-2.5 transition-colors duration-150"
+          >
+            <div>
+              <div class="font-mono text-[10px] font-bold uppercase tracking-wider text-active-text">
+                {tier.payLevelHint}
+              </div>
+              <div class="text-sm font-bold text-ink mt-1 tabular-nums">
+                {tier.label}
+              </div>
+            </div>
+            <div class="pt-2 border-t border-border flex items-center justify-between text-xs text-ink-secondary tabular-nums">
+              <span>
+                Open: <strong class="text-navy">{tier.activeCount}</strong>
+              </span>
+              <span class="font-mono text-[11px]">
+                {tier.vacancies > 0 ? `${formatVacancies(tier.vacancies)} posts` : 'Browse →'}
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 6. Section 3: Applicant Guides & Directory -->
+  <section aria-label="Applicant Verification Guides" class="mt-8">
+    <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+      <div class="px-4 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-navy m-0">
+          Applicant Verification &amp; 7th CPC Guides
+        </h2>
+        <a href="/guides" class="text-xs font-semibold text-accent hover:underline">
+          Browse All Guides &rarr;
+        </a>
+      </div>
+      <ul class="divide-y divide-border grid grid-cols-1 md:grid-cols-2 md:divide-y-0 md:divide-x">
+        {
+          guides.map((item) => (
+            <li>
+              <a
+                href={`/guides/${item.id}`}
+                class="px-4 py-3 flex items-center justify-between gap-3 hover:bg-canvas no-underline"
+              >
+                <div class="min-w-0">
+                  <div class="text-xs font-bold notice-link truncate">{item.data.title}</div>
+                  <div class="text-[11px] text-ink-secondary truncate">
+                    {item.data.category} &middot; {item.data.reading_time}
+                  </div>
+                </div>
+                <span class="font-mono text-[11px] text-ink-secondary shrink-0 tabular-nums">
+                  {formatDisplayDate(item.data.published_date)}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Section 4: Central Authorities & State-Wise Directory -->
+  <section aria-label="Central Authorities and State Directory" class="mt-8 bg-surface border border-border-strong rounded-[3px] p-4 space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <div class="flex items-center justify-between border-b border-border pb-1.5 mb-2.5">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-navy m-0">
+            Central Authorities &amp; Recruitment Sectors
+          </h2>
+          <a href="/central-jobs" class="text-xs font-semibold text-accent hover:underline">
+            All Central ({jurisdictionSummary.centralActive}) &rarr;
+          </a>
+        </div>
+        <div class="flex flex-wrap gap-1.5 text-xs">
+          <a href="/central-jobs" class="px-2.5 py-1 bg-canvas border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] text-ink no-underline transition-colors duration-150">
+            UPSC / SSC / Central Govt ({jurisdictionSummary.centralActive})
+          </a>
+          <a href="/departments" class="px-2.5 py-1 bg-canvas border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] text-ink no-underline transition-colors duration-150">
+            All Departments Directory
+          </a>
+          <a href="/qualifications" class="px-2.5 py-1 bg-canvas border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] text-ink no-underline transition-colors duration-150">
+            By Qualification Level
+          </a>
+          <a href="/closing-soon" class="px-2.5 py-1 bg-canvas border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] text-ink no-underline transition-colors duration-150">
+            Closing Within 7 Days
+          </a>
+          <a href="/guides" class="px-2.5 py-1 bg-canvas border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] text-ink no-underline transition-colors duration-150">
+            Verification &amp; Pay Guides
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between border-b border-border pb-1.5 mb-2.5">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-navy m-0">
+            State-Wise Government Job Portals
+          </h2>
+          <a href="/states" class="text-xs font-semibold text-accent hover:underline">
+            All States ({states.length}) &rarr;
+          </a>
+        </div>
+        <div class="flex flex-wrap gap-1.5 text-xs">
+          {
+            states.map((st) => (
+              <a
+                href={`/states/${st.slug}`}
+                class="px-2 py-1 bg-canvas border border-border hover:bg-surface hover:text-navy hover:border-navy rounded-[3px] text-ink no-underline tabular-nums transition-colors duration-150"
+              >
+                {st.name} <span class="text-ink-secondary">({st.activeCount})</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script id="homepage-saved-manifest" type="application/json" set:html={JSON.stringify(savedManifest)} />
+
+  <script is:inline>
+    (function () {
+      const searchInput = document.getElementById('job-search-input');
+      const salarySelect = document.getElementById('salary-filter');
+      const qualSelect = document.getElementById('qualification-filter');
+      const jurSelect = document.getElementById('jurisdiction-filter');
+      const sortSelect = document.getElementById('job-sort-select');
+      const resetBtn = document.getElementById('reset-filters-btn');
+      const showAllBtn = document.getElementById('show-all-stream-btn');
+      const countLabel = document.getElementById('visible-count-label');
+      const emptyState = document.getElementById('filter-empty-state');
+      const admEmptyState = document.getElementById('admissions-empty-state');
+      const tableEl = document.getElementById('homepage-jobs-table');
+
+      const tabJobsBtn = document.getElementById('stream-tab-jobs');
+      const tabClosingBtn = document.getElementById('stream-tab-closing');
+      const tabAdmBtn = document.getElementById('stream-tab-admissions');
+      const jobsPanel = document.getElementById('jobs-stream-panel');
+      const admPanel = document.getElementById('admissions-stream-panel');
+
+      const quickButtons = Array.from(document.querySelectorAll('#quick-filter-pills .q-pill'));
+      const railButtons = Array.from(document.querySelectorAll('[data-rail-tab]'));
+      const railPanels = Array.from(document.querySelectorAll('.rail-panel'));
+
+      const rows = Array.from(document.querySelectorAll('#homepage-jobs-table [data-job-row="true"]'));
+      const admRows = Array.from(document.querySelectorAll('#admissions-stream-panel [data-adm-row="true"]'));
+      const inFeedAdWrapper = tableEl
+        ? Array.from(tableEl.children).find((el) => el.querySelector('[data-ad-variant="in-feed"]')) || null
+        : null;
+
+      let activeStreamMode = 'jobs'; // 'jobs' | 'closing' | 'admissions'
+      let activeQuick = 'all';
+      let showAllStream = false;
+
+      function syncQuickPillStyles() {
+        for (const btn of quickButtons) {
+          const isAct = (btn.getAttribute('data-quick') || 'all') === activeQuick;
+          btn.classList.toggle('bg-navy', isAct);
+          btn.classList.toggle('text-white', isAct);
+          btn.classList.toggle('border-navy', isAct);
+          btn.classList.toggle('hover:bg-navy-hover', isAct);
+          btn.classList.toggle('hover:text-white', isAct);
+          btn.classList.toggle('bg-canvas', !isAct);
+          btn.classList.toggle('text-ink', !isAct);
+          btn.classList.toggle('border-border', !isAct);
+          btn.classList.toggle('hover:bg-navy/5', !isAct);
+          btn.classList.toggle('hover:text-navy', !isAct);
+          btn.classList.toggle('hover:border-navy', !isAct);
+        }
+      }
+
+      function matchesQuickTerms(searchText) {
+        if (!activeQuick.startsWith('kw:')) return true;
+        const terms = activeQuick.slice(3).split('|').map((t) => t.trim()).filter(Boolean);
+        return terms.some((term) => searchText.includes(term));
+      }
+
+      function sortRowsDom() {
+        if (!tableEl || !sortSelect) return;
+        const mode = sortSelect.value || 'newest';
+        const sorted = [...rows].sort((a, b) => {
+          if (mode === 'salary') {
+            return Number(b.getAttribute('data-salary-val') || 0) - Number(a.getAttribute('data-salary-val') || 0);
+          }
+          if (mode === 'closing') {
+            return String(a.getAttribute('data-deadline') || '9999-12-31').localeCompare(
+              String(b.getAttribute('data-deadline') || '9999-12-31'),
+            );
+          }
+          if (mode === 'vacancies') {
+            return Number(b.getAttribute('data-vacancies') || 0) - Number(a.getAttribute('data-vacancies') || 0);
+          }
+          return (
+            Number(a.getAttribute('data-initial-order') || 0) -
+            Number(b.getAttribute('data-initial-order') || 0)
+          );
+        });
+
+        for (const r of sorted) {
+          tableEl.appendChild(r);
+        }
+        if (emptyState) tableEl.appendChild(emptyState);
+      }
+
+      function repositionInFeedAd(visibleRows) {
+        if (!tableEl || !inFeedAdWrapper) return;
+        if (visibleRows.length >= 5) {
+          visibleRows[4].insertAdjacentElement('afterend', inFeedAdWrapper);
+          inFeedAdWrapper.classList.remove('hidden');
+        } else {
+          inFeedAdWrapper.classList.add('hidden');
+        }
+      }
+
+      function applyAdmissionsFilter() {
+        const query = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
+        let shown = 0;
+        for (const row of admRows) {
+          const rSearch = row.getAttribute('data-search') || '';
+          let ok = true;
+          if (query && !rSearch.includes(query)) ok = false;
+          if (ok && activeQuick.startsWith('kw:') && !matchesQuickTerms(rSearch)) ok = false;
+          row.classList.toggle('hidden', !ok);
+          if (ok) shown += 1;
+        }
+        if (admEmptyState) admEmptyState.classList.toggle('hidden', shown > 0);
+        if (countLabel && activeStreamMode === 'admissions') {
+          countLabel.textContent = `Showing ${shown} of ${admRows.length} Admissions`;
+        }
+      }
+
+      function applyFilters() {
+        if (activeStreamMode === 'admissions') {
+          applyAdmissionsFilter();
+          return;
+        }
+
+        const query = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
+        const sal = salarySelect ? salarySelect.value : 'all';
+        const qual = qualSelect ? qualSelect.value : 'all';
+        const jur = jurSelect ? jurSelect.value : 'all';
+
+        const anyFilterActive =
+          Boolean(query) ||
+          sal !== 'all' ||
+          qual !== 'all' ||
+          jur !== 'all' ||
+          activeQuick !== 'all' ||
+          activeStreamMode === 'closing';
+
+        const orderedRows = Array.from(
+          document.querySelectorAll('#homepage-jobs-table [data-job-row="true"]'),
+        );
+        const matchedRows = [];
+
+        for (const row of orderedRows) {
+          const rSearch = row.getAttribute('data-search') || '';
+          const rSal = row.getAttribute('data-salary-tier') || '';
+          const rQual = row.getAttribute('data-qualification') || '';
+          const rLevel = row.getAttribute('data-government-level') || '';
+          const rState = row.getAttribute('data-state') || '';
+          const rClosing = row.getAttribute('data-closing-soon') === 'true';
+
+          let ok = true;
+          if (activeStreamMode === 'closing' && !rClosing) ok = false;
+          if (ok && query && !rSearch.includes(query)) ok = false;
+          if (ok && sal !== 'all' && rSal !== sal) ok = false;
+          if (ok && qual !== 'all' && rQual !== qual) ok = false;
+
+          if (ok && jur !== 'all') {
+            if (jur.startsWith('level:')) {
+              ok = rLevel === jur.slice(6);
+            } else if (jur.startsWith('state:')) {
+              ok = rState === jur.slice(6);
+            }
+          }
+
+          if (ok && activeQuick === 'qualgroup:10-12') {
+            ok = rQual === '10th-pass' || rQual === '12th-pass' || rQual === 'diploma-iti';
+          } else if (ok && activeQuick.startsWith('kw:')) {
+            ok = matchesQuickTerms(rSearch);
+          }
+
+          if (ok) matchedRows.push(row);
+          row.classList.add('hidden');
+        }
+
+        const cap = showAllStream || anyFilterActive ? matchedRows.length : 18;
+        const visibleRows = matchedRows.slice(0, cap);
+        for (const r of visibleRows) {
+          r.classList.remove('hidden');
+        }
+
+        repositionInFeedAd(visibleRows);
+
+        if (countLabel) {
+          countLabel.textContent = `Showing ${visibleRows.length} of ${matchedRows.length}`;
+        }
+        if (emptyState) {
+          emptyState.classList.toggle('hidden', matchedRows.length > 0);
+        }
+        if (showAllBtn) {
+          showAllBtn.classList.toggle('hidden', showAllStream || anyFilterActive || matchedRows.length <= 18);
+        }
+      }
+
+      // Most-Clicked Quick Pills Click
+      for (const btn of quickButtons) {
+        btn.addEventListener('click', function () {
+          const val = btn.getAttribute('data-quick') || 'all';
+          const preferStream = btn.getAttribute('data-prefer-stream');
+          activeQuick = val;
+          if (val === 'all') {
+            if (salarySelect) salarySelect.value = 'all';
+            if (qualSelect) qualSelect.value = 'all';
+            if (jurSelect) jurSelect.value = 'all';
+            setStreamMode('jobs');
+          } else if (val.startsWith('qual:')) {
+            if (qualSelect) qualSelect.value = val.slice(5);
+            if (activeStreamMode === 'admissions') setStreamMode('jobs');
+          } else if (preferStream === 'admissions') {
+            setStreamMode('admissions');
+          } else if (activeStreamMode === 'admissions') {
+            setStreamMode('jobs');
+          }
+          syncQuickPillStyles();
+          applyFilters();
+        });
+      }
+
+      // Filter & Sort Listeners
+      if (searchInput) searchInput.addEventListener('input', applyFilters);
+      if (salarySelect) {
+        salarySelect.addEventListener('change', function () {
+          syncQuickPillStyles();
+          applyFilters();
+        });
+      }
+      if (qualSelect) {
+        qualSelect.addEventListener('change', function () {
+          if (activeQuick.startsWith('qualgroup:') || activeQuick.startsWith('qual:')) activeQuick = 'all';
+          syncQuickPillStyles();
+          applyFilters();
+        });
+      }
+      if (jurSelect) {
+        jurSelect.addEventListener('change', function () {
+          applyFilters();
+        });
+      }
+      if (sortSelect) {
+        sortSelect.addEventListener('change', function () {
+          sortRowsDom();
+          applyFilters();
+        });
+      }
+      if (showAllBtn) {
+        showAllBtn.addEventListener('click', function () {
+          showAllStream = true;
+          applyFilters();
+        });
+      }
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          activeQuick = 'all';
+          showAllStream = false;
+          if (searchInput) searchInput.value = '';
+          if (salarySelect) salarySelect.value = 'all';
+          if (qualSelect) qualSelect.value = 'all';
+          if (jurSelect) jurSelect.value = 'all';
+          if (sortSelect) {
+            sortSelect.value = 'newest';
+            sortRowsDom();
+          }
+          setStreamMode('jobs');
+          syncQuickPillStyles();
+          applyFilters();
+        });
+      }
+
+      // Main Stream Tabs (Latest Jobs | Closing Soon | Admissions)
+      function setStreamMode(mode) {
+        activeStreamMode = mode;
+        const buttons = [
+          { el: tabJobsBtn, id: 'jobs' },
+          { el: tabClosingBtn, id: 'closing' },
+          { el: tabAdmBtn, id: 'admissions' },
+        ];
+        for (const item of buttons) {
+          if (!item.el) continue;
+          const act = item.id === mode;
+          item.el.setAttribute('aria-selected', act ? 'true' : 'false');
+          item.el.classList.toggle('bg-navy', act);
+          item.el.classList.toggle('text-white', act);
+          item.el.classList.toggle('border-navy', act);
+          item.el.classList.toggle('font-bold', act);
+          item.el.classList.toggle('hover:bg-navy-hover', act);
+          item.el.classList.toggle('hover:text-white', act);
+          item.el.classList.toggle('bg-canvas', !act);
+          item.el.classList.toggle('text-ink-secondary', !act);
+          item.el.classList.toggle('border-border', !act);
+          item.el.classList.toggle('font-semibold', !act);
+          item.el.classList.toggle('hover:bg-surface', !act);
+          item.el.classList.toggle('hover:text-navy', !act);
+          item.el.classList.toggle('hover:border-navy', !act);
+        }
+        if (jobsPanel) jobsPanel.classList.toggle('hidden', mode === 'admissions');
+        if (admPanel) admPanel.classList.toggle('hidden', mode !== 'admissions');
+        if (sortSelect) sortSelect.classList.toggle('hidden', mode === 'admissions');
+        applyFilters();
+      }
+
+      if (tabJobsBtn) tabJobsBtn.addEventListener('click', () => setStreamMode('jobs'));
+      if (tabClosingBtn) tabClosingBtn.addEventListener('click', () => setStreamMode('closing'));
+      if (tabAdmBtn) tabAdmBtn.addEventListener('click', () => setStreamMode('admissions'));
+
+      // Live Action Rail Exam Desk Tabs (Result | Admit Card | Answer Key)
+      for (const btn of railButtons) {
+        btn.addEventListener('click', function () {
+          const target = btn.getAttribute('data-rail-tab');
+          for (const b of railButtons) {
+            const act = b === btn;
+            b.classList.toggle('bg-navy', act);
+            b.classList.toggle('text-white', act);
+            b.classList.toggle('font-bold', act);
+            b.classList.toggle('border-navy', act);
+            b.classList.toggle('hover:bg-navy-hover', act);
+            b.classList.toggle('hover:text-white', act);
+            b.classList.toggle('bg-transparent', !act);
+            b.classList.toggle('text-ink-secondary', !act);
+            b.classList.toggle('font-semibold', !act);
+            b.classList.toggle('border-transparent', !act);
+            b.classList.toggle('hover:bg-surface', !act);
+            b.classList.toggle('hover:text-navy', !act);
+            b.classList.toggle('hover:border-border', !act);
+          }
+          for (const p of railPanels) {
+            p.classList.toggle('hidden', p.id !== `rail-panel-${target}`);
+          }
+        });
+      }
+
+      // Live Action Rail Saved Exams Widget
+      const savedManifestEl = document.getElementById('homepage-saved-manifest');
+      const railSavedList = document.getElementById('rail-saved-list');
+      let savedLookup = {};
+      try {
+        const parsed = JSON.parse((savedManifestEl && savedManifestEl.textContent) || '[]');
+        for (const item of parsed) savedLookup[item.slug] = item;
+      } catch (_) {}
+
+      function escHtml(v) {
+        return String(v ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function renderRailSaved() {
+        if (!railSavedList || typeof window.__chayanGetSaved !== 'function') return;
+        const slugs = window.__chayanGetSaved();
+        const items = slugs.map((s) => savedLookup[s]).filter(Boolean).slice(0, 5);
+        if (items.length === 0) {
+          railSavedList.innerHTML =
+            '<div class="px-3.5 py-3 text-ink-secondary">Tap the bookmark icon on any job to pin deadlines here.</div>';
+          return;
+        }
+        railSavedList.innerHTML = items
+          .map(
+            (item) => `
+            <a href="${escHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2.5 block hover:bg-canvas no-underline space-y-0.5 transition-colors duration-150">
+              <div class="flex items-center justify-between gap-2 text-[11px]">
+                <span class="font-mono text-ink-secondary tabular-nums">${escHtml(item.deadline)}</span>
+                <span class="font-mono text-[10px] font-semibold ${item.badgeVariant === 'urgent' ? 'text-urgent-text' : 'text-active-text'}">${escHtml(item.badgeLabel)}</span>
+              </div>
+              <div class="text-xs font-semibold notice-link leading-snug">${escHtml(item.title)}</div>
+            </a>
+          `,
+          )
+          .join('');
+      }
+
+      window.addEventListener('chayandesk:saved-updated', renderRailSaved);
+
+      // Initialize
+      syncQuickPillStyles();
+      applyFilters();
+      renderRailSaved();
+    })();
+  </script>
+</BaseLayout>

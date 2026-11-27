@@ -1,0 +1,57 @@
+{
+  "slug": "iit-bhu-junior-research-fellow-2026",
+  "title": "Junior Research Fellow",
+  "organization": "IIT (BHU)",
+  "department": "Science & Defense Research",
+  "government_level": "central",
+  "state_name": null,
+  "location": "Varanasi, Uttar Pradesh",
+  "qualification_level": "Post Graduate",
+  "total_vacancies": 1,
+  "salary_range": "Rs 37,000/- with HRA @18%",
+  "application_fee": null,
+  "age_limit": "30 years",
+  "important_dates": [
+    {
+      "label": "Starting date of application",
+      "date": "26 Nov 2026"
+    },
+    {
+      "label": "Last date of application",
+      "date": "16 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-16",
+  "posted_date": "2026-11-25",
+  "last_verified_at": "2026-11-26T13:36:07Z",
+  "summary": "IIT (BHU) invites applications for the position of Junior Research Fellow under the Department of Civil Engineering for a project related to groundwater depletion and land subsidence. Candidates with a relevant post-graduate degree and qualified GATE/NET are eligible to apply. The deadline for submitting applications via email and Google Form is 2026-12-16.",
+  "eligibility_bullets": [
+    "Post Graduate Degree (M.E./M.Tech.) in Water Resources/Geoinformatics/Remote Sensing & GIS/Engineering Geosciences or M.Sc. degree in Geoinformatics/Remote Sensing & GIS, Geography/Geology/Applied Geology, Earth Sciences or equivalent.",
+    "Must have qualified GATE/NET or any national level examination conducted by central government departments or institutes like DST, IIT, ISRO etc.",
+    "Upper age limit is 30 years with relaxation for OBC/SC/ST/Women/physically challenged candidates as per government norms."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Junior Research Fellow",
+      "vacancies": 1,
+      "notes": "Rs 37,000/- with HRA @18%"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Fill the Application Form (Annexure-I) and prepare a single PDF file attaching all requisite degrees and certificates.",
+    "Send the soft copy of the form along with supporting documents to aohri.civ@iitbhu.ac.in with the subject mentioning the post applied before the last date.",
+    "Fill and submit the Google Form available at https://forms.gle/TiFMGAbZvKN4kN7GA."
+  ],
+  "official_apply_url": "https://www.iitbhu.ac.in/positions_available",
+  "official_pdf_url": "https://iitbhu.ac.in/contents/institute/2026/project/project_jrf_civ_geodetic.pdf",
+  "source_domain": "iitbhu.ac.in",
+  "source_url": "https://iitbhu.ac.in/contents/institute/2026/project/project_jrf_civ_geodetic.pdf",
+  "notification_code": "IIT(BHU)/CE/NISAR/26-27/16",
+  "archived": false,
+  "salary_min": 37000,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "25k-45k",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

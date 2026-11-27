@@ -1,0 +1,194 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  formatDisplayDate,
+  formatSalaryBadge,
+  getAuthorityLabel,
+  getAuthorityType,
+  getDeadlineBadge,
+  sortJobsByPostedDesc,
+} from '../../lib/jobs';
+
+const allJobs = sortJobsByPostedDesc(await getCollection('jobs'));
+const allAdmissions = await getCollection('admissions');
+
+const jobManifest = allJobs.map((job) => {
+  const sal = formatSalaryBadge(job);
+  const badge = getDeadlineBadge(
+    job.data.application_deadline,
+    new Date(),
+    Boolean(job.data.archived),
+  );
+  return {
+    slug: job.data.slug,
+    title: job.data.title,
+    organization: job.data.organization,
+    qualification: job.data.qualification_level,
+    authority: getAuthorityLabel(getAuthorityType(job)),
+    salaryHeadline: sal.headline,
+    salarySubline: sal.subline,
+    salarySpecified: sal.isSpecified,
+    deadline: formatDisplayDate(job.data.application_deadline),
+    badgeLabel: badge.label,
+    badgeVariant: badge.variant,
+    sourceDomain: job.data.source_domain,
+    url: `/jobs/${job.data.slug}`,
+  };
+});
+
+const admissionManifest = allAdmissions.map((adm) => {
+  const badge = getDeadlineBadge(adm.data.application_deadline);
+  return {
+    slug: adm.data.slug,
+    title: adm.data.title,
+    organization: adm.data.organization,
+    qualification: adm.data.course_level,
+    authority: 'Admissions & Entrances',
+    salaryHeadline: '',
+    salarySubline: '',
+    salarySpecified: false,
+    deadline: formatDisplayDate(adm.data.application_deadline),
+    badgeLabel: badge.label,
+    badgeVariant: badge.variant,
+    sourceDomain: adm.data.source_domain,
+    url: `/admissions/${adm.data.slug}`,
+  };
+});
+
+const manifest = [...jobManifest, ...admissionManifest];
+---
+
+<BaseLayout
+  title="My Saved Exams & Application Tracker"
+  description="Your locally bookmarked government job notifications, pay scales, and upcoming application deadlines stored privately in your browser."
+  canonicalPath="/saved"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-navy hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Saved Exams</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div>
+      <h1 class="text-xl font-bold text-navy tracking-tight">
+        My Saved Exams &amp; Deadlines
+      </h1>
+      <p class="text-xs text-ink-secondary mt-1">
+        Bookmarks are saved locally in your browser (no login or account required). Click &ldquo;Save&rdquo; on any job row to pin it here.
+      </p>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <span
+        id="saved-page-count"
+        class="font-mono text-xs px-2.5 py-1 bg-canvas border border-border rounded-[3px] text-ink tabular-nums"
+      >
+        0 Saved
+      </span>
+      <button
+        id="clear-all-saved-btn"
+        type="button"
+        class="px-2.5 py-1 text-xs font-semibold bg-urgent-bg text-urgent-text border border-urgent-border rounded-[3px] cursor-pointer hidden"
+      >
+        Clear All
+      </button>
+    </div>
+  </header>
+
+  <div id="saved-exams-list" class="bg-surface border border-border-strong rounded-[3px] divide-y divide-border"></div>
+
+  <div id="saved-empty-state" class="bg-surface border border-border-strong rounded-[3px] p-8 text-center space-y-2 hidden">
+    <div class="text-sm font-bold text-ink">No saved exams yet</div>
+    <p class="text-xs text-ink-secondary max-w-md mx-auto">
+      Tap the <strong>Save</strong> button on any recruitment row or job page to track deadlines and pay scales here.
+    </p>
+    <div class="pt-2">
+      <a
+        href="/"
+        class="inline-flex items-center px-3.5 py-2 text-xs font-semibold bg-navy text-white rounded-[3px] no-underline hover:bg-navy-hover"
+      >
+        Browse Active Recruitments &rarr;
+      </a>
+    </div>
+  </div>
+
+  <script id="saved-manifest-data" type="application/json" set:html={JSON.stringify(manifest)} />
+
+  <script is:inline>
+    (function () {
+      const manifestRaw = document.getElementById('saved-manifest-data');
+      const listEl = document.getElementById('saved-exams-list');
+      const emptyEl = document.getElementById('saved-empty-state');
+      const countEl = document.getElementById('saved-page-count');
+      const clearBtn = document.getElementById('clear-all-saved-btn');
+
+      let itemsBySlug = {};
+      try {
+        const arr = JSON.parse((manifestRaw && manifestRaw.textContent) || '[]');
+        for (const item of arr) itemsBySlug[item.slug] = item;
+      } catch (_) {}
+
+      function esc(v) {
+        return String(v ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function renderSavedPage() {
+        const saved = typeof window.__chayanGetSaved === 'function' ? window.__chayanGetSaved() : [];
+        const matched = saved.map((s) => itemsBySlug[s]).filter(Boolean);
+
+        if (countEl) countEl.textContent = `${matched.length} Saved`;
+        if (clearBtn) clearBtn.classList.toggle('hidden', matched.length === 0);
+        if (listEl) listEl.classList.toggle('hidden', matched.length === 0);
+        if (emptyEl) emptyEl.classList.toggle('hidden', matched.length > 0);
+        if (!listEl || matched.length === 0) return;
+
+        listEl.innerHTML = matched.map((item) => {
+          const badgeCls =
+            item.badgeVariant === 'urgent'
+              ? 'bg-urgent-bg text-urgent-text border-urgent-border'
+              : item.badgeVariant === 'active'
+                ? 'bg-active-bg text-active-text border-active-border'
+                : 'bg-canvas text-ink-secondary border-border';
+
+          return `
+            <article class="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas/70">
+              <div class="min-w-0 space-y-1">
+                <div class="flex flex-wrap items-center gap-2 text-[11px] text-ink-secondary">
+                  <span class="px-1.5 py-0.25 bg-canvas border border-border rounded-[3px] text-navy font-medium">${esc(item.authority)}</span>
+                </div>
+                <h2 class="text-sm font-bold leading-snug m-0">
+                  <a href="${esc(item.url)}" class="notice-link hover:underline">${esc(item.title)}</a>
+                </h2>
+                <div class="text-xs text-ink-secondary">${esc(item.organization)} &middot; ${esc(item.qualification)}</div>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <div class="text-right">
+                  ${item.salarySpecified ? `<div class="font-mono text-xs font-bold text-active-text tabular-nums">${esc(item.salaryHeadline)}</div>` : ''}
+                  <div class="font-mono text-[11px] text-ink-secondary tabular-nums">${esc(item.deadline)} <span class="px-1.5 py-0.25 border rounded-[3px] ${badgeCls}">${esc(item.badgeLabel)}</span></div>
+                </div>
+                <button type="button" data-save-slug="${esc(item.slug)}" data-label-default="Save" data-label-saved="Remove" class="px-2.5 py-1.5 text-xs font-semibold border rounded-[3px] cursor-pointer">Remove</button>
+              </div>
+            </article>
+          `;
+        }).join('');
+        if (typeof window.__chayanSyncSaved === 'function') window.__chayanSyncSaved();
+      }
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+          if (typeof window.__chayanSetSaved === 'function') window.__chayanSetSaved([]);
+          renderSavedPage();
+        });
+      }
+      window.addEventListener('chayandesk:saved-updated', renderSavedPage);
+      renderSavedPage();
+    })();
+  </script>
+</BaseLayout>

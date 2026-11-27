@@ -1,0 +1,132 @@
+{
+  "slug": "engineers-india-limited-associate-engineer-87-posts-2026",
+  "title": "Associate Engineer – 87 Posts",
+  "organization": "Engineers India Limited",
+  "department": "Science & Defense Research",
+  "government_level": "central",
+  "state_name": null,
+  "location": "All India",
+  "qualification_level": "Engineering (B.E./B.Tech)",
+  "total_vacancies": 87,
+  "salary_range": "Rs. 57,600 to Rs. 96,000 per month (consolidated)",
+  "application_fee": null,
+  "age_limit": "Upper age limit is 32 or 37 years depending on position code as on 31.10.2026",
+  "important_dates": [
+    {
+      "label": "Online Application Opening Date",
+      "date": "25 Nov 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "9 Dec 2026"
+    },
+    {
+      "label": "Educational Qualification/Experience Cut-off Date",
+      "date": "31 Oct 2026"
+    }
+  ],
+  "application_deadline": "2026-12-09",
+  "posted_date": "2026-11-25",
+  "last_verified_at": "2026-11-26T12:53:24Z",
+  "summary": "Engineers India Limited (EIL) invites online applications for experienced engineers on a fixed-term basis across various technical disciplines for a total of 87 vacancies. Selection involves screening followed by a walk-in personal interview at designated EIL offices.",
+  "eligibility_bullets": [
+    "Candidates must possess a B.E./B.Tech/B.Sc (Engg) degree with a minimum of 60% marks in the relevant discipline.",
+    "Required post-qualification relevant experience ranges from 2 to 5 years depending on the position code.",
+    "Upper age limit is 32 or 37 years as on 31.10.2026, with applicable relaxations for reserved categories."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Associate Engineer Gr I - Electrical (Code A1)",
+      "vacancies": 2,
+      "notes": "Upper age limit 32"
+    },
+    {
+      "category": "Associate Engineer Gr I - Instrumentation (Code A2)",
+      "vacancies": 3,
+      "notes": "Upper age limit 32"
+    },
+    {
+      "category": "Associate Engineer Gr II - Electrical (Code B1)",
+      "vacancies": 6,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - Instrumentation (Code B2)",
+      "vacancies": 3,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - Piping (Code B3)",
+      "vacancies": 30,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - General Civil (Code B4)",
+      "vacancies": 6,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - Structural (Code B5)",
+      "vacancies": 12,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - Safety (Code B6)",
+      "vacancies": 3,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - EWS (Code B7)",
+      "vacancies": 1,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - SMED 1 (Code B8)",
+      "vacancies": 8,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - SMED 2 (Code B9)",
+      "vacancies": 7,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - FED 1 (Code BA)",
+      "vacancies": 1,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - FED 3 (Code BB)",
+      "vacancies": 1,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - Process 2 (Code BC)",
+      "vacancies": 3,
+      "notes": "Upper age limit 37"
+    },
+    {
+      "category": "Associate Engineer Gr II - Process 2 Alumina (Code BD)",
+      "vacancies": 1,
+      "notes": "Upper age limit 37"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Visit the career link on the official EIL website at http://www.engineersindia.com.",
+    "Carefully read all instructions and complete the online registration form with accurate details.",
+    "Upload scanned copies of a passport-size photograph (max 75 KB) and signature (max 25 KB) in .jpg/.jpeg format.",
+    "Take 6 printouts of the submitted online application form, affix a colour photograph, and bring them along with original documents for the walk-in interview."
+  ],
+  "official_apply_url": "https://recruitment.eil.co.in/",
+  "official_pdf_url": "https://recruitment.eil.co.in/hrdnew/others/79.pdf",
+  "source_domain": "recruitment.eil.co.in",
+  "source_url": "https://recruitment.eil.co.in/",
+  "notification_code": "HRD/Rectt/Advt/2026-27/12",
+  "archived": false,
+  "salary_min": 57600,
+  "salary_max": 96000,
+  "pay_level": null,
+  "salary_tier": "45k-70k",
+  "authority_type": "psu-bank",
+  "exam_group_id": null
+}

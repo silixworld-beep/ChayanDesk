@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_NAME } from '../lib/jobs';
+---
+
+<BaseLayout
+  title="About & Editorial Methodology"
+  description={`Learn how ${SITE_NAME} structures, verifies, and links official public-sector recruitment notices without speculation or hidden forms.`}
+  canonicalPath="/about"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">About</li>
+    </ol>
+  </nav>
+
+  <article class="max-w-3xl bg-surface border border-border-strong rounded-[3px] p-5 sm:p-7 space-y-5">
+    <header class="border-b border-border pb-4 space-y-2">
+      <h1 class="text-2xl font-bold text-ink tracking-tight">
+        About {SITE_NAME}
+      </h1>
+      <p class="text-sm text-ink-secondary leading-[1.6]">
+        An independent public-sector recruitment notice index built for clarity,
+        accessibility, and source transparency.
+      </p>
+    </header>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">1. Editorial Mission</h2>
+      <p>
+        Official recruitment circulars are frequently distributed as dense multi-page
+        PDFs across dozens of ministry, commission, railway zone, and autonomous
+        institute portals. {SITE_NAME} standardizes key recruitment facts—deadlines,
+        vacancy distributions, age cutoffs, fee schedules, and direct application
+        URLs—into uniform scannable tables.
+      </p>
+    </section>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">2. Zero-Guessing Verification Standard</h2>
+      <p>
+        We do not estimate salaries, round deadlines, or invent eligibility criteria.
+        If an official notification omits a field (such as a separate PDF circular or an
+        exact closing time), the field is explicitly marked as{' '}
+        <span class="font-mono text-xs bg-canvas border border-border px-1.5 py-0.5 rounded-sm">
+          Visit Official Site
+        </span>
+        . Every notice includes the issuing domain and a UTC verification timestamp.
+      </p>
+    </section>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">3. Direct Application Policy</h2>
+      <p>
+        {SITE_NAME} is not affiliated with any government agency. We never accept
+        applications, store candidate documents, or collect examination fees. Every job
+        detail page links directly to the issuing organization&apos;s official portal
+        and notification PDF.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

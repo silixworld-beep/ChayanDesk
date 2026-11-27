@@ -1,0 +1,73 @@
+{
+  "slug": "aligarh-muslim-university-aligarh-assistant-professor-in-computer",
+  "title": "Assistant Professor in Computer Science",
+  "organization": "Aligarh Muslim University, Aligarh",
+  "department": "Civil Services & Administration",
+  "government_level": "central",
+  "state_name": null,
+  "location": "Aligarh",
+  "qualification_level": "Post Graduate",
+  "total_vacancies": 1,
+  "salary_range": "Rs. 30,000/- per month",
+  "application_fee": "Rs. 500/-",
+  "age_limit": null,
+  "important_dates": [
+    {
+      "label": "Last date for submitting application form in online mode",
+      "date": "29 Nov 2026"
+    },
+    {
+      "label": "Last date for submitting application form hardcopy in the office of the undersigned",
+      "date": "7 Dec 2026"
+    },
+    {
+      "label": "Date of Interview",
+      "date": "14 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-11-29",
+  "posted_date": "2026-11-23",
+  "last_verified_at": "2026-11-26T13:36:12Z",
+  "summary": "Centre of Professional Courses, Aligarh Muslim University invites online applications for the temporary post of Assistant Professor in Computer Science on a fixed salary of Rs. 30,000/- per month for the Academic Session 2026-2027. Interested candidates must apply online through the university careers portal and submit the hard copy of their application with required enclosures by December 7, 2026.",
+  "eligibility_bullets": [
+    "Master's degree with 55% marks in a relevant/allied subject from an Indian or accredited foreign university.",
+    "Must have cleared the National Eligibility Test (NET) conducted by UGC/CSIR or equivalent test like SLET/SET, or hold a Ph.D. degree in accordance with UGC regulations.",
+    "For instructors, B.Tech. in Computer Engineering or AI with first division is alternatively required."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Assistant Professor (Computer Science)",
+      "vacancies": 1,
+      "notes": "Fixed salary teaching position"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Fill out the online Application Form at the Careers Portal of the University (careers.amuonline.ac.in).",
+    "Pay the non-refundable processing fee of Rs. 500/- online.",
+    "Take the printout of the PDF file of the application form on A-4 size paper, sign it, and paste a recent photograph.",
+    "Attach self-attested copies of all relevant degrees, mark sheets, experience, and certificates.",
+    "Submit the complete application form by post to the Office of the Centre of Professional Courses, Aligarh Muslim University, Aligarh-202002 on or before the last date."
+  ],
+  "official_apply_url": "https://careers.amuonline.ac.in/",
+  "official_pdf_url": "https://api.amu.ac.in/storage/file/10170/notice-and-circular/1795428599.pdf",
+  "source_domain": "careers.amuonline.ac.in",
+  "source_url": "https://careers.amuonline.ac.in/",
+  "notification_code": "No. 04/2026/CPC",
+  "fee_structure": [
+    {
+      "category": "General / Others",
+      "amount": "Rs. 500/-"
+    },
+    {
+      "category": "PwD Candidates",
+      "amount": "Exempted (with authentic Disability Certificate)"
+    }
+  ],
+  "archived": false,
+  "salary_min": 30000,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "25k-45k",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

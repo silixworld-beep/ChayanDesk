@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  formatVacancies,
+  getJurisdictionSummary,
+  getStateFacets,
+  getStateName,
+  isJobActive,
+} from '../../lib/jobs';
+
+const allJobs = await getCollection('jobs');
+const states = getStateFacets(allJobs);
+const summary = getJurisdictionSummary(allJobs);
+
+const vacanciesByState = new Map<string, number>();
+for (const job of allJobs) {
+  if (!isJobActive(job)) continue;
+  const st = getStateName(job);
+  if (!st) continue;
+  const current = vacanciesByState.get(st) ?? 0;
+  vacanciesByState.set(st, current + (job.data.total_vacancies ?? 0));
+}
+
+const totalStateVacancies = Array.from(vacanciesByState.values()).reduce((a, b) => a + b, 0);
+---
+
+<BaseLayout
+  title="State-Wise Government Jobs Directory"
+  description={`Browse verified state government, State PSC, municipal, and district recruitment openings across ${states.length} Indian states and union territories.`}
+  canonicalPath="/states"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">State Jobs</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div>
+      <h1 class="text-xl font-bold text-ink tracking-tight">
+        State-Wise Government Recruitments
+      </h1>
+      <p class="text-xs text-ink-secondary mt-1">
+        Select a state or union territory to view State PSC, departmental, municipal, and district notices.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2.5 text-xs tabular-nums">
+      <span class="bg-canvas border border-border rounded-[3px] px-2.5 py-1 font-medium text-ink">
+        States Covered: <strong>{states.length}</strong>
+      </span>
+      <span class="bg-canvas border border-border rounded-[3px] px-2.5 py-1 font-medium text-ink">
+        Active State Notices: <strong>{summary.stateActive}</strong>
+      </span>
+      <span class="bg-canvas border border-border rounded-[3px] px-2.5 py-1 font-medium text-ink">
+        Vacancies: <strong>{formatVacancies(totalStateVacancies)}</strong>
+      </span>
+      <a
+        href="/central-jobs"
+        class="bg-canvas border border-border rounded-[3px] px-2.5 py-1 font-medium text-accent hover:border-accent no-underline"
+      >
+        Central Govt Jobs ({summary.centralActive}) &rarr;
+      </a>
+    </div>
+  </header>
+
+  {
+    states.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {states.map((st) => (
+          <a
+            href={`/states/${st.slug}`}
+            class="bg-surface border border-border-strong rounded-[3px] p-4 hover:border-accent no-underline transition-colors duration-75 flex flex-col justify-between gap-3"
+          >
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-sm font-bold text-ink">{st.name}</span>
+              <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                {st.count} total
+              </span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-ink-secondary border-t border-border pt-2.5 tabular-nums">
+              <span>
+                Active Notices: <strong class="text-ink">{st.activeCount}</strong>
+              </span>
+              <span>
+                Vacancies:{' '}
+                <strong class="text-ink">
+                  {formatVacancies(vacanciesByState.get(st.name) ?? 0)}
+                </strong>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="bg-surface border border-border rounded-sm p-6 text-center text-sm text-ink-secondary">
+        No state-specific notices indexed yet. <a href="/central-jobs" class="text-accent hover:underline">Browse Central Government Jobs</a>.
+      </div>
+    )
+  }
+</BaseLayout>

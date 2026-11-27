@@ -1,0 +1,53 @@
+{
+  "slug": "directorate-esi-labour-medical-services-up-re-appointment-of-retired",
+  "title": "Re-appointment of Retired Specialists For ESIS Hospitals",
+  "organization": "Directorate, ESI Labour Medical Services, UP",
+  "department": "Healthcare & Medical",
+  "government_level": "state",
+  "state_name": "Uttar Pradesh",
+  "location": "Uttar Pradesh",
+  "qualification_level": "Medical / Nursing",
+  "total_vacancies": 45,
+  "salary_range": null,
+  "application_fee": null,
+  "age_limit": "Up to 65 years",
+  "important_dates": [
+    {
+      "label": "Online Application Deadline",
+      "date": "10 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-10",
+  "posted_date": "2026-11-26",
+  "last_verified_at": "2026-11-26T13:36:01Z",
+  "summary": "The Directorate of ESI Labour Medical Services, UP invites applications for the re-appointment of retired specialists against vacant posts in various ESIS hospitals. Eligible retired medical officers can apply through the prescribed format by December 10, 2026.",
+  "eligibility_bullets": [
+    "Must be a retired Specialist of ESI Scheme UP or UP Provincial Medical Health services.",
+    "Eligible for pension from state government treasury under the old pension scheme.",
+    "Maximum age limit is up to 65 years or until regular appointment."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Specialist",
+      "vacancies": 45,
+      "notes": "Includes Physician, Surgeon, Ortho Surgeon, Radiologist, Anesthetist, Chest & TB Specialist, Pathologist, Obs. & Gynae, and Pediatrician across various hospitals."
+    }
+  ],
+  "how_to_apply_steps": [
+    "Download the application format from http://uplabour.gov.in/ESIS or sewayojan.up.nic.in.",
+    "Fill out the application form with all required details and attach necessary documents.",
+    "Send the application via registered/speed post or directly to the Directorate, Employee's State Insurance Scheme, Labour Medical Services UP, Sarvodayanagar, Kanpur by the deadline."
+  ],
+  "official_apply_url": "http://uplabour.gov.in/ESIS",
+  "official_pdf_url": "https://sewayojan.up.nic.in/NEWS/ESIMedical251126.pdf",
+  "source_domain": "uplabour.gov.in",
+  "source_url": "https://sewayojan.up.nic.in/NEWS/ESIMedical251126.pdf",
+  "notification_code": "T-16/Punaryojan/2026/19151",
+  "archived": false,
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "not-specified",
+  "authority_type": "state",
+  "exam_group_id": null
+}

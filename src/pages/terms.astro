@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_NAME } from '../lib/jobs';
+---
+
+<BaseLayout
+  title="Terms of Use"
+  description={`Terms governing access to public-sector recruitment summaries and guides published on ${SITE_NAME}.`}
+  canonicalPath="/terms"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Terms of Use</li>
+    </ol>
+  </nav>
+
+  <article class="max-w-3xl bg-surface border border-border-strong rounded-[3px] p-5 sm:p-7 space-y-5">
+    <header class="border-b border-border pb-4 space-y-2">
+      <h1 class="text-2xl font-bold text-ink tracking-tight">Terms of Use</h1>
+      <p class="font-mono text-xs text-ink-secondary">Effective Date: 25 Nov 2026</p>
+    </header>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">1. Acceptance of Terms</h2>
+      <p>
+        By accessing {SITE_NAME}, you agree to use the information provided strictly for
+        personal, non-commercial job search and academic reference purposes.
+      </p>
+    </section>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">2. Accuracy &amp; Availability</h2>
+      <p>
+        Although we strive to verify every deadline, qualification, and official URL
+        against source notifications, recruiting bodies frequently publish extensions,
+        corrigendums, or cancellations without prior notice. {SITE_NAME} provides
+        content &ldquo;as is&rdquo; without warranties of uninterrupted availability or
+        final legal accuracy.
+      </p>
+    </section>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">3. External Portals</h2>
+      <p>
+        {SITE_NAME} links to official government websites for application submission and
+        document downloads. We do not control the uptime, accessibility, or security
+        practices of third-party external domains.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

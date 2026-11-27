@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../config/site';
+import { SITE_NAME } from '../lib/jobs';
+---
+
+<BaseLayout
+  title="Contact & Corrections Desk"
+  description={`Report broken official URLs, corrigendum updates, or factual corrections to the ${SITE_NAME} editorial desk.`}
+  canonicalPath="/contact"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Contact</li>
+    </ol>
+  </nav>
+
+  <article class="max-w-3xl bg-surface border border-border-strong rounded-[3px] p-5 sm:p-7 space-y-5">
+    <header class="border-b border-border pb-4 space-y-2">
+      <h1 class="text-2xl font-bold text-ink tracking-tight">
+        Contact &amp; Notice Corrections
+      </h1>
+      <p class="text-sm text-ink-secondary leading-[1.6]">
+        Channels for reporting corrigendums, extended application dates, or broken
+        official links.
+      </p>
+    </header>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">Editorial &amp; Verification Desk</h2>
+      <p>
+        If a government agency publishes an addendum, extends a deadline, or updates an
+        official PDF URL, please send the official circular link and notice slug to our
+        verification team:
+      </p>
+      <div class="bg-canvas border border-border rounded-sm p-4 space-y-2 text-xs sm:text-sm">
+        <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+          <span class="font-semibold text-ink-secondary">Corrections Email</span>
+          <span class="font-mono text-ink">{SITE_CONFIG.correctionsEmail}</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:justify-between gap-1 border-t border-border pt-2">
+          <span class="font-semibold text-ink-secondary">General Inquiries</span>
+          <span class="font-mono text-ink">{SITE_CONFIG.generalEmail}</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:justify-between gap-1 border-t border-border pt-2">
+          <span class="font-semibold text-ink-secondary">Review Turnaround</span>
+          <span class="font-mono text-ink">Within 24–48 business hours</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-2 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">Important Notice for Applicants</h2>
+      <p>
+        {SITE_NAME} cannot answer individual candidate queries regarding admit cards,
+        fee refunds, category certificate validity, or exam centre changes. Please
+        contact the helpdesk listed inside the respective organization&apos;s official
+        recruitment notification.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

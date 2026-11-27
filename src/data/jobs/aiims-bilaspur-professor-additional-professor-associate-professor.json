@@ -1,0 +1,93 @@
+{
+  "slug": "aiims-bilaspur-professor-additional-professor-associate-professor",
+  "title": "Professor, Additional Professor, Associate Professor, Assistant Professor, and Lecturer in Nursing",
+  "organization": "AIIMS Bilaspur",
+  "department": "Healthcare & Medical",
+  "location": "Himachal Pradesh",
+  "qualification_level": "Medical / Nursing",
+  "total_vacancies": 73,
+  "salary_range": "Pay Matrix Level 11 to 14A as per 7th CPC",
+  "application_fee": "Rs. 2,360/- for General/OBC/EWS; SC/ST/PwBD are exempted",
+  "age_limit": "Not exceeding 50 to 58 years depending on the post; up to 70 years for retired faculty",
+  "important_dates": [
+    {
+      "label": "Online Google Form Deadline",
+      "date": "14 Dec 2026"
+    },
+    {
+      "label": "Offline Application Deadline",
+      "date": "21 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-21",
+  "posted_date": "2026-11-23",
+  "last_verified_at": "2026-11-26T12:22:46Z",
+  "summary": "AIIMS Bilaspur invites applications from eligible Indian nationals and OCI cardholders for faculty positions including Professor, Additional Professor, Associate Professor, Assistant Professor, and Lecturer in Nursing on direct, deputation, or contractual basis. Candidates must submit details via an online Google form by December 14, 2026, and send hard copies of their application along with required documents and fee proof by December 21, 2026.",
+  "eligibility_bullets": [
+    "Must hold relevant postgraduate medical qualifications (MD/MS/DNB/DM/MCh) or Master's Degree in Nursing with requisite teaching/research experience.",
+    "Must be registered with the State Medical Council/MCI/NMC or State Nursing Council as applicable.",
+    "Age relaxation applicable for reserved categories in accordance with Government of India guidelines."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Professor",
+      "vacancies": 20,
+      "notes": "Regular Post - Direct/Deputation"
+    },
+    {
+      "category": "Additional Professor",
+      "vacancies": 7,
+      "notes": "Direct/Deputation/Contractual"
+    },
+    {
+      "category": "Associate Professor",
+      "vacancies": 13,
+      "notes": "Direct/Deputation/Contractual"
+    },
+    {
+      "category": "Assistant Professor",
+      "vacancies": 30,
+      "notes": "Direct Recruitment"
+    },
+    {
+      "category": "Assistant Professor (Contractual)",
+      "vacancies": 2,
+      "notes": "Contractual Basis"
+    },
+    {
+      "category": "Lecturer in Nursing (Assistant Professor)",
+      "vacancies": 1,
+      "notes": "Regular Basis"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Pay the non-refundable application fee via NEFT to the designated SBI account in favor of 'Executive Director, AIIMS-Bilaspur'.",
+    "Download the application form, career graph, and presentation template from the provided official links.",
+    "Fill out the online Google form and upload scanned copies of application forms, required documents, and fee payment proof by 14.12.2026.",
+    "Submit the hard copy of the offline application form along with self-attested testimonials to the Deputy Director (Administration), AIIMS Bilaspur on or before 21.12.2026."
+  ],
+  "official_apply_url": "https://aiimsbilaspur.edu.in/",
+  "official_pdf_url": "https://aiimsbilaspur.edu.in/sites/default/files/2026-11/Advertisement%20Nov%202026.pdf",
+  "source_domain": "aiimsbilaspur.edu.in",
+  "source_url": "https://aiimsbilaspur.edu.in/sites/default/files/2026-11/Advertisement%20Nov%202026.pdf",
+  "notification_code": "AIIMBL-B/23/2026-O/o EST-Part(4)",
+  "fee_structure": [
+    {
+      "category": "SC/ST/PwBD",
+      "amount": "Exempted"
+    },
+    {
+      "category": "General / OBC / EWS / Other",
+      "amount": "Rs. 2,000/- plus 18% GST (Total Rs. 2,360/-)"
+    }
+  ],
+  "archived": false,
+  "government_level": "central",
+  "state_name": null,
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": "Pay Matrix Level 11 To 14A (7th CPC)",
+  "salary_tier": "45k-70k",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

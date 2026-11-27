@@ -1,0 +1,121 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { SITE_CONFIG } from '../../config/site';
+import { SITE_NAME, formatDisplayDate } from '../../lib/jobs';
+
+export async function getStaticPaths() {
+  const allGuides = await getCollection('guides');
+  return allGuides.map((guide) => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+
+const canonicalPath = `/guides/${guide.id}`;
+const siteOrigin = Astro.site ?? new URL(SITE_CONFIG.siteUrl);
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.data.title,
+  description: guide.data.description,
+  datePublished: guide.data.published_date,
+  dateModified: guide.data.updated_date ?? guide.data.published_date,
+  author: {
+    '@type': 'Organization',
+    name: guide.data.author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+  },
+  mainEntityOfPage: new URL(canonicalPath, siteOrigin).toString(),
+};
+---
+
+<BaseLayout
+  title={guide.data.title}
+  description={guide.data.description}
+  canonicalPath={canonicalPath}
+  ogType="article"
+  jsonLd={articleJsonLd}
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li><a href="/guides" class="hover:text-accent hover:underline">Guides</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium truncate max-w-xs sm:max-w-md">
+        {guide.data.title}
+      </li>
+    </ol>
+  </nav>
+
+  <article class="max-w-3xl bg-surface border border-border-strong rounded-[3px] p-5 sm:p-7 space-y-5">
+    <header class="space-y-3 border-b border-border pb-4">
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <span class="font-mono text-[11px] uppercase tracking-wider font-semibold text-accent">
+          {guide.data.category}
+        </span>
+        <span aria-hidden="true" class="text-border-strong">|</span>
+        <span class="font-mono text-ink-secondary tabular-nums">
+          {guide.data.reading_time}
+        </span>
+        <span aria-hidden="true" class="text-border-strong">|</span>
+        <span class="font-mono text-ink-secondary tabular-nums">
+          Published {formatDisplayDate(guide.data.published_date)}
+        </span>
+        {
+          guide.data.updated_date && (
+            <>
+              <span aria-hidden="true" class="text-border-strong">
+                |
+              </span>
+              <span class="font-mono text-ink-secondary tabular-nums">
+                Updated {formatDisplayDate(guide.data.updated_date)}
+              </span>
+            </>
+          )
+        }
+      </div>
+
+      <h1 class="text-2xl font-bold text-ink tracking-tight leading-snug">
+        {guide.data.title}
+      </h1>
+
+      <p class="text-sm text-ink-secondary leading-[1.6]">
+        {guide.data.description}
+      </p>
+    </header>
+
+    <div
+      class="text-sm sm:text-[15px] text-ink leading-[1.6] space-y-4
+      [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-ink [&_h2]:pt-3 [&_h2]:border-t [&_h2]:border-border
+      [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-ink [&_h3]:pt-2
+      [&_p]:text-ink [&_p]:leading-[1.6]
+      [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5
+      [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5
+      [&_code]:font-mono [&_code]:text-xs [&_code]:bg-canvas [&_code]:border [&_code]:border-border [&_code]:rounded-sm [&_code]:px-1 [&_code]:py-0.5
+      [&_table]:w-full [&_table]:border-collapse [&_table]:border [&_table]:border-border [&_table]:text-left [&_table]:text-xs [&_table]:sm:text-sm
+      [&_thead]:bg-canvas [&_th]:border-b [&_th]:border-border-strong [&_th]:py-2 [&_th]:px-3 [&_th]:font-semibold [&_th]:text-ink
+      [&_td]:border-b [&_td]:border-border [&_td]:py-2 [&_td]:px-3 [&_td]:tabular-nums"
+    >
+      <Content />
+    </div>
+
+    <AdSlot position="mid-article" className="my-4" />
+
+    <footer class="pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-ink-secondary">
+      <span>Prepared by {guide.data.author}</span>
+      <a href="/guides" class="font-medium text-accent hover:underline">
+        &larr; Back to all guides
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

@@ -1,0 +1,223 @@
+{
+  "slug": "maharaja-suhel-dev-autonomous-state-medical-college-and-maharshi-balark",
+  "title": "Professor, Associate Professor, and Assistant Professor Recruitment on Contract (Walk-in-Interview)",
+  "organization": "Maharaja Suhel Dev Autonomous State Medical College and Maharshi Balark Hospital, Bahraich",
+  "department": "Healthcare & Medical",
+  "government_level": "state",
+  "state_name": "Uttar Pradesh",
+  "location": "Bahraich, Uttar Pradesh",
+  "qualification_level": "Medical / Nursing",
+  "total_vacancies": 53,
+  "salary_range": "Professor: Rs. 2,20,000/- per month, Associate Professor: Rs. 1,60,000/- per month, Assistant Professor: Rs. 1,20,000/- per month",
+  "salary_min": 120000,
+  "salary_max": 220000,
+  "pay_level": null,
+  "salary_tier": "above-1l",
+  "authority_type": "teaching",
+  "exam_group_id": null,
+  "application_fee": "Rs. 2,000/-",
+  "age_limit": "Below 70 years",
+  "important_dates": [
+    {
+      "label": "Walk-in-Interview Start Date",
+      "date": "27 Oct 2026"
+    }
+  ],
+  "application_deadline": "2026-11-27",
+  "posted_date": "2026-10-21",
+  "last_verified_at": "2026-11-27T07:08:01Z",
+  "summary": "Maharaja Suhel Dev Autonomous State Medical College and Maharshi Balark Hospital, Bahraich has announced a walk-in interview for recruiting Professors, Associate Professors, and Assistant Professors on a contractual basis across various departments, totaling 53 vacancies.",
+  "eligibility_bullets": [
+    "Professor, Associate Professor, Assistant Professor: Qualifications and experience as per National Medical Commission (NMC) norms and Medical College of India Minimum Qualifications for Teachers in Medical Institutions Regulations, 1999."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Professor - Orthopaedics",
+      "vacancies": null,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Professor - Ophthalmology",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Professor - Obs & Gynae",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Professor - General Surgery",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Professor - Paediatrics",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Professor - Pathology",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Professor - Pharmacology",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Professor - Radiotherapy",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Blood Bank",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Emergency Medicine",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Anaesthesia",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - General Medicine",
+      "vacancies": 2,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - General Surgery",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Skin & VD",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Pharmacology",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Radiotherapy",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Radio Diagnosis",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Associate Professor - Psychiatry",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Orthopaedics",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Ophthalmology",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Obs & Gynae",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Anatomy",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Anaesthesia",
+      "vacancies": 3,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - ENT",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Community Medicine",
+      "vacancies": 3,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - General Medicine",
+      "vacancies": 3,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - General Surgery",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - TB & Chest",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Paediatrics",
+      "vacancies": 2,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Pharmacology",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Physiology",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Biochemistry",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    },
+    {
+      "category": "Assistant Professor - Radio Diagnosis",
+      "vacancies": 1,
+      "eligibility": "As per NMC"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Prepare the application in the prescribed format available on the college website.",
+    "Attach a demand draft of Rs. 2,000/- in favor of 'Principal, ASMC and Associated Teaching Hospitals Bahraich'.",
+    "Attend the walk-in interview on any Tuesday or Friday starting from 27.10.2026 between 10:00 AM and 02:00 PM at the Principal's office."
+  ],
+  "official_apply_url": "https://www.asmcbrh.edu.in/",
+  "official_pdf_url": "https://cdn.s3waas.gov.in/s3e96ed478dab8595a7dbda4cbcbee168f/uploads/2026/10/17926496851815.pdf",
+  "important_links": [
+    {
+      "label": "Official Website",
+      "url": "https://www.asmcbrh.edu.in/"
+    }
+  ],
+  "source_domain": "asmcbrh.edu.in",
+  "source_url": "https://cdn.s3waas.gov.in/s3e96ed478dab8595a7dbda4cbcbee168f/uploads/2026/10/17926496851815.pdf",
+  "notification_code": "महासुस्वउवराउचिंमहाओ/विज्ञाप्ति/सं०संकसदओ/2026/9677",
+  "fee_structure": [
+    {
+      "category": "All Candidates",
+      "amount": "Rs. 2,000/-"
+    }
+  ],
+  "archived": false
+}

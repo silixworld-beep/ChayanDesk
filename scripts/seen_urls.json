@@ -1,0 +1,1312 @@
+{
+  "urls": {
+    "https://sbi.bank.in/documents/77530/57941334/20112026_Final_ADV_CRPD_SCO_2026-27_31.pdf/30ed8874-9669-c1eb-17bd-e8e4dfe534bb?t=1795161793708": {
+      "seen_at": "2026-11-25T15:14:57Z",
+      "source_id": "sbi-current-openings",
+      "status": "added",
+      "slug": "state-bank-of-india-sbi-recruitment-of-specialist-cadre-officer-on"
+    },
+    "https://sbi.bank.in/documents/77530/57941334/19112026_Detailed+Adv.-SCO-36.pdf/c8a2a1f1-9ee6-cd83-bac8-bdff3d856374?t=1795068909785": {
+      "seen_at": "2026-11-25T15:15:16Z",
+      "source_id": "sbi-current-openings",
+      "status": "added",
+      "slug": "state-bank-of-india-sbi-gm-head-cstra-cybersecurity-tech-risk-assurance"
+    },
+    "https://sbi.bank.in/documents/77530/57941334/04112026_FINAL+DRAFT+ADVERTISEMENT+CRPD-SCO_29_ENGINEER.pdf/4d1be5a0-727d-61b5-1ea4-85570f437345?t=1793788834905": {
+      "seen_at": "2026-11-25T15:15:41Z",
+      "source_id": "sbi-current-openings",
+      "status": "added",
+      "slug": "state-bank-of-india-sbi-recruitment-of-specialist-cadre-officers-for"
+    },
+    "https://sbi.bank.in/documents/77530/57941334/03112026_1_ADV_Security+Officer.pdf/69e017fe-5e1c-6312-c285-8855f9882102?t=1793713497818": {
+      "seen_at": "2026-11-25T15:16:01Z",
+      "source_id": "sbi-current-openings",
+      "status": "added",
+      "slug": "state-bank-of-india-sbi-recruitment-of-specialist-cadre-officers-for-2"
+    },
+    "https://www.isro.gov.in/URSCRecruitment2026_1.html": {
+      "seen_at": "2026-11-25T15:18:37Z",
+      "source_id": "isro-careers",
+      "status": "skipped",
+      "reason": "application_deadline (2026-04-12) already passed"
+    },
+    "https://www.isro.gov.in/URSCRecruitment13.html": {
+      "seen_at": "2026-11-25T15:19:12Z",
+      "source_id": "isro-careers",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-20) already passed"
+    },
+    "https://www.isro.gov.in/DOSRecruitment10.html": {
+      "seen_at": "2026-11-25T15:19:36Z",
+      "source_id": "isro-careers",
+      "status": "added",
+      "slug": "department-of-space-dos-extension-of-application-deadline-for-group-a"
+    },
+    "https://www.isro.gov.in/HSFCRecruitment2026_2.html": {
+      "seen_at": "2026-11-25T15:19:56Z",
+      "source_id": "isro-careers",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-08) already passed"
+    },
+    "https://www.isro.gov.in/ICRB_Recruitment11.html": {
+      "seen_at": "2026-11-25T15:20:29Z",
+      "source_id": "isro-careers",
+      "status": "skipped",
+      "reason": "application_deadline (2026-08-16) already passed"
+    },
+    "https://cdnbbsr.s3waas.gov.in/s34ffd0e19d2069412274bd3025b0e176c/uploads/2026/09/202609151072597881.pdf": {
+      "seen_at": "2026-11-25T15:23:04Z",
+      "source_id": "uksssc-recruitments",
+      "status": "skipped",
+      "reason": "application_deadline (2026-10-22) already passed"
+    },
+    "https://cdnbbsr.s3waas.gov.in/s34ffd0e19d2069412274bd3025b0e176c/uploads/2026/11/202611251036354999.pdf": {
+      "seen_at": "2026-11-25T15:23:37Z",
+      "source_id": "uksssc-recruitments",
+      "status": "added",
+      "slug": "uttarakhand-subordinate-service-selection-commission-uksssc"
+    },
+    "https://cdnbbsr.s3waas.gov.in/s34ffd0e19d2069412274bd3025b0e176c/uploads/2026/11/20261117947374675.pdf": {
+      "seen_at": "2026-11-25T15:24:12Z",
+      "source_id": "uksssc-recruitments",
+      "status": "added",
+      "slug": "uttarakhand-subordinate-service-selection-commission-advertisement-for"
+    },
+    "https://cmd.kerala.gov.in/recruitment/notification-for-recruitment-to-various-posts-at-vizhinjam-international-seaport-limited-visl-2/": {
+      "seen_at": "2026-11-25T15:24:41Z",
+      "source_id": "cmd-kerala-recruitments",
+      "status": "added",
+      "slug": "centre-for-management-development-cmd-recruitment-to-various-posts-at"
+    },
+    "https://cmd.kerala.gov.in/recruitment/regional-language-proficiency-test-emrs-staff-esse-2023-2/": {
+      "seen_at": "2026-11-25T15:24:48Z",
+      "source_id": "cmd-kerala-recruitments",
+      "status": "skipped",
+      "reason": "not a recruitment announcement"
+    },
+    "https://www.freejobalert.com/articles/ddscbl-cooperative-intern-recruitment-2026-apply-offline-3076770": {
+      "seen_at": "2026-11-26T07:14:53Z",
+      "source_id": "freejobalert-latest",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-23) already passed"
+    },
+    "https://www.freejobalert.com/articles/nabfid-evp-head-market-risk-alm-enterprise-risk-recruitment-2026-3078088": {
+      "seen_at": "2026-11-26T07:15:20Z",
+      "source_id": "freejobalert-latest",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-24) already passed"
+    },
+    "https://www.freejobalert.com/articles/akola-janata-commercial-co-operative-bank-recruitment-2026-ca-3083547": {
+      "seen_at": "2026-11-26T07:15:28Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "the-akola-janata-commercial-co-operative-bank-ltd-akola-ca-banking-law"
+    },
+    "https://akolajanata.bank.in/tender/Bank_Staff_Requirement.pdf": {
+      "seen_at": "2026-11-26T07:15:28Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "the-akola-janata-commercial-co-operative-bank-ltd-akola-ca-banking-law"
+    },
+    "https://www.canarabank.bank.in/documents/d/guest/application-for-engaging-doctor-for-dispensary-at-canara-bank-ho-annex-ngv-koramangala": {
+      "seen_at": "2026-11-26T07:15:43Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "canara-bank-doctor-for-dispensary-2026"
+    },
+    "https://www.freejobalert.com/articles/canara-bank-doctor-recruitment-2026-3083551": {
+      "seen_at": "2026-11-26T07:15:43Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "canara-bank-doctor-for-dispensary-2026"
+    },
+    "https://www.freejobalert.com/articles/tgcab-chief-executive-officer-recruitment-2026-apply-offline-3083511": {
+      "seen_at": "2026-11-26T07:15:45Z",
+      "source_id": "freejobalert-latest",
+      "status": "pending_admin",
+      "pending_id": "tscab-chief-executive-officer-1-posts"
+    },
+    "https://www.freejobalert.com/articles/cbi-suaps-recruitment-2026-office-assistant-attendant-3084786": {
+      "seen_at": "2026-11-26T07:44:47Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "central-bank-of-india-samajik-utthan-avam-prashikshan-sansthan-cbi-2"
+    },
+    "https://www.freejobalert.com/articles/msc-bank-representative-of-institutional-administrator-recruitment-2026-apply-offline-3083446": {
+      "seen_at": "2026-11-26T07:27:51Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "maharashtra-state-co-operative-bank-ltd-representative-of-institutional"
+    },
+    "https://msc.bank.in/career/featured-job/eSs5d295VTlHRWluY2ZBaVVoOUpkdz09/download": {
+      "seen_at": "2026-11-26T07:27:51Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "maharashtra-state-co-operative-bank-ltd-representative-of-institutional"
+    },
+    "https://www.freejobalert.com/articles/exim-bank-recruitment-2026-apply-online-for-120-management-trainee-and-manager-posts-3080153": {
+      "seen_at": "2026-11-26T07:28:01Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "export-import-bank-of-india-management-trainees-and-managers-direct"
+    },
+    "https://www.eximbankindia.in/sites/default/files/2026-11/MT%20%20M%20Recruitment%20Advertisement%2012-11-2026%201.pdf": {
+      "seen_at": "2026-11-26T07:28:01Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "export-import-bank-of-india-management-trainees-and-managers-direct"
+    },
+    "https://www.sidbi.in/head/uploads/career_document/SIDBI_DETAILED_WEB_ADVT_ENGLISH_211126_21_11_2026.pdf": {
+      "seen_at": "2026-11-26T07:28:18Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "small-industries-development-bank-of-india-sidbi-recruitment-of"
+    },
+    "https://www.freejobalert.com/articles/sidbi-grade-a-b-recruitment-2026-3083361": {
+      "seen_at": "2026-11-26T07:28:18Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "small-industries-development-bank-of-india-sidbi-recruitment-of"
+    },
+    "https://www.freejobalert.com/articles/indian-bank-recruitment-2026-ai-specialist-officer-ai-engineer-3083304": {
+      "seen_at": "2026-11-26T07:28:29Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "indian-bank-ai-specialist-officers-and-ai-engineers-2026"
+    },
+    "https://indianbank.bank.in/documents/20117/34414/Hindi%2022026_11_20_12_59_24.pdf/e024939c-5e3c-d3e0-ff68-51b78721caea": {
+      "seen_at": "2026-11-26T07:28:29Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "indian-bank-ai-specialist-officers-and-ai-engineers-2026"
+    },
+    "https://www.freejobalert.com/articles/parwanoo-urban-co-operative-bank-recruitment-2026-peon-cum-guard-3082615": {
+      "seen_at": "2026-11-26T07:28:37Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "parwanoo-urban-co-operative-bank-general-manager-chief-manager-and-peon"
+    },
+    "https://img1.wsimg.com/blobby/go/ff2849c8-f2a6-4bf6-ba86-7ffabf1df4ab/JOB.pdf": {
+      "seen_at": "2026-11-26T07:28:37Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "parwanoo-urban-co-operative-bank-general-manager-chief-manager-and-peon"
+    },
+    "https://www.freejobalert.com/articles/sebi-part-time-counsellor-recruitment-2026-3081994": {
+      "seen_at": "2026-11-26T07:28:52Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "securities-and-exchange-board-of-india-sebi-part-time-counsellor-on"
+    },
+    "https://www.sebi.gov.in/sebi_data/careerfiles/nov-2026/1794800492576.pdf": {
+      "seen_at": "2026-11-26T07:28:52Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "securities-and-exchange-board-of-india-sebi-part-time-counsellor-on"
+    },
+    "https://hpscb.bank.in/upload/notification/doc/DIPcCs2umVv9CeEJieQWzWng0EBsy8eDv5fwGeIn.pdf": {
+      "seen_at": "2026-11-26T07:28:59Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "hpscb-general-manager-2026"
+    },
+    "https://www.freejobalert.com/articles/hpscb-general-manager-on-deputation-recruitment-2026-3081187": {
+      "seen_at": "2026-11-26T07:28:59Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "hpscb-general-manager-2026"
+    },
+    "https://www.eximbankindia.in/sites/default/files/2026-11/Advertisement%20for%20upload.pdf": {
+      "seen_at": "2026-11-26T07:29:23Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "exim-bank-data-protection-officer-deputy-data-protection-officer-2026"
+    },
+    "https://www.freejobalert.com/articles/exim-bank-recruitment-2026-data-protection-officer-3080961": {
+      "seen_at": "2026-11-26T07:29:23Z",
+      "source_id": "freejobalert-latest",
+      "status": "added",
+      "slug": "exim-bank-data-protection-officer-deputy-data-protection-officer-2026"
+    },
+    "https://www.centralbankofindia.co.in": {
+      "seen_at": "2026-11-26T07:44:47Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "central-bank-of-india-samajik-utthan-avam-prashikshan-sansthan-cbi-2"
+    },
+    "https://centralbank.bank.in/sites/default/files/RECRUITMENT%20OF%20STAFF%20FOR%20RSETI%20_0.doc": {
+      "seen_at": "2026-11-26T07:44:47Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "central-bank-of-india-samajik-utthan-avam-prashikshan-sansthan-cbi-2"
+    },
+    "https://psc.ap.gov.in/Documents/NotificationDocuments/Notifications_Extension_Webnote_20112026.pdf": {
+      "seen_at": "2026-11-26T10:57:33Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "andhra-pradesh-public-service-commission-appsc-extension-of-application"
+    },
+    "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-106-assistant-motor-vehicle-inspector-lab-assistant-and-more-posts-3073362": {
+      "seen_at": "2026-11-26T10:57:33Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "andhra-pradesh-public-service-commission-appsc-extension-of-application"
+    },
+    "https://www.freejobalert.com/articles/appsc-assistant-executive-engineer-aee-recruitment-2026-3073308": {
+      "seen_at": "2026-11-26T10:57:49Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-22) already passed"
+    },
+    "https://www.freejobalert.com/articles/oil-india-executive-recruitment-2026-3073913": {
+      "seen_at": "2026-11-26T12:57:02Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "oil-india-limited-superintending-research-scientist-senior-officer-and"
+    },
+    "https://www.freejobalert.com/articles/ongc-apprentice-recruitment-2026-3077536": {
+      "seen_at": "2026-11-26T10:58:16Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-20) already passed"
+    },
+    "https://www.freejobalert.com/articles/dcpu-rohtas-support-person-recruitment-2026-apply-online-for-30-posts-3084655": {
+      "seen_at": "2026-11-26T12:25:14Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-child-protection-unit-dcpu-rohtas-support-persons-empanelment"
+    },
+    "https://www.freejobalert.com/articles/brlps-young-professional-recruitment-2026-3083044": {
+      "seen_at": "2026-11-26T10:58:30Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "bihar-rural-livelihoods-promotion-society-jeevika-young-professional"
+    },
+    "https://brlps.in/UplodFiles/Career/2026_Advertisement-%20YP%20Recruitment%20-%20for%20Publication.pdf": {
+      "seen_at": "2026-11-26T10:58:30Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "bihar-rural-livelihoods-promotion-society-jeevika-young-professional"
+    },
+    "https://www.freejobalert.com/articles/csptcl-recruitment-2026-apply-online-for-1501-ae-je-deo-attendant-and-more-posts-3079324": {
+      "seen_at": "2026-11-26T10:58:49Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "not a recruitment announcement"
+    },
+    "https://www.freejobalert.com/articles/eil-associate-engineer-recruitment-2026-3084464": {
+      "seen_at": "2026-11-26T12:26:32Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "engineers-india-limited-eil-associate-engineer-grade-i-ii-on-fixed-term"
+    },
+    "https://www.freejobalert.com/articles/lnh-junior-resident-non-pg-recruitment-2026-3084372": {
+      "seen_at": "2026-11-26T12:56:46Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "lok-nayak-hospital-government-of-nct-of-delhi-junior-resident-non-pg-on"
+    },
+    "https://www.freejobalert.com/articles/gsssb-food-safety-officer-recruitment-2026-3084081": {
+      "seen_at": "2026-11-26T11:00:15Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-10) already passed"
+    },
+    "https://www.freejobalert.com/articles/aiims-bilaspur-recruitment-2026-apply-offline-for-73-professor-associate-professor-and-more-posts-3084131": {
+      "seen_at": "2026-11-26T11:00:43Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "aiims-bilaspur-professor-additional-professor-associate-professor"
+    },
+    "https://aiimsbilaspur.edu.in/sites/default/files/2026-11/Advertisement%20Nov%202026.pdf": {
+      "seen_at": "2026-11-26T11:00:43Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "aiims-bilaspur-professor-additional-professor-associate-professor"
+    },
+    "https://www.freejobalert.com/articles/aft-chandigarh-recruitment-2027-apply-offline-for-57-stenographer-deo-and-more-posts-3084887": {
+      "seen_at": "2026-11-26T12:28:26Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "armed-forces-tribunal-regional-bench-chandigarh-recruitment-for-various"
+    },
+    "https://www.freejobalert.com/articles/cra-college-recruitment-2026-teaching-posts-and-librarian-3084419": {
+      "seen_at": "2026-11-26T11:02:08Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "cra-college-sonepat-teaching-posts-and-librarian-2026"
+    },
+    "https://mdu.ac.in/UpFiles/UpPdfFiles/2026/Nov/4_11-25-2026_13-19-23_advertisement%20of%20cra%20college.pdf": {
+      "seen_at": "2026-11-26T11:02:08Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "cra-college-sonepat-teaching-posts-and-librarian-2026"
+    },
+    "https://www.aiimsdeoghar.edu.in/Content/resources/document/Recruitment/rolling_adv_appl_form_sr_na_23112026123807185.pdf": {
+      "seen_at": "2026-11-26T11:02:23Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "all-india-institute-of-medical-sciences-deoghar-senior-resident-non"
+    },
+    "https://www.freejobalert.com/articles/aiims-deoghar-recruitment-2026-senior-resident-non-academic-3083785": {
+      "seen_at": "2026-11-26T11:02:23Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "all-india-institute-of-medical-sciences-deoghar-senior-resident-non"
+    },
+    "https://www.freejobalert.com/articles/jkssb-junior-engineer-recruitment-2026-3074735": {
+      "seen_at": "2026-11-26T12:28:56Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "jammu-and-kashmir-services-selection-board-jkssb-junior-engineer"
+    },
+    "https://www.freejobalert.com/articles/jk-bank-recruitment-2026-apply-online-for-1053-banking-associate-po-posts-3080556": {
+      "seen_at": "2026-11-26T12:29:37Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "j-k-bank-banking-associates-2026"
+    },
+    "https://cetonline.karnataka.gov.in/keawebentry456/gpcjecivilrpc2026/20261031183143_RPCkannada.pdf": {
+      "seen_at": "2026-11-26T11:04:56Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "karnataka-examination-authority-kea-assistant-town-planner-junior"
+    },
+    "https://www.freejobalert.com/articles/kea-recruitment-2026-apply-online-for-187-junior-engineer-assistant-town-planner-and-more-posts-3077720": {
+      "seen_at": "2026-11-26T11:04:56Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "karnataka-examination-authority-kea-assistant-town-planner-junior"
+    },
+    "https://www.freejobalert.com/articles/kea-fda-sda-recruitment-2026-3077035": {
+      "seen_at": "2026-11-26T11:05:18Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-25) already passed"
+    },
+    "https://www.keralapsc.gov.in/extra-ordinary-gazette-date-16112026": {
+      "seen_at": "2026-11-26T11:05:42Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "kerala-public-service-commission-field-supervisor-ld-clerk-and-more-2026"
+    },
+    "https://www.freejobalert.com/articles/kerala-psc-recruitment-2026-apply-online-for-39-field-supervisor-ld-clerk-and-more-posts-3084858": {
+      "seen_at": "2026-11-26T11:05:42Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "kerala-public-service-commission-field-supervisor-ld-clerk-and-more-2026"
+    },
+    "https://www.freejobalert.com/articles/c-dit-recruitment-2026-apply-online-for-30-junior-machine-operator-production-coordinator-and-more-posts-3084757": {
+      "seen_at": "2026-11-26T11:05:55Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "centre-for-development-of-imaging-technology-c-dit-project-staff-junior"
+    },
+    "https://careers.cdit.org/2026Con/OIPNotification24.pdf": {
+      "seen_at": "2026-11-26T11:05:55Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "centre-for-development-of-imaging-technology-c-dit-project-staff-junior"
+    },
+    "https://www.freejobalert.com/articles/akola-nagar-parishad-recruitment-2026-peon-driver-fitter-3084817": {
+      "seen_at": "2026-11-26T12:30:50Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "akola-nagar-parishad-collectorate-office-akola-junior-clerk"
+    },
+    "https://vvcmc.in/wp-content/uploads/2026/11/%E0%A4%9C%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%B0%E0%A4%BE%E0%A4%A4.pdf": {
+      "seen_at": "2026-11-26T11:06:13Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "vasai-virar-city-municipal-corporation-vvcmc-junior-engineer-clerk"
+    },
+    "https://www.freejobalert.com/articles/vvcmc-recruitment-2026-apply-online-for-156-clerk-typist-junior-engineer-and-more-posts-3084807": {
+      "seen_at": "2026-11-26T11:06:13Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "vasai-virar-city-municipal-corporation-vvcmc-junior-engineer-clerk"
+    },
+    "https://esic.gov.in/attachments/recruitmentfile/WALK_IN_INTERVIEW_ON_04TH_DECEMBER_2026_FOR_THE_POST_OF_CONTRACTUAL_SENIOR_RESIDENT_3_YEARS_TENURE_AND_FULL_TIME_PART_TIME_CONTRACTUAL_SPECIALISTSAT_ESIC_HOSPITAL_SONAGIRI_BHOPAL_462022_M_P_1795672407.pdf": {
+      "seen_at": "2026-11-26T11:06:21Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "esic-hospital-sonagiri-bhopal-contractual-senior-resident-and-full-time"
+    },
+    "https://www.freejobalert.com/articles/esic-recruitment-2026-senior-resident-specialist-3084792": {
+      "seen_at": "2026-11-26T11:06:21Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "esic-hospital-sonagiri-bhopal-contractual-senior-resident-and-full-time"
+    },
+    "https://www.freejobalert.com/articles/mprdc-recruitment-2026-apply-online-for-30-computer-technician-manager-and-more-posts-3084437": {
+      "seen_at": "2026-11-26T11:06:36Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "not a recruitment announcement"
+    },
+    "https://www.freejobalert.com/articles/ofbl-danger-building-worker-dbw-recruitment-2026-3084841": {
+      "seen_at": "2026-11-26T12:56:55Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "ordnance-factory-badmal-munitions-india-limited-engagement-of-tenure"
+    },
+    "https://www.ossc.gov.in": {
+      "seen_at": "2026-11-26T11:06:44Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "odisha-staff-selection-commission-ossc-combined-higher-secondary-10-2"
+    },
+    "https://www.freejobalert.com/articles/ossc-recruitment-2026-technical-assistant-weaving-supervisor-3082735": {
+      "seen_at": "2026-11-26T11:06:44Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "odisha-staff-selection-commission-ossc-combined-higher-secondary-10-2"
+    },
+    "https://www.freejobalert.com/articles/aiims-bathinda-recruitment-2026-professor-assistant-professor-3079829": {
+      "seen_at": "2026-11-26T11:06:53Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "aiims-bathinda-faculty-group-a-posts-professor-additional-professor"
+    },
+    "https://aiimsbathinda.edu.in/images/Reqruitment/20261109052537.pdf": {
+      "seen_at": "2026-11-26T11:06:53Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "aiims-bathinda-faculty-group-a-posts-professor-additional-professor"
+    },
+    "https://mbspsu.ac.in/api/assets/announcements/ANN-c6aa3323-b003-49eb-8740-bc432afce8d7/ANN-c6aa3323-b003-49eb-8740-bc432afce8d7-1.pdf": {
+      "seen_at": "2026-11-26T11:07:18Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "the-maharaja-bhupinder-singh-punjab-sports-university-patiala"
+    },
+    "https://www.freejobalert.com/articles/mbspsu-professor-physical-education-recruitment-2026-3079654": {
+      "seen_at": "2026-11-26T11:07:18Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "the-maharaja-bhupinder-singh-punjab-sports-university-patiala"
+    },
+    "https://www.freejobalert.com/articles/rssb-junior-engineer-recruitment-2026-apply-online-for-874-posts-3063198": {
+      "seen_at": "2026-11-26T11:07:50Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "rajasthan-staff-selection-board-rssb-jaipur-junior-engineer-combined"
+    },
+    "https://rssb.rajasthan.gov.in/storage/advertisement_item/1794922282.pdf": {
+      "seen_at": "2026-11-26T11:07:50Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "rajasthan-staff-selection-board-rssb-jaipur-junior-engineer-combined"
+    },
+    "https://www.freejobalert.com/articles/iim-udaipur-manager-marketing-executive-education-recruitment-2026-3084825": {
+      "seen_at": "2026-11-26T11:08:16Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "iim-udaipur-manager-marketing-executive-education-on-contract-2026"
+    },
+    "https://www.iimu.ac.in/applications-are-invited-for-the-position-of-manager-marketing-executive-education-on-contract-nov-2026/": {
+      "seen_at": "2026-11-26T11:08:16Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "iim-udaipur-manager-marketing-executive-education-on-contract-2026"
+    },
+    "https://www.freejobalert.com/articles/nilgiris-district-health-society-recruitment-2026-audiologist-3084829": {
+      "seen_at": "2026-11-26T12:33:33Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "dhs-nilgiris-audiologist-radiographer-health-inspector-and-other-posts"
+    },
+    "https://www.freejobalert.com/articles/chennai-city-urban-health-mission-staff-nurse-recruitment-2026-apply-offline-for-130-posts-3084011": {
+      "seen_at": "2026-11-26T11:08:22Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "chennai-city-urban-health-mission-staff-nurse-2026"
+    },
+    "https://chennaicorporation.gov.in/gcc/pdf/NUHM.pdf": {
+      "seen_at": "2026-11-26T11:08:22Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "chennai-city-urban-health-mission-staff-nurse-2026"
+    },
+    "https://www.freejobalert.com/articles/gmc-rajanna-sircilla-recruitment-2026-professor-assistant-professor-3084417": {
+      "seen_at": "2026-11-26T12:34:41Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "government-medical-college-rajanna-sircilla-professor-associate"
+    },
+    "https://www.freejobalert.com/articles/ecil-apprentice-recruitment-2026-3084090": {
+      "seen_at": "2026-11-26T12:35:23Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "electronics-corporation-of-india-limited-graduate-engineer-apprentice"
+    },
+    "https://www.freejobalert.com/articles/127-inf-bn-ta-eco-garhwal-rifles-recruitment-rally-2026-3080453": {
+      "seen_at": "2026-11-26T11:08:24Z",
+      "source_id": "freejobalert-statewise",
+      "status": "pending_admin",
+      "pending_id": "territorial-army-garhwal-rifles-jco-soldier-tradesmen-45"
+    },
+    "https://www.freejobalert.com/articles/ukpsc-lower-pcs-recruitment-2026-3079327": {
+      "seen_at": "2026-11-26T11:08:31Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "uttarakhand-public-service-commission-ukpsc-nayab-tehsildar-excise"
+    },
+    "https://psc.uk.gov.in/": {
+      "seen_at": "2026-11-26T11:08:31Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "uttarakhand-public-service-commission-ukpsc-nayab-tehsildar-excise"
+    },
+    "https://cdn.digialm.com/EForms/configuredHtml/1258/101869/cLS13NVBAyZXSMfBYd/Index.html": {
+      "seen_at": "2026-11-26T12:57:02Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "oil-india-limited-superintending-research-scientist-senior-officer-and"
+    },
+    "https://www.oil-india.com/download-advertisement-document?detail=NlVXMW9ENlc=": {
+      "seen_at": "2026-11-26T12:57:02Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "oil-india-limited-superintending-research-scientist-senior-officer-and"
+    },
+    "https://rohtas.nic.in": {
+      "seen_at": "2026-11-26T12:25:14Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-child-protection-unit-dcpu-rohtas-support-persons-empanelment"
+    },
+    "https://cdn.s3waas.gov.in/s3cbcb58ac2e496207586df2854b17995f/uploads/2026/11/17956062704826.pdf": {
+      "seen_at": "2026-11-26T12:25:14Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-child-protection-unit-dcpu-rohtas-support-persons-empanelment"
+    },
+    "https://recruitment.eil.co.in/hrdnew/others/79.pdf": {
+      "seen_at": "2026-11-26T12:26:32Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "engineers-india-limited-eil-associate-engineer-grade-i-ii-on-fixed-term"
+    },
+    "https://recruitment.eil.co.in/": {
+      "seen_at": "2026-11-26T12:26:32Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "engineers-india-limited-eil-associate-engineer-grade-i-ii-on-fixed-term"
+    },
+    "https://lnjp.delhi.gov.in/": {
+      "seen_at": "2026-11-26T12:56:46Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "lok-nayak-hospital-government-of-nct-of-delhi-junior-resident-non-pg-on"
+    },
+    "https://lnjp.delhi.gov.in/sites/default/files/lnjp/universal/notice_for_interview_post.pdf": {
+      "seen_at": "2026-11-26T12:56:46Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "lok-nayak-hospital-government-of-nct-of-delhi-junior-resident-non-pg-on"
+    },
+    "https://aft.gov.in": {
+      "seen_at": "2026-11-26T12:28:26Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "armed-forces-tribunal-regional-bench-chandigarh-recruitment-for-various"
+    },
+    "https://aft.gov.in/public/upload_document/1795670671.pdf": {
+      "seen_at": "2026-11-26T12:28:26Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "armed-forces-tribunal-regional-bench-chandigarh-recruitment-for-various"
+    },
+    "https://www.jkssb.nic.in": {
+      "seen_at": "2026-11-26T12:28:56Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "jammu-and-kashmir-services-selection-board-jkssb-junior-engineer"
+    },
+    "https://jkssb.nic.in/Pdf/Advt_notification_10OF2026_21102026.pdf": {
+      "seen_at": "2026-11-26T12:28:56Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "jammu-and-kashmir-services-selection-board-jkssb-junior-engineer"
+    },
+    "https://jkb.bank.in/": {
+      "seen_at": "2026-11-26T12:29:37Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "j-k-bank-banking-associates-2026"
+    },
+    "http://jkb.bank.in/sites/default/files/2026-11/J%26K%20Detailed%20Notification%20Banking%20Associate.pdf": {
+      "seen_at": "2026-11-26T12:29:37Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "j-k-bank-banking-associates-2026"
+    },
+    "https://cdn.s3waas.gov.in/s3f0e52b27a7a5d6a1a87373dffa53dbe5/uploads/2026/11/17956715891686.pdf": {
+      "seen_at": "2026-11-26T12:30:50Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "akola-nagar-parishad-collectorate-office-akola-junior-clerk"
+    },
+    "https://akola.gov.in": {
+      "seen_at": "2026-11-26T12:30:50Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "akola-nagar-parishad-collectorate-office-akola-junior-clerk"
+    },
+    "https://munitionsindia.in/wp-content/uploads/No.1002-Tenure-BasedDBW-PERRC-OFBL-2026-DTD.26.11.2026.pdf": {
+      "seen_at": "2026-11-26T12:56:55Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "ordnance-factory-badmal-munitions-india-limited-engagement-of-tenure"
+    },
+    "https://munitionsindia.in": {
+      "seen_at": "2026-11-26T12:56:55Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "ordnance-factory-badmal-munitions-india-limited-engagement-of-tenure"
+    },
+    "https://cdn.s3waas.gov.in/s339461a19e9eddfb385ea76b26521ea48/uploads/2026/11/17955238162960.pdf": {
+      "seen_at": "2026-11-26T12:33:33Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "dhs-nilgiris-audiologist-radiographer-health-inspector-and-other-posts"
+    },
+    "https://nilgiris.nic.in": {
+      "seen_at": "2026-11-26T12:33:33Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "dhs-nilgiris-audiologist-radiographer-health-inspector-and-other-posts"
+    },
+    "https://gmcrajannasircilla.org/": {
+      "seen_at": "2026-11-26T12:34:41Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "government-medical-college-rajanna-sircilla-professor-associate"
+    },
+    "https://cdn.s3waas.gov.in/s38f14e45fceea167a5a36dedd4bea2543/uploads/2026/11/17955893185304.pdf": {
+      "seen_at": "2026-11-26T12:34:41Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "government-medical-college-rajanna-sircilla-professor-associate"
+    },
+    "https://www.ecil.co.in/jobs/Advt_12_2026.pdf": {
+      "seen_at": "2026-11-26T12:35:23Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "electronics-corporation-of-india-limited-graduate-engineer-apprentice"
+    },
+    "https://www.ecil.co.in": {
+      "seen_at": "2026-11-26T12:35:23Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "electronics-corporation-of-india-limited-graduate-engineer-apprentice"
+    },
+    "https://www.freejobalert.com/articles/kgbv-maharajganj-teaching-and-non-teaching-recruitment-2026-3084932": {
+      "seen_at": "2026-11-26T13:08:38Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "kgbv-maharajganj-office-of-the-district-basic-education-officer"
+    },
+    "https://www.freejobalert.com/articles/district-programme-officer-mirzapur-recruitment-2026-anganwadi-3084782": {
+      "seen_at": "2026-11-26T12:58:55Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-programme-officer-mirzapur-anganwadi-sahayika-2026"
+    },
+    "https://upanganwadibharti.in/helper-v2/uploadOrder/ordercopy1795602456.pdf": {
+      "seen_at": "2026-11-26T12:58:55Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-programme-officer-mirzapur-anganwadi-sahayika-2026"
+    },
+    "https://sewayojan.up.nic.in/NEWS/ESIMedical251126.pdf": {
+      "seen_at": "2026-11-26T12:59:11Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "directorate-esi-labour-medical-services-up-re-appointment-of-retired"
+    },
+    "https://www.freejobalert.com/articles/esis-up-recruitment-2026-specialist-physician-3084627": {
+      "seen_at": "2026-11-26T12:59:11Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "directorate-esi-labour-medical-services-up-re-appointment-of-retired"
+    },
+    "https://www.edcilindia.co.in/Default/ViewFile/?id=1795455694721_Final+Advertisement_Bhutan+STEM+Teachers+recruitment+(Phase+4).pdf&path=Ecareer": {
+      "seen_at": "2026-11-26T12:59:20Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "edcil-india-limited-pgt-teacher-computer-science-ict-mathematics-2026"
+    },
+    "https://www.freejobalert.com/articles/edcil-recruitment-2026-pgt-teacher-computer-science-teacher-3084266": {
+      "seen_at": "2026-11-26T12:59:20Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "edcil-india-limited-pgt-teacher-computer-science-ict-mathematics-2026"
+    },
+    "https://www.freejobalert.com/articles/aiims-gorakhpur-recruitment-2026-professor-associate-professor-3084439": {
+      "seen_at": "2026-11-26T12:59:29Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "all-india-institute-of-medical-sciences-aiims-gorakhpur-faculty-group-a"
+    },
+    "https://aiimsgorakhpur.edu.in/wp-content/uploads/2026/11/Advertisement-13.pdf": {
+      "seen_at": "2026-11-26T12:59:29Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "all-india-institute-of-medical-sciences-aiims-gorakhpur-faculty-group-a"
+    },
+    "https://cdnbbsr.s3waas.gov.in/s3ec05b5b0db7f3a77ca4fcf9eca57aa71/uploads/2026/11/2026112491.pdf": {
+      "seen_at": "2026-11-26T12:59:40Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-court-bhadohi-principal-assistant-and-senior-assistant-re"
+    },
+    "https://www.freejobalert.com/articles/bhadohi-district-court-recruitment-2026-3084137": {
+      "seen_at": "2026-11-26T12:59:40Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-court-bhadohi-principal-assistant-and-senior-assistant-re"
+    },
+    "https://www.freejobalert.com/articles/asmc-bahraich-faculty-recruitment-2026-apply-offline-for-56-professor-associate-professor-and-more-posts-3075061": {
+      "seen_at": "2026-11-26T12:59:40Z",
+      "source_id": "freejobalert-statewise",
+      "status": "pending_admin",
+      "pending_id": "asmc-bahraich-professor-associate-professor-and-assistant"
+    },
+    "https://www.freejobalert.com/articles/bsa-hardoi-academic-resource-person-recruitment-2026-apply-offline-for-36-posts-3083671": {
+      "seen_at": "2026-11-26T13:11:30Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "karyalaya-jila-basik-shiksha-adhikari-hardoi-academic-resource-person"
+    },
+    "https://www.freejobalert.com/articles/upessc-tgt-recruitment-2026-17735-posts-3075551": {
+      "seen_at": "2026-11-26T12:59:54Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-23) already passed"
+    },
+    "https://www.freejobalert.com/articles/district-programme-officer-icds-ballia-anganwadi-recruitment-2026-3083555": {
+      "seen_at": "2026-11-26T13:12:46Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-programme-officer-icds-ballia-anganwadi-sahayika-2026"
+    },
+    "https://www.freejobalert.com/articles/uppsc-pcs-j-recruitment-2026-3082904": {
+      "seen_at": "2026-11-26T13:00:12Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "uppsc-u-p-judicial-service-civil-judge-junior-division-exam-2026-2026"
+    },
+    "https://uppsc.up.nic.in/": {
+      "seen_at": "2026-11-26T13:00:12Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "uppsc-u-p-judicial-service-civil-judge-junior-division-exam-2026-2026"
+    },
+    "https://www.freejobalert.com/articles/district-programme-officer-icds-ghazipur-anganwadi-recruitment-2026-3082371": {
+      "seen_at": "2026-11-26T13:13:53Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "icds-ghazipur-anganwadi-worker-anganwadi-karyakatri-2026"
+    },
+    "https://www.freejobalert.com/articles/bhu-recruitment-2026-apply-online-for-601-group-a-b-and-c-posts-3082050": {
+      "seen_at": "2026-11-26T13:00:25Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "banaras-hindu-university-non-teaching-group-a-b-c-positions-medical"
+    },
+    "https://www.bhu.ac.in/Images/files/Advt%20No_%2006-2026-27%20hospital%20group%20A%20B%20%26%20C%202026.pdf": {
+      "seen_at": "2026-11-26T13:00:25Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "banaras-hindu-university-non-teaching-group-a-b-c-positions-medical"
+    },
+    "https://rlbcau.ac.in/wp-content/uploads/2026/11/Advt_09_26.pdf": {
+      "seen_at": "2026-11-26T13:00:39Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "rani-lakshmi-bai-central-agricultural-university-rlbcau-professor"
+    },
+    "https://www.freejobalert.com/articles/rlbcau-recruitment-2026-apply-online-for-82-professor-associate-professor-and-more-posts-3082211": {
+      "seen_at": "2026-11-26T13:00:39Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "rani-lakshmi-bai-central-agricultural-university-rlbcau-professor"
+    },
+    "https://cmpcollege.ac.in/storage/uploads/media//1794849857_kFz15Q.pdf": {
+      "seen_at": "2026-11-26T13:00:50Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "c-m-p-degree-college-assistant-professor-2026"
+    },
+    "https://www.freejobalert.com/articles/cmp-degree-college-assistant-professor-recruitment-2026-apply-online-for-33-posts-3081854": {
+      "seen_at": "2026-11-26T13:00:50Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "c-m-p-degree-college-assistant-professor-2026"
+    },
+    "https://www.freejobalert.com/articles/up-anganwadi-pilibhit-recruitment-2026-anganwadi-helper-3080845": {
+      "seen_at": "2026-11-26T13:00:56Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "up-anganwadi-pilibhit-anganwadi-worker-anganwadi-helper-2026"
+    },
+    "https://upanganwadibharti.in/helper-v2/uploadOrder/ordercopy1794483396.pdf": {
+      "seen_at": "2026-11-26T13:00:56Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "up-anganwadi-pilibhit-anganwadi-worker-anganwadi-helper-2026"
+    },
+    "https://www.freejobalert.com/articles/up-anganwadi-lucknow-recruitment-2026-apply-online-for-428-anganwadi-helper-anganwadi-worker-posts-3080843": {
+      "seen_at": "2026-11-26T13:01:06Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "office-of-the-district-programme-officer-lucknow-anganwadi-worker-and"
+    },
+    "https://upanganwadibharti.in/helper-v2/uploadOrder/ordercopy1794462868.pdf": {
+      "seen_at": "2026-11-26T13:01:06Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "office-of-the-district-programme-officer-lucknow-anganwadi-worker-and"
+    },
+    "https://www.freejobalert.com/articles/up-anganwadi-sant-kabir-nagar-anganwadi-helper-recruitment-2026-apply-online-for-112-posts-3080223": {
+      "seen_at": "2026-11-26T13:01:14Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-programme-officer-sant-kabir-nagar-anganwadi-sahayika-2026"
+    },
+    "https://upanganwadibharti.in/helper-v2/uploadOrder/ordercopy1793956980.pdf": {
+      "seen_at": "2026-11-26T13:01:14Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-programme-officer-sant-kabir-nagar-anganwadi-sahayika-2026"
+    },
+    "https://www.freejobalert.com/articles/icds-recruitment-2026-anganwadi-worker-3079586": {
+      "seen_at": "2026-11-26T13:14:59Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "icds-ballia-anganwadi-worker-2026"
+    },
+    "https://www.freejobalert.com/articles/upssc-combined-lower-subordinate-services-intermediate-level-main-examination-2026-3074209": {
+      "seen_at": "2026-11-26T13:19:34Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "uttar-pradesh-subordinate-services-selection-commission-upsssc-combined"
+    },
+    "https://www.freejobalert.com/articles/chief-medical-officer-budaun-recruitment-2026-medical-officer-3079582": {
+      "seen_at": "2026-11-26T13:20:44Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "office-of-chief-medical-officer-budaun-medical-officer-and-general"
+    },
+    "https://upanganwadibharti.in/helper-v2/uploadOrder/ordercopy1793878155.pdf": {
+      "seen_at": "2026-11-26T13:01:27Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-programme-officer-dpo-hardoi-anganwadi-worker-and-anganwadi"
+    },
+    "https://www.freejobalert.com/articles/up-anganwadi-hardoi-recruitment-2026-apply-online-for-662-anganwadi-worker-anganwadi-helper-posts-3079247": {
+      "seen_at": "2026-11-26T13:01:27Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "district-programme-officer-dpo-hardoi-anganwadi-worker-and-anganwadi"
+    },
+    "https://www.freejobalert.com/articles/up-anganwadi-hardoi-anganwadi-sahayika-recruitment-2026-apply-online-for-315-posts-3078635": {
+      "seen_at": "2026-11-26T13:01:34Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "up-anganwadi-hardoi-anganwadi-sahayika-2026"
+    },
+    "https://upanganwadibharti.in/worker-v4/uploadOrder/ordercopy_1793786155_897410f7.pdf": {
+      "seen_at": "2026-11-26T13:01:34Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "up-anganwadi-hardoi-anganwadi-sahayika-2026"
+    },
+    "https://upanganwadibharti.in/worker-v4/uploadOrder/ordercopy_1793788125_fe3d1005.pdf": {
+      "seen_at": "2026-11-26T13:02:20Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "up-anganwadi-ballia-anganwadi-worker-2026"
+    },
+    "https://www.freejobalert.com/articles/up-anganwadi-ballia-anganwadi-worker-recruitment-2026-apply-online-for-242-posts-3078633": {
+      "seen_at": "2026-11-26T13:02:20Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "up-anganwadi-ballia-anganwadi-worker-2026"
+    },
+    "https://www.freejobalert.com/articles/district-basic-education-office-lakhimpur-teaching-and-non-teaching-recruitment-2026-3076453": {
+      "seen_at": "2026-11-26T13:21:55Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-basic-education-office-lakhimpur-principal-teacher-warden"
+    },
+    "https://uppsc.up.nic.in/OuterPages/View_Enclosure.aspx?ID=307&flag=E&FID=947": {
+      "seen_at": "2026-11-26T13:03:23Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "uppsc-samiksha-adhikari-sahayak-samiksha-adhikari-etc-gen-spl-rectt"
+    },
+    "https://www.freejobalert.com/articles/uppsc-ro-aro-recruitment-2026-3075713": {
+      "seen_at": "2026-11-26T13:03:23Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "uppsc-samiksha-adhikari-sahayak-samiksha-adhikari-etc-gen-spl-rectt"
+    },
+    "https://www.freejobalert.com/articles/drat-recruitment-2026-apply-offline-for-37-stenographer-udc-and-more-posts-3075082": {
+      "seen_at": "2026-11-26T13:23:30Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "debts-recovery-appellate-tribunal-allahabad-stenographer-udc-and-more"
+    },
+    "https://rgnau.ac.in/sites/default/files/inline-files/Advertisemnt-Faculty%20(including%20backlog)-Oct%202026-Final%20-22.10.2026.pdf": {
+      "seen_at": "2026-11-26T13:03:38Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "rajiv-gandhi-national-aviation-university-rgnau-professor-associate"
+    },
+    "https://www.freejobalert.com/articles/rgnau-teaching-recruitment-2026-3075050": {
+      "seen_at": "2026-11-26T13:03:38Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "rajiv-gandhi-national-aviation-university-rgnau-professor-associate"
+    },
+    "https://www.freejobalert.com/articles/asmc-bahraich-to-recruit-53-faculty-posts-3075042": {
+      "seen_at": "2026-11-26T13:24:39Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "maharaja-suhel-dev-swashasi-rajya-chikitsa-mahavidyalaya-avam-maharshi"
+    },
+    "https://www.freejobalert.com/articles/esic-medical-college-hospital-varanasi-recruitment-2026-walkin-for-79-teaching-faculty-senior-resident-tutor-posts-3074782": {
+      "seen_at": "2026-11-26T13:04:01Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "esic-medical-college-hospital-varanasi-teaching-faculty-senior-resident"
+    },
+    "https://esic.gov.in/attachments/recruitmentfile/Recruitment_of_Teaching_Faculty_on_contract_basis_at_ESIC_Medical_College_amp_Hospital_Pandeypur_Varanasi_1792570807.pdf": {
+      "seen_at": "2026-11-26T13:04:01Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "esic-medical-college-hospital-varanasi-teaching-faculty-senior-resident"
+    },
+    "https://www.freejobalert.com/articles/upsssc-je-electrical-recruitment-2026-3072943": {
+      "seen_at": "2026-11-26T13:04:02Z",
+      "source_id": "freejobalert-statewise",
+      "status": "pending_admin",
+      "pending_id": "upsssc-junior-engineer-electrician-and-more-380-posts"
+    },
+    "https://www.freejobalert.com/articles/dfccil-recruitment-2026-jgm-op-bd-dgm-op-bd-3082178": {
+      "seen_at": "2026-11-26T13:25:59Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "dedicated-freight-corridor-corporation-of-india-limited-jgm-dgm-op-bd"
+    },
+    "https://www.mmmut.ac.in/News_content/55115advertisment_11262026.pdf": {
+      "seen_at": "2026-11-26T13:04:22Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "madan-mohan-malaviya-university-of-technology-gorakhpur-junior-research"
+    },
+    "https://www.freejobalert.com/articles/mmmut-junior-research-assistant-recruitment-2026-apply-offline-3084893": {
+      "seen_at": "2026-11-26T13:04:22Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "madan-mohan-malaviya-university-of-technology-gorakhpur-junior-research"
+    },
+    "https://cdnbbsr.s3waas.gov.in/s3ec017c78335a8924215ea5c22fda1aac/uploads/2026/11/2026112628.pdf": {
+      "seen_at": "2026-11-26T13:04:26Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "customs-excise-and-service-tax-appellate-tribunal-cestat-member"
+    },
+    "https://www.freejobalert.com/articles/allahabad-high-court-recruitment-2026-member-3084821": {
+      "seen_at": "2026-11-26T13:04:26Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "customs-excise-and-service-tax-appellate-tribunal-cestat-member"
+    },
+    "https://tmc.gov.in/postmaster/ViewFile.aspx?FileId=xGhXpNlER2nczBMNbqc5WA==": {
+      "seen_at": "2026-11-26T13:04:41Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "tata-memorial-centre-tmc-hbch-varanasi-senior-resident-in-surgical"
+    },
+    "https://www.freejobalert.com/articles/tmc-hbch-varanasi-senior-resident-recruitment-2026-apply-online-3084723": {
+      "seen_at": "2026-11-26T13:04:41Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "tata-memorial-centre-tmc-hbch-varanasi-senior-resident-in-surgical"
+    },
+    "https://ddpdoo.gov.in/storage/document/6b06d705c2a91.pdf": {
+      "seen_at": "2026-11-26T13:04:58Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "advanced-weapons-equipment-india-limited-aweil-manager-it-web-2026"
+    },
+    "https://www.freejobalert.com/articles/aweil-manager-it-web-recruitment-2026-3084619": {
+      "seen_at": "2026-11-26T13:04:58Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "advanced-weapons-equipment-india-limited-aweil-manager-it-web-2026"
+    },
+    "https://aiimsgorakhpur.edu.in/wp-content/uploads/2026/11/AIIMSGKPRESEARCH2026FINAL.pdf": {
+      "seen_at": "2026-11-26T13:05:11Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "aiims-gorakhpur-project-research-scientist-ii-non-medical-2026"
+    },
+    "https://www.freejobalert.com/articles/aiims-gorakhpur-project-research-scientist-ii-recruitment-2026-3083730": {
+      "seen_at": "2026-11-26T13:05:11Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "aiims-gorakhpur-project-research-scientist-ii-non-medical-2026"
+    },
+    "https://ddpdoo.gov.in/storage/document/6b06d746836ac.pdf": {
+      "seen_at": "2026-11-26T13:05:20Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "advanced-weapons-equipment-india-limited-sr-manager-it-web-2026"
+    },
+    "https://www.freejobalert.com/articles/aweil-senior-manager-recruitment-2026-apply-offline-3084680": {
+      "seen_at": "2026-11-26T13:05:20Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "advanced-weapons-equipment-india-limited-sr-manager-it-web-2026"
+    },
+    "https://www.freejobalert.com/articles/iwai-principal-private-secretary-recruitment-2026-apply-offline-3075533": {
+      "seen_at": "2026-11-26T13:05:32Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "inland-waterways-authority-of-india-iwai-principal-private-secretary"
+    },
+    "https://iwai.gov.in/sites/default/files/2026-10/emp._notice_of_pps_2026.pdf": {
+      "seen_at": "2026-11-26T13:05:32Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "inland-waterways-authority-of-india-iwai-principal-private-secretary"
+    },
+    "https://www.freejobalert.com/articles/university-of-allahabad-postdoctoral-fellowship-recruitment-2026-3076283": {
+      "seen_at": "2026-11-26T13:05:44Z",
+      "source_id": "freejobalert-statewise",
+      "status": "skipped",
+      "reason": "application_deadline (2026-11-18) already passed"
+    },
+    "https://www.freejobalert.com/articles/amu-cpc-assistant-professor-computer-science-recruitment-2026-3084500": {
+      "seen_at": "2026-11-26T13:28:31Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "aligarh-muslim-university-aligarh-assistant-professor-in-computer"
+    },
+    "https://www.freejobalert.com/articles/iit-bhu-junior-research-fellow-civil-engineering-recruitment-2026-3084485": {
+      "seen_at": "2026-11-26T13:05:59Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "iit-bhu-junior-research-fellow-2026"
+    },
+    "https://iitbhu.ac.in/contents/institute/2026/project/project_jrf_civ_geodetic.pdf": {
+      "seen_at": "2026-11-26T13:05:59Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "iit-bhu-junior-research-fellow-2026"
+    },
+    "https://aiimsgorakhpur.edu.in/wp-content/uploads/2026/11/ADVERTISEMENT-New.pdf": {
+      "seen_at": "2026-11-26T13:06:09Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "all-india-institute-of-medical-sciences-gorakhpur-lab-assistant-data"
+    },
+    "https://www.freejobalert.com/articles/aiims-gorakhpur-recruitment-2026-lab-assistant-data-entry-operator-3084450": {
+      "seen_at": "2026-11-26T13:06:09Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "all-india-institute-of-medical-sciences-gorakhpur-lab-assistant-data"
+    },
+    "https://www.allduniv.ac.in/upload/file_collection/JRA%20ADVT%20%20UOA%20project%20ID%207711%20UPCST.pdf": {
+      "seen_at": "2026-11-26T13:06:23Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "university-of-allahabad-junior-research-assistant-jra-2026"
+    },
+    "https://www.freejobalert.com/articles/university-of-allahabad-junior-research-assistant-jra-recruitment-2026-3084425": {
+      "seen_at": "2026-11-26T13:06:23Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "university-of-allahabad-junior-research-assistant-jra-2026"
+    },
+    "https://www.freejobalert.com/articles/banda-district-court-recruitment-2026-peon-reader-3084319": {
+      "seen_at": "2026-11-26T13:44:48Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-court-banda-reader-ahlmad-and-peon-2026"
+    },
+    "https://mgug.ac.in/admin/uploads/pdfs/MGUG_6b05dd75d3b48.pdf": {
+      "seen_at": "2026-11-26T13:07:29Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "mahayogi-gorakhnath-university-gorakhpur-consultant-neurosurgeon-2026"
+    },
+    "https://www.freejobalert.com/articles/mgug-consultant-neurosurgeon-recruitment-2026-apply-online-3084307": {
+      "seen_at": "2026-11-26T13:07:29Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "mahayogi-gorakhnath-university-gorakhpur-consultant-neurosurgeon-2026"
+    },
+    "https://www.freejobalert.com/articles/mgug-assistant-security-officer-recruitment-2026-apply-online-3084305": {
+      "seen_at": "2026-11-26T13:07:35Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "mahayogi-gorakhnath-university-gorakhpur-assistant-security-officer-2026"
+    },
+    "https://mgug.ac.in/admin/uploads/pdfs/MGUG_6b05dcc097e00.pdf": {
+      "seen_at": "2026-11-26T13:07:35Z",
+      "source_id": "freejobalert-statewise",
+      "status": "staged",
+      "slug": "mahayogi-gorakhnath-university-gorakhpur-assistant-security-officer-2026"
+    },
+    "https://cdn.s3waas.gov.in/s3eecca5b6365d9607ee5a9d336962c534/uploads/2026/11/17956794087609.pdf": {
+      "seen_at": "2026-11-26T13:08:38Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "kgbv-maharajganj-office-of-the-district-basic-education-officer"
+    },
+    "https://maharajganj.nic.in/": {
+      "seen_at": "2026-11-26T13:08:38Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "kgbv-maharajganj-office-of-the-district-basic-education-officer"
+    },
+    "https://cdn.s3waas.gov.in/s392c8c96e4c37100777c7190b76d28233/uploads/2026/02/17952530719104.pdf": {
+      "seen_at": "2026-11-26T13:11:30Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "karyalaya-jila-basik-shiksha-adhikari-hardoi-academic-resource-person"
+    },
+    "https://hardoi.nic.in/": {
+      "seen_at": "2026-11-26T13:11:30Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "karyalaya-jila-basik-shiksha-adhikari-hardoi-academic-resource-person"
+    },
+    "https://cdn.s3waas.gov.in/s32b44928ae11fb9384c4cf38708677c48/uploads/2026/11/17952599469186.pdf": {
+      "seen_at": "2026-11-26T13:12:46Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-programme-officer-icds-ballia-anganwadi-sahayika-2026"
+    },
+    "https://upanganwadibharti.in": {
+      "seen_at": "2026-11-26T13:14:59Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "icds-ballia-anganwadi-worker-2026"
+    },
+    "http://upanganwadibharti.in": {
+      "seen_at": "2026-11-26T13:13:53Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "icds-ghazipur-anganwadi-worker-anganwadi-karyakatri-2026"
+    },
+    "https://cdn.s3waas.gov.in/s3f2fc990265c712c49d51a18a32b39f0c/uploads/2026/11/17950068819220.pdf": {
+      "seen_at": "2026-11-26T13:13:53Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "icds-ghazipur-anganwadi-worker-anganwadi-karyakatri-2026"
+    },
+    "https://cdn.s3waas.gov.in/s32b44928ae11fb9384c4cf38708677c48/uploads/2026/11/17940217549713.pdf": {
+      "seen_at": "2026-11-26T13:14:59Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "icds-ballia-anganwadi-worker-2026"
+    },
+    "https://upsssc.gov.in/ViewPdf.aspx?A1uALP5dVk8G3ajXHXgxzRj3GO5Wz2DUNIJtsUuMY2I=": {
+      "seen_at": "2026-11-26T13:19:34Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "uttar-pradesh-subordinate-services-selection-commission-upsssc-combined"
+    },
+    "https://upsssc.gov.in/AllNotifications.aspx": {
+      "seen_at": "2026-11-26T13:19:34Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "uttar-pradesh-subordinate-services-selection-commission-upsssc-combined"
+    },
+    "https://cdn.s3waas.gov.in/s36c9882bbac1c7093bd25041881277658/uploads/2026/11/17939559114908.pdf": {
+      "seen_at": "2026-11-26T13:20:44Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "office-of-chief-medical-officer-budaun-medical-officer-and-general"
+    },
+    "https://budaun.nic.in/": {
+      "seen_at": "2026-11-26T13:20:44Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "office-of-chief-medical-officer-budaun-medical-officer-and-general"
+    },
+    "https://kheri.nic.in/": {
+      "seen_at": "2026-11-26T13:21:55Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-basic-education-office-lakhimpur-principal-teacher-warden"
+    },
+    "https://cdn.s3waas.gov.in/s3a2557a7b2e94197ff767970b67041697/uploads/2026/10/17931727196666.pdf": {
+      "seen_at": "2026-11-26T13:21:55Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-basic-education-office-lakhimpur-principal-teacher-warden"
+    },
+    "https://financialservices.gov.in": {
+      "seen_at": "2026-11-26T13:23:30Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "debts-recovery-appellate-tribunal-allahabad-stenographer-udc-and-more"
+    },
+    "https://financialservices.gov.in/sites/default/files/vacancy/2026-10/VACANCY-CIRCULAR--DRAT-ALLAHABAD.pdf": {
+      "seen_at": "2026-11-26T13:23:30Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "debts-recovery-appellate-tribunal-allahabad-stenographer-udc-and-more"
+    },
+    "https://cdn.s3waas.gov.in/s3e96ed478dab8595a7dbda4cbcbee168f/uploads/2026/10/17926496851815.pdf": {
+      "seen_at": "2026-11-26T13:24:39Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "maharaja-suhel-dev-swashasi-rajya-chikitsa-mahavidyalaya-avam-maharshi"
+    },
+    "https://dfccil.com": {
+      "seen_at": "2026-11-26T13:25:59Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "dedicated-freight-corridor-corporation-of-india-limited-jgm-dgm-op-bd"
+    },
+    "https://dfccil.com/upload/Static-one_merged-(20)_KNOM.pdf": {
+      "seen_at": "2026-11-26T13:25:59Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "dedicated-freight-corridor-corporation-of-india-limited-jgm-dgm-op-bd"
+    },
+    "https://api.amu.ac.in/storage/file/10170/notice-and-circular/1795428599.pdf": {
+      "seen_at": "2026-11-26T13:28:31Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "aligarh-muslim-university-aligarh-assistant-professor-in-computer"
+    },
+    "https://careers.amuonline.ac.in": {
+      "seen_at": "2026-11-26T13:28:31Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "aligarh-muslim-university-aligarh-assistant-professor-in-computer"
+    },
+    "https://banda.dcourts.gov.in/": {
+      "seen_at": "2026-11-26T13:44:48Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-court-banda-reader-ahlmad-and-peon-2026"
+    },
+    "https://www.allahabadhighcourt.in/event/event_27649_25-11-2026.pdf": {
+      "seen_at": "2026-11-26T13:44:48Z",
+      "source_id": "admin-pdf-upload",
+      "status": "staged",
+      "slug": "district-court-banda-reader-ahlmad-and-peon-2026"
+    }
+  }
+}

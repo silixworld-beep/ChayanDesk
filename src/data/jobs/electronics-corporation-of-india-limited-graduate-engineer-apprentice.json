@@ -1,0 +1,75 @@
+{
+  "slug": "electronics-corporation-of-india-limited-graduate-engineer-apprentice",
+  "title": "Graduate Engineer Apprentice (GEA) / Technician (Diploma) Apprentice (TA)",
+  "organization": "Electronics Corporation of India Limited",
+  "department": "State PSU & Infrastructure",
+  "location": "Hyderabad",
+  "qualification_level": "Engineering (B.E./B.Tech)",
+  "total_vacancies": 242,
+  "salary_range": "GEA: ₹12,300/- per month, TA: ₹10,900/- per month",
+  "application_fee": "NIL",
+  "age_limit": "Maximum age of 25 years or less as on 31-12-2026. Relaxations applicable for SC/ST/OBC/PwD candidates.",
+  "important_dates": [
+    {
+      "label": "Hosting Advertisement on ECIL website",
+      "date": "24 Nov 2026"
+    },
+    {
+      "label": "Last date for submitting online applications",
+      "date": "13 Dec 2026"
+    },
+    {
+      "label": "Document Verification Date",
+      "date": "17 Dec 2026"
+    },
+    {
+      "label": "Release of offer letters to provisionally selected candidates",
+      "date": "23 Dec 2026"
+    },
+    {
+      "label": "Apprenticeship training will start from",
+      "date": "1 Jan 2027"
+    }
+  ],
+  "application_deadline": "2026-12-13",
+  "posted_date": "2026-11-24",
+  "last_verified_at": "2026-11-26T12:35:56Z",
+  "summary": "Electronics Corporation of India Limited (ECIL) invites online applications for Graduate Engineer Apprentices (GEA) and Technician Diploma Apprentices (TA) for a one-year training program at Hyderabad under the Apprenticeship Act, 1961. Selection is based on certificate verification and qualifying examination marks merit. Eligible candidates meeting the criteria must first register on the NATS portal and then apply via the ECIL website.",
+  "eligibility_bullets": [
+    "Candidates must have passed B.E./B.Tech or a 3-year Diploma course in relevant engineering branches on or after 1st April 2024 from an AICTE-approved or recognized Indian institution.",
+    "Maximum age limit is 25 years as on 31-12-2026, with age relaxations as per government norms for reserved categories.",
+    "Candidates must be Indian residents and registered on the NATS portal (www.nats.education.gov.in)."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "ECE",
+      "vacancies": 242,
+      "notes": "Combined total for Graduate Engineer Apprentices (200) and Diploma Apprentices (42) across specified branches including ECE, CSE/IT, Mechanical, EEE, EIE, Civil, and Chemical."
+    }
+  ],
+  "how_to_apply_steps": [
+    "Register yourself on the National Apprenticeship Training Scheme (NATS) portal at www.nats.education.gov.in.",
+    "Submit the online application through the ECIL website at www.ecil.co.in by navigating to Careers and then Current Job Openings.",
+    "Take a printout of the registered online application form containing the system-generated application serial number for future reference and document verification."
+  ],
+  "official_apply_url": "https://www.ecil.co.in/",
+  "official_pdf_url": "https://www.ecil.co.in/jobs/Advt_12_2026.pdf",
+  "source_domain": "ecil.co.in",
+  "source_url": "https://www.ecil.co.in/",
+  "notification_code": "Advt. No.12/2026",
+  "fee_structure": [
+    {
+      "category": "All Categories",
+      "amount": "NIL"
+    }
+  ],
+  "archived": false,
+  "government_level": "central",
+  "state_name": null,
+  "salary_min": 10900,
+  "salary_max": 12300,
+  "pay_level": null,
+  "salary_tier": "up-to-25k",
+  "authority_type": "psu-bank",
+  "exam_group_id": null
+}

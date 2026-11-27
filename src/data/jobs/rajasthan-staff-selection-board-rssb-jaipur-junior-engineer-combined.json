@@ -1,0 +1,97 @@
+{
+  "slug": "rajasthan-staff-selection-board-rssb-jaipur-junior-engineer-combined",
+  "title": "Junior Engineer (Combined Direct Recruitment) 2026",
+  "organization": "Rajasthan Staff Selection Board (RSSB), Jaipur",
+  "department": "State PSU & Infrastructure",
+  "location": "Rajasthan",
+  "qualification_level": "Engineering (B.E./B.Tech)",
+  "total_vacancies": 1909,
+  "salary_range": null,
+  "application_fee": "OTR fee: Rs. 600 (General/OBC-Creamy Layer), Rs. 400 (Reserved Categories/PwBD)",
+  "age_limit": null,
+  "important_dates": [
+    {
+      "label": "Correction Window for Priority/Department Preference",
+      "date": "22 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-17",
+  "posted_date": "2026-11-18",
+  "last_verified_at": "2026-11-26T12:22:50Z",
+  "summary": "The Rajasthan Staff Selection Board (RSSB) has issued a revised notification for the recruitment of 1909 Junior Engineer posts across various departments including Public Works, Water Resources, and Urban Development. Candidates who have already applied do not need to re-apply but may update their department preferences during the specified correction window.",
+  "eligibility_bullets": [
+    "Candidates must possess a Degree or Diploma in Civil, Electrical, or Mechanical Engineering as per the specific post requirements.",
+    "Applicants must use their SSO ID on the official Rajasthan recruitment portal to apply.",
+    "Candidates must ensure their educational qualifications and documents are uploaded correctly in the OTR section.",
+    "Applicants are responsible for the accuracy of information provided; incorrect or incomplete applications will be rejected."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Public Works Department",
+      "vacancies": 403,
+      "notes": "Civil (Degree/Diploma), Electrical (Degree)"
+    },
+    {
+      "category": "Water Resources Department",
+      "vacancies": 251,
+      "notes": "Civil (Degree/Diploma)"
+    },
+    {
+      "category": "Public Health Engineering Department",
+      "vacancies": 294,
+      "notes": "Civil (Degree/Diploma), Mechanical/Electrical (Diploma)"
+    },
+    {
+      "category": "Rajasthan State Agriculture Marketing Board",
+      "vacancies": 41,
+      "notes": "Civil (Degree)"
+    },
+    {
+      "category": "Urban Development and Housing Department",
+      "vacancies": 770,
+      "notes": "Civil (Degree/Diploma), Electrical (Degree)"
+    },
+    {
+      "category": "Local Self Government Department",
+      "vacancies": 150,
+      "notes": "Civil (Degree), Electrical (Degree)"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Visit the official SSO portal at https://sso.rajasthan.gov.in/.",
+    "Login and select 'Recruitment Portal' under Citizen Apps (G2C).",
+    "Complete One Time Registration (OTR) if not already done and pay the required fee.",
+    "Click on 'Apply Now' for the Junior Engineer recruitment.",
+    "Fill in all required details, upload a recent photograph, and ensure all academic documents are uploaded in the 'Document Details' section.",
+    "Review the application and submit to generate the Application ID.",
+    "Print the final application form for future reference."
+  ],
+  "official_apply_url": "https://sso.rajasthan.gov.in/",
+  "official_pdf_url": "https://rssb.rajasthan.gov.in/storage/advertisement_item/1794922282.pdf",
+  "source_domain": "sso.rajasthan.gov.in",
+  "source_url": "https://rssb.rajasthan.gov.in/storage/advertisement_item/1794922282.pdf",
+  "notification_code": "10/2026",
+  "fee_structure": [
+    {
+      "category": "General / OBC (Creamy Layer) / MBC (Creamy Layer)",
+      "amount": "Rs. 600"
+    },
+    {
+      "category": "OBC (Non-Creamy Layer) / MBC (Non-Creamy Layer) / EWS / SC / ST",
+      "amount": "Rs. 400"
+    },
+    {
+      "category": "PwBD (All Categories)",
+      "amount": "Rs. 400"
+    }
+  ],
+  "archived": false,
+  "government_level": "state",
+  "state_name": "Rajasthan",
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "not-specified",
+  "authority_type": "state",
+  "exam_group_id": null
+}

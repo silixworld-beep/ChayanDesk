@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JobTable from '../../components/JobTable.astro';
+import {
+  formatVacancies,
+  getDepartmentFacets,
+  isJobActive,
+  slugify,
+  sortJobsByPostedDesc,
+} from '../../lib/jobs';
+
+export async function getStaticPaths() {
+  const allJobs = await getCollection('jobs');
+  const facets = getDepartmentFacets(allJobs);
+
+  return facets.map((facet) => ({
+    params: { slug: facet.slug },
+    props: {
+      departmentName: facet.name,
+      departmentSlug: facet.slug,
+      jobs: sortJobsByPostedDesc(
+        allJobs.filter((job) => slugify(job.data.department) === facet.slug),
+      ),
+      allDepartments: facets,
+    },
+  }));
+}
+
+const { departmentName, departmentSlug, jobs, allDepartments } = Astro.props;
+const activeJobs = jobs.filter((job) => isJobActive(job));
+const totalVacancies = activeJobs.reduce(
+  (sum, job) => sum + (job.data.total_vacancies ?? 0),
+  0,
+);
+---
+
+<BaseLayout
+  title={`${departmentName} Recruitment Notices`}
+  description={`Verified government job openings in ${departmentName}. Currently ${activeJobs.length} active recruitment notices covering ${formatVacancies(totalVacancies)} vacancies.`}
+  canonicalPath={`/departments/${departmentSlug}`}
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li>
+        <a href="/departments" class="hover:text-accent hover:underline">Departments</a>
+      </li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">{departmentName}</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div>
+      <h1 class="text-xl font-bold text-ink tracking-tight">{departmentName}</h1>
+      <p class="text-xs text-ink-secondary mt-1">
+        Verified public-sector recruitment notices under {departmentName}.
+      </p>
+    </div>
+    <div class="flex items-center gap-3 text-xs tabular-nums">
+      <span class="bg-canvas border border-border rounded-sm px-2.5 py-1 text-ink">
+        Active Notices: <strong>{activeJobs.length}</strong>
+      </span>
+      <span class="bg-canvas border border-border rounded-sm px-2.5 py-1 text-ink">
+        Open Vacancies: <strong>{formatVacancies(totalVacancies)}</strong>
+      </span>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-5 items-start">
+    <section aria-label="Department Recruitment Table" class="lg:col-span-7">
+      <JobTable jobs={jobs} tableId="department-jobs-table" />
+    </section>
+
+    <aside class="lg:col-span-3 bg-surface border border-border-strong rounded-[3px]">
+      <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-ink">
+          All Departments
+        </h2>
+      </div>
+      <ul class="divide-y divide-border">
+        {
+          allDepartments.map((dept) => (
+            <li>
+              <a
+                href={`/departments/${dept.slug}`}
+                aria-current={dept.slug === departmentSlug ? 'page' : undefined}
+                class:list={[
+                  'px-3.5 py-2 flex items-center justify-between text-xs no-underline',
+                  dept.slug === departmentSlug
+                    ? 'bg-canvas font-semibold text-accent'
+                    : 'text-ink hover:bg-canvas hover:text-accent',
+                ]}
+              >
+                <span>{dept.name}</span>
+                <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                  {dept.count}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+  </div>
+</BaseLayout>

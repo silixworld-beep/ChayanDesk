@@ -1,0 +1,84 @@
+{
+  "slug": "lok-nayak-hospital-government-of-nct-of-delhi-junior-resident-non-pg-on",
+  "title": "Junior Resident (Non-PG) on Adhoc Basis",
+  "organization": "Lok Nayak Hospital, Government of NCT of Delhi",
+  "department": "Healthcare & Medical",
+  "government_level": "state",
+  "state_name": "Delhi",
+  "location": "New Delhi",
+  "qualification_level": "Medical / Nursing",
+  "total_vacancies": 32,
+  "salary_range": "Pay Matrix Level-10 (Basic Pay Rs. 56,100/- per month)",
+  "application_fee": "No application/interview fee",
+  "age_limit": "Not exceeding 30 years as on 01.11.2026 (relaxations as per rules, max 40 years)",
+  "important_dates": [
+    {
+      "label": "Online Application Deadline",
+      "date": "30 Nov 2026"
+    },
+    {
+      "label": "Date & Reporting Time of Interview",
+      "date": "15 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-11-30",
+  "posted_date": "2026-11-25",
+  "last_verified_at": "2026-11-26T13:36:09Z",
+  "summary": "Lok Nayak Hospital, New Delhi has invited applications to fill 32 tentative vacancies for Junior Residents on an adhoc basis for an initial period of 89 days. Candidates with an MBBS degree and internship completion between specific dates may apply by submitting hard copies of applications by November 30, 2026.",
+  "eligibility_bullets": [
+    "Possess an MBBS degree from a recognized University/Institute.",
+    "Must have completed internship after 30.11.2024 and before 30.11.2026.",
+    "Age not exceeding 30 years as on 01.11.2026, with applicable category relaxations.",
+    "Must hold a valid DMC Registration Certificate."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "UR",
+      "vacancies": 15
+    },
+    {
+      "category": "OBC",
+      "vacancies": 8
+    },
+    {
+      "category": "SC",
+      "vacancies": 4
+    },
+    {
+      "category": "ST",
+      "vacancies": 2
+    },
+    {
+      "category": "EWS",
+      "vacancies": 3
+    },
+    {
+      "category": "PwBD",
+      "vacancies": 1,
+      "notes": "Included in total, horizontal reservation"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Download the prescribed application format from the official notice.",
+    "Fill in all details correctly and attach self-attested photocopies of required certificates (Birth/Matriculation, MBBS Degree/Mark Sheets, DMC Registration, Internship Completion, etc.).",
+    "Submit hard copy applications to the E-I Branch, MRD Block, 1st Floor, Lok Nayak Hospital, New Delhi-110002 before the deadline. Soft copies will not be accepted."
+  ],
+  "official_apply_url": "https://lnjp.delhi.gov.in/",
+  "official_pdf_url": "https://lnjp.delhi.gov.in/sites/default/files/lnjp/universal/notice_for_interview_post.pdf",
+  "source_domain": "lnjp.delhi.gov.in",
+  "source_url": "https://lnjp.delhi.gov.in/",
+  "notification_code": "F.No. 57(4295)/JR/Adhoc/Interview/E-I/LNH/2026/3343",
+  "fee_structure": [
+    {
+      "category": "All Categories",
+      "amount": "Nil"
+    }
+  ],
+  "archived": false,
+  "salary_min": 56100,
+  "salary_max": null,
+  "pay_level": "Pay Matrix Level-10 (7th CPC)",
+  "salary_tier": "45k-70k",
+  "authority_type": "state",
+  "exam_group_id": null
+}

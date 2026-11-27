@@ -1,0 +1,101 @@
+{
+  "slug": "chief-medical-officer-budaun-medical-officer-general-physician-other",
+  "title": "Medical Officer, General Physician & Other Posts Recruitment",
+  "organization": "Chief Medical Officer, Budaun",
+  "department": "Healthcare & Medical",
+  "government_level": "state",
+  "state_name": "Uttar Pradesh",
+  "location": "Budaun, Uttar Pradesh",
+  "qualification_level": "Medical / Nursing",
+  "total_vacancies": 30,
+  "salary_range": "Rs. 80,000/- to Rs. 1,00,000/- P.M.",
+  "salary_min": 80000,
+  "salary_max": 100000,
+  "pay_level": null,
+  "salary_tier": "70k-1l",
+  "authority_type": "state",
+  "exam_group_id": null,
+  "application_fee": "Rs. 55/- postal stamp on envelope",
+  "age_limit": "Maximum 65 years as on the date of advertisement publication",
+  "important_dates": [
+    {
+      "label": "Notification Date",
+      "date": "5 Nov 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "27 Nov 2026"
+    }
+  ],
+  "application_deadline": "2026-11-27",
+  "posted_date": "2026-11-05",
+  "last_verified_at": "2026-11-27T07:07:59Z",
+  "summary": "Chief Medical Officer, Budaun has invited applications for recruitment to 30 Medical Officer and General Physician posts under the National Health Mission on a contractual basis. Eligible candidates may apply through registered/speed post by 27 November 2026.",
+  "eligibility_bullets": [
+    "Telemedicine/Teli Consultation HUB District Hospital Budaun: M.B.B.S. Degree Certified Degree from recognized Institution by MCI with Registration From Council of the State/Gol.",
+    "NP-NCD (NPCDCS) General Physician: MD (Medicine) / MBBS or equivalent degree from an institution recognized by National Medical Council with Registration From Council of the State/Gol and at least 1 year of experience in a hospital.",
+    "Maternal Health MBBS Lady Medical Officer: M.B.B.S. Degree Certified Degree from recognized Institution by MCI with Registration From Council of the State/Gol.",
+    "District Hospital Strengthening Programme (DHS) EMO: MBBS degree from recognized University/Institution with Registration in State Medical Register of Indian Medical Register and minimum 1 year experience in Emergency Ward of any 100 Bedded hospital preferable.",
+    "NUHM PM-ABHIM Medical Officer (MBBS): M.B.B.S. Degree Certified Degree from recognized Institution by MCI with Registration From Council of the State/Gol."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Telemedicine/Teli Consultation HUB District Hospital Budaun",
+      "vacancies": 1,
+      "eligibility": "M.B.B.S. Degree from recognized Institution by MCI",
+      "notes": "Rs. 1,00,000/- P.M."
+    },
+    {
+      "category": "NP-NCD (NPCDCS) General Physician",
+      "vacancies": 5,
+      "eligibility": "MD (Medicine) / MBBS with 1 year experience",
+      "notes": "Rs. 1,00,000/- P.M."
+    },
+    {
+      "category": "Maternal Health MBBS Lady Medical Officer",
+      "vacancies": 1,
+      "eligibility": "M.B.B.S. Degree from recognized Institution by MCI",
+      "notes": "Rs. 1,00,000/- P.M."
+    },
+    {
+      "category": "District Hospital Strengthening Programme (DHS) EMO",
+      "vacancies": 13,
+      "eligibility": "MBBS degree with 1 year experience in Emergency Ward",
+      "notes": "Rs. 1,00,000/- P.M."
+    },
+    {
+      "category": "NUHM PM-ABHIM Medical Officer (MBBS)",
+      "vacancies": 6,
+      "eligibility": "M.B.B.S. Degree from recognized Institution by MCI",
+      "notes": "Rs. 80,000/- + Rs. 20,000/- P.M. (PBI)"
+    },
+    {
+      "category": "NUHM 15- FC U-AAM",
+      "vacancies": 4,
+      "eligibility": "M.B.B.S. Degree from recognized Institution by MCI",
+      "notes": "Rs. 80,000/- + Rs. 20,000/- P.M. (PBI)"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Download the application form and desired format from the official website https://budaun.nic.in/.",
+    "Fill out the application form with required educational, caste, residential, registration, and experience certificates.",
+    "Affix a postal stamp worth Rs. 55/- on the self-addressed envelope.",
+    "Send the complete application solely through registered or speed post to the Office of the Chief Medical Officer, Budaun on or before 27 November 2026 by 5:00 PM."
+  ],
+  "official_apply_url": "https://budaun.nic.in/",
+  "official_pdf_url": "https://cdn.s3waas.gov.in/s36c9882bbac1c7093bd25041881277658/uploads/2026/11/17939559114908.pdf",
+  "important_links": [
+    {
+      "label": "Official Notification PDF",
+      "url": "https://cdn.s3waas.gov.in/s36c9882bbac1c7093bd25041881277658/uploads/2026/11/17939559114908.pdf"
+    },
+    {
+      "label": "Budaun District Website",
+      "url": "https://budaun.nic.in/"
+    }
+  ],
+  "source_domain": "budaun.nic.in",
+  "source_url": "https://budaun.nic.in/",
+  "notification_code": "3370 / NHM/MBBS/Niy. / 2026-27",
+  "archived": false
+}

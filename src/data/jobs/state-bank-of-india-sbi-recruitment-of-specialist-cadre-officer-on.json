@@ -1,0 +1,83 @@
+{
+  "slug": "state-bank-of-india-sbi-recruitment-of-specialist-cadre-officer-on",
+  "title": "Recruitment of Specialist Cadre Officer on Regular Basis",
+  "organization": "State Bank of India (SBI)",
+  "department": "Banking & Finance",
+  "location": "All India",
+  "qualification_level": "Engineering (B.E./B.Tech)",
+  "total_vacancies": 22,
+  "salary_range": null,
+  "application_fee": null,
+  "age_limit": "24-37 years as on 31.10.2026 (with relaxations for reserved categories)",
+  "important_dates": [
+    {
+      "label": "Eligibility Cut-off Date",
+      "date": "31 Oct 2026"
+    },
+    {
+      "label": "Online Application Start Date",
+      "date": "20 Nov 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "10 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-10",
+  "posted_date": "2026-11-20",
+  "last_verified_at": "2026-11-25T15:14:57Z",
+  "summary": "State Bank of India (SBI) invites online applications from eligible Indian citizens for Specialist Cadre Officer posts on a regular basis. The recruitment includes multiple positions such as Chief Manager, Manager, and Deputy Manager (Data Scientist). Interested candidates can apply online through the bank's official website from November 20, 2026, to December 10, 2026.",
+  "eligibility_bullets": [
+    "Educational Qualification: B.E./B.Tech/M.Tech in Computer Science/IT/Electronics/Electrical & Electronics/Electronics & Communication/Data Science/AI & ML or equivalent, OR M.Sc Data Science/M.Sc (Statistics/Computer Science)/MA (Statistics)/M Stat/MCA from a recognized University/Institution. Minimum 60% marks or equivalent grade in both Graduation and Post Graduation.",
+    "Age Limit: Minimum 24 years and Maximum 37 years as on October 31, 2026, with age relaxation applicable for reserved categories as per Government of India guidelines.",
+    "Experience: Varies by post. Chief Manager requires minimum 6 years post-qualification experience in AI/ML (2+ years in scalable, python-based LLM/GenAI/Agentic AI applications). Manager requires overall 4+ years post-qualification experience in AI/ML (2+ years in Python-based LLM/GenAI/Agentic AI solutions at scale). Deputy Manager requires 3 years overall experience after basic qualification (minimum 2+ years full-time in Analytics/AI/ML/GenAI, and 1+ year full-time developing AI/ML/Deep Learning/GenAI models)."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Chief Manager (Data Scientist)",
+      "vacancies": 2,
+      "notes": "Regular/SMGS-IV"
+    },
+    {
+      "category": "Manager (Data Scientist)",
+      "vacancies": 14,
+      "notes": "Regular/MMGS-III"
+    },
+    {
+      "category": "Manager (Data Scientist) Backlog",
+      "vacancies": 1,
+      "notes": "Regular/MMGS-III"
+    },
+    {
+      "category": "Deputy Manager (Data Scientist)",
+      "vacancies": 4,
+      "notes": "Regular/MMGS-II"
+    },
+    {
+      "category": "Deputy Manager (Data Scientist) Backlog",
+      "vacancies": 1,
+      "notes": "Regular/MMGS-II"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Candidates must apply online through the link provided on the Bank’s official website https://sbi.bank.in/web/careers/current-openings.",
+    "Ensure all eligibility criteria for the desired post(s) are met as on the eligibility cut-off date.",
+    "Complete the online registration process and deposit the application fee through online mode on or before the last date for payment.",
+    "Upload all required documents, including Resume, ID proof, Age proof, Caste Certificate (if applicable), PwBD Certificate (if applicable), Educational qualification, other certifications, and Proof of Experience.",
+    "It is advised to apply well before the closing date to avoid potential issues due to heavy website load."
+  ],
+  "official_apply_url": "https://ibpsreg.ibps.in/sbifteoct26/",
+  "official_pdf_url": "https://sbi.bank.in/documents/77530/57941334/20112026_Final_ADV_CRPD_SCO_2026-27_31.pdf/30ed8874-9669-c1eb-17bd-e8e4dfe534bb?t=1795161793708",
+  "source_domain": "ibpsreg.ibps.in",
+  "source_url": "https://sbi.bank.in/documents/77530/57941334/20112026_Final_ADV_CRPD_SCO_2026-27_31.pdf/30ed8874-9669-c1eb-17bd-e8e4dfe534bb?t=1795161793708",
+  "notification_code": "CRPD/SCO/2026-27/31",
+  "archived": false,
+  "government_level": "central",
+  "state_name": null,
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "not-specified",
+  "authority_type": "psu-bank",
+  "exam_group_id": null
+}

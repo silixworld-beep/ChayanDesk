@@ -1,0 +1,86 @@
+{
+  "slug": "all-india-institute-of-medical-sciences-aiims-gorakhpur-faculty-group-a",
+  "title": "Faculty (Group-A) - Professor, Additional Professor, Associate Professor, Assistant Professor",
+  "organization": "All India Institute of Medical Sciences (AIIMS) Gorakhpur",
+  "department": "Healthcare & Medical",
+  "government_level": "central",
+  "state_name": null,
+  "location": "Gorakhpur, Uttar Pradesh",
+  "qualification_level": "Medical / Nursing",
+  "total_vacancies": 56,
+  "salary_range": "Level-12 to Level-14A as per 7th CPC",
+  "application_fee": "Rs. 2,000 for General/OBC/EWS, Rs. 500 for SC/ST, Free for PwBD and retired faculty",
+  "age_limit": "Professor/Additional Professor: Not exceeding 58 years; Associate/Assistant Professor: Not exceeding 50 years as on 24/12/2026",
+  "important_dates": [
+    {
+      "label": "Opening Date",
+      "date": "25 Nov 2026"
+    },
+    {
+      "label": "Closing Date",
+      "date": "24 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-24",
+  "posted_date": "2026-11-25",
+  "last_verified_at": "2026-11-26T13:36:04Z",
+  "summary": "AIIMS Gorakhpur invites applications from eligible candidates for faculty positions (Group-A) including Professor, Additional Professor, Associate Professor, and Assistant Professor across various departments on direct recruitment, deputation, or contractual basis. The total number of vacancies is 56, and the application deadline is 24 December 2026.",
+  "eligibility_bullets": [
+    "Essential qualifications include MBBS/MD/MS, DM/M.Ch or equivalent recognized by NMC depending on the post and discipline.",
+    "Required teaching and research experience varies from 0 to 14 years post qualifying degree based on the post level and specialty.",
+    "Upper age limit is 58 years for Professor/Additional Professor and 50 years for Associate/Assistant Professor as on the closing date, with age relaxations as per government rules."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Professor",
+      "vacancies": 16,
+      "notes": "Pay Level-14A"
+    },
+    {
+      "category": "Additional Professor",
+      "vacancies": 5,
+      "notes": "Pay Level-13A2+"
+    },
+    {
+      "category": "Associate Professor",
+      "vacancies": 19,
+      "notes": "Pay Level-13A1+"
+    },
+    {
+      "category": "Assistant Professor",
+      "vacancies": 16,
+      "notes": "Pay Level-12"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Fill out the application form in MS Word format and prepare required documents including Annexure A and Annexure B.",
+    "Submit the application online via the Google Form link provided in the official notification latest by 24/12/2026.",
+    "Send a printout of the duly signed application form along with self-attested copies of certificates and fee payment proof by Speed/Registered Post to the Recruitment Cell, AIIMS Gorakhpur by the closing date."
+  ],
+  "official_apply_url": "https://aiimsgorakhpur.edu.in/",
+  "official_pdf_url": "https://aiimsgorakhpur.edu.in/wp-content/uploads/2026/11/Advertisement-13.pdf",
+  "source_domain": "aiimsgorakhpur.edu.in",
+  "source_url": "https://aiimsgorakhpur.edu.in/wp-content/uploads/2026/11/Advertisement-13.pdf",
+  "notification_code": "AIIMS/GKP/RECT/FACULTY/2026-27/287",
+  "fee_structure": [
+    {
+      "category": "General / OBC / EWS",
+      "amount": "Rs. 2,000"
+    },
+    {
+      "category": "SC / ST",
+      "amount": "Rs. 500"
+    },
+    {
+      "category": "PwBD / Retired Faculty",
+      "amount": "Exempted"
+    }
+  ],
+  "archived": false,
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": "Level-12 To Level-14A (7th CPC)",
+  "salary_tier": "70k-1l",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

@@ -1,0 +1,90 @@
+{
+  "slug": "banda-district-court-recruitment-of-retired-employees-for-special",
+  "title": "Recruitment of Retired Employees for Special Judicial Magistrate Courts",
+  "organization": "Banda District Court",
+  "department": "Civil Services & Administration",
+  "government_level": "state",
+  "state_name": "Uttar Pradesh",
+  "location": "Banda, Uttar Pradesh",
+  "qualification_level": "See Official Notification",
+  "total_vacancies": 5,
+  "salary_range": "6750/- per month (Reader & Ahlmad), 150/- per day (Peon)",
+  "salary_min": 6750,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "up-to-25k",
+  "authority_type": "state",
+  "exam_group_id": null,
+  "application_fee": "No fee specified",
+  "age_limit": "Not more than 65 years",
+  "important_dates": [
+    {
+      "label": "Application Deadline",
+      "date": "2 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-02",
+  "posted_date": "2026-11-23",
+  "last_verified_at": "2026-11-27T07:07:54Z",
+  "summary": "Banda District Court has issued a notification for the engagement of retired employees from the District Court and Collectorate for Special Judicial Magistrate-First and Special Judicial Magistrate-Second courts. Eligible retired candidates can submit their handwritten applications to the office of the undersigned by 02 Dec 2026.",
+  "eligibility_bullets": [
+    "Reader: Must be a retired employee from District Courts or Collectorate with age not exceeding 65 years.",
+    "Ahlmad: Must be a retired employee from District Courts or Collectorate with age not exceeding 65 years.",
+    "Peon: Must be a retired employee from District Courts or Collectorate with age not exceeding 65 years."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Special Judicial Magistrate-First - Reader",
+      "vacancies": 1,
+      "eligibility": "Retired District Court or Collectorate employee",
+      "notes": "Honorarium 6750/- per month"
+    },
+    {
+      "category": "Special Judicial Magistrate-First - Ahlmad",
+      "vacancies": 1,
+      "eligibility": "Retired District Court or Collectorate employee",
+      "notes": "Honorarium 6750/- per month"
+    },
+    {
+      "category": "Special Judicial Magistrate-First - Peon",
+      "vacancies": 1,
+      "eligibility": "Retired District Court or Collectorate employee",
+      "notes": "Honorarium 150/- per day"
+    },
+    {
+      "category": "Special Judicial Magistrate-Second - Reader",
+      "vacancies": 1,
+      "eligibility": "Retired District Court or Collectorate employee",
+      "notes": "Honorarium 6750/- per month"
+    },
+    {
+      "category": "Special Judicial Magistrate-Second - Ahlmad",
+      "vacancies": 1,
+      "eligibility": "Retired District Court or Collectorate employee",
+      "notes": "Honorarium 6750/- per month"
+    },
+    {
+      "category": "Special Judicial Magistrate-Second - Peon",
+      "vacancies": 0,
+      "eligibility": "Retired District Court or Collectorate employee",
+      "notes": "Honorarium 150/- per day"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Ensure eligibility as a retired employee of the District Court or Collectorate under 65 years of age.",
+    "Draft a handwritten application detailing willingness to work under the specified terms.",
+    "Submit the application form physically to the office of the undersigned by 02 Dec 2026."
+  ],
+  "official_apply_url": "https://banda.dcourts.gov.in/",
+  "official_pdf_url": "https://www.allahabadhighcourt.in/event/event_27649_25-11-2026.pdf",
+  "important_links": [
+    {
+      "label": "Official Notification PDF",
+      "url": "https://www.allahabadhighcourt.in/event/event_27649_25-11-2026.pdf"
+    }
+  ],
+  "source_domain": "banda.dcourts.gov.in",
+  "source_url": "https://banda.dcourts.gov.in/",
+  "notification_code": "317 / I / Pratham",
+  "archived": false
+}

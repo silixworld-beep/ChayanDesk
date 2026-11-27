@@ -1,0 +1,2309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Control Center | ChayanDesk</title>
+    <style>
+      :root {
+        --canvas: #F8F9FA;
+        --surface: #FFFFFF;
+        --ink: #111827;
+        --ink-2: #4B5563;
+        --border: #E5E7EB;
+        --border-strong: #D1D5DB;
+        --accent: #1D4ED8;
+        --accent-hover: #1E40AF;
+        --urgent-text: #991B1B;
+        --urgent-bg: #FEF2F2;
+        --urgent-border: #FECACA;
+        --active-text: #065F46;
+        --active-bg: #ECFDF5;
+        --active-border: #A7F3D0;
+        --warn-text: #92400E;
+        --warn-bg: #FFFBEB;
+        --warn-border: #FDE68A;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color-scheme: light;
+      }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .tabular { font-variant-numeric: tabular-nums; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border-strong);
+      }
+      .container { max-width: 1220px; margin: 0 auto; padding: 0 16px; }
+      .topbar-inner {
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--ink); }
+      .brand-mark {
+        width: 28px; height: 28px; border-radius: 3px;
+        background: var(--accent); color: #fff;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 11px; font-weight: 700;
+      }
+      .brand-sub { font-size: 11px; color: var(--ink-2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+      .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+      .tabs {
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+        border-top: 1px solid var(--border);
+        padding: 6px 0;
+      }
+      .tab-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        padding: 6px 11px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink-2);
+        cursor: pointer;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .tab-btn:hover { background: var(--canvas); color: var(--ink); }
+      .tab-btn.active {
+        background: var(--canvas);
+        color: var(--accent);
+        border-color: var(--border-strong);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 1px 7px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 3px;
+        border: 1px solid var(--border);
+        background: var(--canvas);
+        color: var(--ink-2);
+        font-variant-numeric: tabular-nums;
+      }
+      .badge-urgent { color: var(--urgent-text); background: var(--urgent-bg); border-color: var(--urgent-border); }
+      .badge-active { color: var(--active-text); background: var(--active-bg); border-color: var(--active-border); }
+      .badge-warn { color: var(--warn-text); background: var(--warn-bg); border-color: var(--warn-border); }
+
+      main { padding: 18px 0 40px; }
+      .alert-banner {
+        background: var(--warn-bg);
+        border: 1px solid var(--warn-border);
+        color: var(--warn-text);
+        border-radius: 3px;
+        padding: 10px 14px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 13px;
+      }
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .metric-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .metric-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-2); }
+      .metric-val { font-size: 22px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 16px;
+      }
+      .card-head {
+        background: var(--canvas);
+        border-bottom: 1px solid var(--border-strong);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); margin: 0; }
+      .card-body { padding: 14px; }
+
+      .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+      .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+      label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ink-2); margin-bottom: 4px; }
+      input[type="text"], input[type="url"], input[type="date"], input[type="number"], input[type="search"], select, textarea {
+        width: 100%;
+        padding: 7px 10px;
+        font-size: 13px;
+        color: var(--ink);
+        background: var(--canvas);
+        border: 1px solid var(--border-strong);
+        border-radius: 3px;
+        font-family: inherit;
+      }
+      textarea { min-height: 76px; resize: vertical; }
+      input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 7px 13px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 3px;
+        border: 1px solid var(--border-strong);
+        background: var(--surface);
+        color: var(--ink);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .btn:hover { border-color: var(--accent); color: var(--accent); }
+      .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+      .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
+      .btn-danger { color: var(--urgent-text); border-color: var(--urgent-border); background: var(--urgent-bg); }
+      .btn-danger:hover { border-color: var(--urgent-text); color: var(--urgent-text); }
+      .btn-success { color: var(--active-text); border-color: var(--active-border); background: var(--active-bg); }
+
+      table { width: 100%; border-collapse: collapse; text-align: left; }
+      th {
+        background: var(--canvas);
+        border-bottom: 1px solid var(--border-strong);
+        padding: 9px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--ink-2);
+      }
+      td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 13px; }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background: #FCFCFD; }
+
+      .log-box {
+        background: #F3F4F6;
+        border: 1px solid var(--border-strong);
+        border-radius: 3px;
+        padding: 10px 12px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        line-height: 1.45;
+        max-height: 290px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: var(--ink);
+      }
+
+      .hidden { display: none !important; }
+      .row-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+      .check-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink); cursor: pointer; }
+      .check-row input { width: auto; }
+      .toast {
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        z-index: 60;
+        background: var(--surface);
+        border: 1px solid var(--border-strong);
+        border-left: 4px solid var(--accent);
+        padding: 10px 14px;
+        border-radius: 3px;
+        font-size: 13px;
+        max-width: 380px;
+      }
+      .sub-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+      .builder-box {
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        background: var(--surface);
+        padding: 10px 12px;
+      }
+      .builder-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+      }
+      .builder-head label { margin: 0; color: var(--ink); font-size: 12px; }
+      .col-labels {
+        display: grid;
+        gap: 8px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--ink-2);
+        margin-bottom: 5px;
+      }
+      .col-labels-links { grid-template-columns: 1fr 1.15fr 86px; }
+      .col-labels-dates { grid-template-columns: 1fr 185px 68px; }
+      .col-labels-fees { grid-template-columns: 1fr 1fr 40px; }
+      .col-labels-vacs { grid-template-columns: 1.1fr 88px 1.2fr 1fr 40px; }
+      .post-menu-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        background: var(--canvas);
+        border: 1px solid var(--border-strong);
+        border-radius: 3px;
+        padding: 10px 12px;
+      }
+      .menu-cat-group { display: flex; gap: 8px; flex-wrap: wrap; }
+      .menu-cat-btn {
+        padding: 7px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 3px;
+        border: 1px solid var(--border-strong);
+        background: var(--surface);
+        color: var(--ink);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .menu-cat-btn:hover { border-color: var(--navy); }
+      .menu-cat-btn[data-active="true"][data-cat="result"] { background: #B91C1C; border-color: #B91C1C; color: #fff; }
+      .menu-cat-btn[data-active="true"][data-cat="admit-card"] { background: #0B2545; border-color: #0B2545; color: #fff; }
+      .menu-cat-btn[data-active="true"][data-cat="answer-key"] { background: #047857; border-color: #047857; color: #fff; }
+      .btn-mini { padding: 4px 8px; font-size: 11px; }
+      .date-combo { display: flex; gap: 4px; align-items: center; }
+      .date-picker-btn {
+        width: 34px !important;
+        min-width: 34px;
+        padding: 5px 4px !important;
+        cursor: pointer;
+      }
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(15, 23, 42, 0.58);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 24px 16px;
+        overflow-y: auto;
+      }
+      .modal-dialog {
+        width: 100%;
+        max-width: 1020px;
+        background: var(--surface);
+        border: 1px solid var(--border-strong);
+        border-radius: 4px;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.28);
+        overflow: hidden;
+        margin: auto;
+      }
+      .modal-head {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: var(--canvas);
+        border-bottom: 1px solid var(--border-strong);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .modal-body {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-height: 76vh;
+        overflow-y: auto;
+      }
+      .modal-foot {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        background: var(--canvas);
+        border-top: 1px solid var(--border-strong);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <div class="topbar-inner">
+          <div class="brand">
+            <span class="brand-mark mono">CD</span>
+            <div>
+              <div>ChayanDesk — Admin Control Center</div>
+              <div class="brand-sub mono">Localhost Pipeline, PDF Verification &amp; Review Console</div>
+            </div>
+          </div>
+          <div class="top-actions">
+            <a href="/keys" class="btn">Gemini Keys &amp; Limits &rarr;</a>
+            <button id="enable-desktop-alerts-btn" type="button" class="btn">Enable Desktop Alerts</button>
+            <a href="http://localhost:4321/" target="_blank" rel="noopener" class="btn">Open Public Site &rarr;</a>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="Admin Tabs">
+          <button class="tab-btn active" data-tab="runner">Pipeline &amp; Scheduler</button>
+          <button class="tab-btn" data-tab="pending">
+            Pending PDFs <span id="tab-badge-pending" class="badge">0</span>
+          </button>
+          <button class="tab-btn" data-tab="review">
+            Review Queue <span id="tab-badge-review" class="badge">0</span>
+          </button>
+          <button class="tab-btn" data-tab="published">
+            Published Registry <span id="tab-badge-published" class="badge">0</span>
+          </button>
+          <button class="tab-btn" data-tab="manual">Add Job Manually</button>
+          <button class="tab-btn" data-tab="notifications">
+            Notifications <span id="tab-badge-notifs" class="badge">0</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <div id="global-action-banner" class="alert-banner hidden">
+        <span id="global-action-text"></span>
+        <div class="row-actions">
+          <button id="banner-goto-runner" type="button" class="btn btn-danger hidden">View &amp; Re-run Failed</button>
+          <button id="banner-goto-pending" type="button" class="btn btn-danger hidden">Review Pending PDFs</button>
+          <button id="banner-goto-review" type="button" class="btn btn-primary hidden">Review Staged Jobs</button>
+        </div>
+      </div>
+
+      <section class="metrics-grid" aria-label="Admin Metrics">
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Published Active</div>
+            <div style="font-size:11px;color:var(--ink-2)">Live in src/data/jobs</div>
+          </div>
+          <div id="m-active" class="metric-val">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Closing &le; 7 Days</div>
+            <div style="font-size:11px;color:var(--ink-2)">Urgent deadlines</div>
+          </div>
+          <div id="m-closing" class="metric-val" style="color:var(--urgent-text)">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Staged for Review</div>
+            <div style="font-size:11px;color:var(--ink-2)">Waiting admin approval</div>
+          </div>
+          <div id="m-staged" class="metric-val" style="color:var(--accent)">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Pending PDFs</div>
+            <div style="font-size:11px;color:var(--ink-2)">Needs manual upload</div>
+          </div>
+          <div id="m-pending" class="metric-val" style="color:var(--warn-text)">0</div>
+        </div>
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Runner State</div>
+            <div id="m-runner-task" style="font-size:11px;color:var(--ink-2)">Idle</div>
+          </div>
+          <div id="m-runner-badge" class="badge badge-active">Idle</div>
+        </div>
+        <a href="/keys" class="metric-card" style="text-decoration:none;color:inherit;">
+          <div>
+            <div class="metric-label">Gemini API Keys &rarr;</div>
+            <div id="m-keys-sub" style="font-size:11px;color:var(--ink-2)">Auto-failover pool</div>
+          </div>
+          <div id="m-keys" class="metric-val" style="color:var(--active-text)">0</div>
+        </a>
+      </section>
+
+      <!-- TAB 1: RUNNER & SCHEDULER -->
+      <section id="tab-runner" class="tab-panel">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">
+              <h2 class="card-title">Manual Script Execution</h2>
+              <span class="mono" style="font-size:11px;color:var(--ink-2)">scripts/fetch_jobs.py</span>
+            </div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+              <div class="form-grid">
+                <div>
+                  <label for="run-source">Target Source</label>
+                  <select id="run-source" onchange="toggleRunnerScopeUI()">
+                    <option value="">All Enabled Sources</option>
+                  </select>
+                </div>
+                <div id="run-state-wrap">
+                  <label for="run-state">FreeJobAlert State (Optional)</label>
+                  <select id="run-state">
+                    <option value="">Default Source Scope</option>
+                    <option value="ALL">All 22 FreeJobAlert States</option>
+                  </select>
+                </div>
+                <div id="run-portal-wrap" class="hidden" style="grid-column:span 2;background:var(--canvas);border:1px solid var(--border);border-radius:3px;padding:10px;display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <div>
+                      <label for="run-portal-search">Search Admission Organisation</label>
+                      <input id="run-portal-search" type="search" placeholder="Search NTA, CUET, CLAT, JoSAA, DU, AMU, JMI, IGNOU, JEECUP, Bihar..." oninput="populateAdmissionPortalDropdown(this.value)" />
+                    </div>
+                    <div>
+                      <label for="run-portal">Filter Organisation (Optional)</label>
+                      <select id="run-portal">
+                        <option value="">All Admission Organisations</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <label for="run-limit">Max Items Per Source</label>
+                  <input id="run-limit" type="number" min="1" max="100" value="10" />
+                </div>
+              </div>
+              <div style="display:flex;gap:18px;flex-wrap:wrap;">
+                <label class="check-row" style="text-transform:none;font-weight:500;">
+                  <input id="run-stage" type="checkbox" checked />
+                  Stage extracted jobs for Admin Review (recommended)
+                </label>
+                <label class="check-row" style="text-transform:none;font-weight:500;">
+                  <input id="run-dry" type="checkbox" />
+                  Dry-Run (preview only, no files written)
+                </label>
+              </div>
+              <div class="row-actions">
+                <button id="btn-run-fetch" type="button" class="btn btn-primary">Run Collector Script Now</button>
+                <button id="btn-rerun-last" type="button" class="btn" disabled>Re-run Last Command</button>
+                <button id="btn-run-build" type="button" class="btn">Run Astro Check &amp; Build</button>
+                <button id="btn-refresh-status" type="button" class="btn">Refresh Logs</button>
+              </div>
+              <div id="runner-recovery-box" class="hidden" style="background:var(--urgent-bg);border:1px solid var(--urgent-border);border-radius:3px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                  <strong style="font-size:12px;color:var(--urgent-text);text-transform:uppercase;letter-spacing:0.03em;">Failed Runner State / Partial Failures Detected</strong>
+                  <div class="row-actions">
+                    <button id="btn-rerun-failed-states" type="button" class="btn btn-danger hidden">Re-run Failed State(s)</button>
+                    <button id="btn-rerun-failed-cmd" type="button" class="btn btn-primary">Re-run Failed Run</button>
+                  </div>
+                </div>
+                <div id="runner-recovery-details" style="font-size:12px;color:var(--ink);"></div>
+                <div id="runner-failed-states-chips" class="row-actions"></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <label style="margin:0">Live Execution Log</label>
+                  <span id="run-summary-pill" class="mono" style="font-size:11px;color:var(--ink-2)"></span>
+                </div>
+                <div id="run-log-box" class="log-box">Ready. Click "Run Collector Script Now" to start.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h2 class="card-title">Automatic Scheduler</h2>
+              <span class="mono" style="font-size:11px;color:var(--ink-2)">GitHub Cron: 06:00 UTC + Local Timer</span>
+            </div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+              <label class="check-row" style="text-transform:none;font-weight:600;">
+                <input id="sched-enabled" type="checkbox" />
+                Enable Local Automatic Background Runs (while Admin Server is running)
+              </label>
+              <div class="form-grid">
+                <div>
+                  <label for="sched-interval">Run Every (Hours)</label>
+                  <input id="sched-interval" type="number" min="1" max="168" value="12" />
+                </div>
+                <div>
+                  <label for="sched-limit">Limit Per Source</label>
+                  <input id="sched-limit" type="number" min="1" max="100" value="15" />
+                </div>
+              </div>
+              <div>
+                <label for="sched-source">Scheduled Source Scope</label>
+                <select id="sched-source">
+                  <option value="">All Enabled Sources</option>
+                </select>
+              </div>
+              <label class="check-row" style="text-transform:none;font-weight:500;">
+                <input id="sched-stage" type="checkbox" checked />
+                Stage scheduled extractions into Review Queue (notify admin before publishing)
+              </label>
+              <div style="background:var(--canvas);border:1px solid var(--border);padding:10px;border-radius:3px;font-size:12px;">
+                <div>Last Auto Run: <span id="sched-last" class="mono tabular">—</span></div>
+                <div>Next Auto Run: <span id="sched-next" class="mono tabular">—</span></div>
+              </div>
+              <div class="row-actions">
+                <button id="btn-save-sched" type="button" class="btn btn-primary">Save Auto-Scheduler</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Gemini API Keys &amp; Automatic Failover Pool</h2>
+            <a href="/keys" class="btn">View Limits &amp; Quotas on Dedicated Page (/keys) &rarr;</a>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+            <div class="form-grid">
+              <div>
+                <label for="quick-keys-input">Paste Gemini API Key(s) (one per line for failover)</label>
+                <textarea id="quick-keys-input" class="mono" style="min-height:66px;" placeholder="AIzaSy..."></textarea>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div>
+                  <label for="quick-key-label">Key Label (Optional)</label>
+                  <input id="quick-key-label" type="text" placeholder="e.g. Backup Free Key #2" />
+                </div>
+                <div class="form-grid" style="grid-template-columns:1fr 1fr;gap:8px;">
+                  <div>
+                    <label for="quick-key-priority">Priority</label>
+                    <input id="quick-key-priority" type="number" min="1" max="99" value="2" />
+                  </div>
+                  <div>
+                    <label for="quick-key-cap">Daily RPD Cap</label>
+                    <input id="quick-key-cap" type="number" min="1" max="100000" value="250" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+              <div id="quick-key-status" class="mono" style="font-size:12px;color:var(--ink-2);">
+                When an active key hits 429 quota limits, fetch_jobs.py switches automatically to the next enabled key.
+              </div>
+              <div class="row-actions">
+                <button id="btn-quick-add-key" type="button" class="btn btn-primary">Save Key(s) &amp; Probe Live</button>
+                <a href="/keys" class="btn">Open Key Limits Page (/keys) &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Configured Sources (sources.json)</h2>
+            <span class="mono" style="font-size:11px;color:var(--ink-2)">robots.txt &amp; 2s rate-limit enforced</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Source ID</th>
+                  <th>Type</th>
+                  <th>Target</th>
+                  <th>Max Items</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="sources-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: PENDING PDFS -->
+      <section id="tab-pending" class="tab-panel hidden">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Official PDFs Waiting for Admin Upload</h2>
+            <span class="mono" style="font-size:11px;color:var(--ink-2)">scripts/pending_pdfs.json</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Notice &amp; Organization</th>
+                  <th>Deadline</th>
+                  <th>Failure Reason</th>
+                  <th>Official Link</th>
+                  <th>Upload Official PDF</th>
+                </tr>
+              </thead>
+              <tbody id="pending-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Upload Custom Official PDF for Gemini Extraction</h2>
+            <span class="mono" style="font-size:11px;color:var(--ink-2)">Supports text &amp; scanned PDFs (up to 20 MB)</span>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div>
+                <label for="custom-pdf-file">Select Official PDF File *</label>
+                <input id="custom-pdf-file" type="file" accept="application/pdf" />
+              </div>
+              <div>
+                <label for="custom-pdf-apply-url">Official Apply / Portal URL *</label>
+                <input id="custom-pdf-apply-url" type="url" placeholder="https://upsconline.nic.in" />
+              </div>
+              <div>
+                <label for="custom-pdf-title">Title Hint (Optional)</label>
+                <input id="custom-pdf-title" type="text" placeholder="e.g. UPSC Advt No. 13/2026" />
+              </div>
+              <div>
+                <label for="custom-pdf-org">Organization Hint (Optional)</label>
+                <input id="custom-pdf-org" type="text" placeholder="e.g. UPSC" />
+              </div>
+            </div>
+            <div class="row-actions" style="margin-top:12px;">
+              <label class="check-row" style="text-transform:none;font-weight:500;">
+                <input id="custom-pdf-stage" type="checkbox" checked />
+                Send extracted job to Review Queue first
+              </label>
+              <button id="btn-upload-custom-pdf" type="button" class="btn btn-primary">Upload &amp; Scan PDF with Gemini</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: REVIEW QUEUE -->
+      <section id="tab-review" class="tab-panel hidden">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Extracted Jobs Awaiting Admin Review</h2>
+            <span class="mono" style="font-size:11px;color:var(--ink-2)">scripts/staging_jobs/*.json</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Post Title &amp; Organization</th>
+                  <th>Qualification</th>
+                  <th>Vacancies</th>
+                  <th>Deadline</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staging-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: PUBLISHED REGISTRY -->
+      <section id="tab-published" class="tab-panel hidden">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Published Jobs &amp; Admissions Registry</h2>
+            <div class="row-actions">
+              <input id="pub-search" type="search" placeholder="Filter published posts..." style="width:230px;" />
+              <select id="pub-filter" style="width:185px;">
+                <option value="all">All Posts (Jobs &amp; Admissions)</option>
+                <option value="jobs">Recruitment Jobs Only</option>
+                <option value="admissions">Admissions Only</option>
+                <option value="active">Active Jobs Only</option>
+                <option value="closing">Closing &le; 7 Days</option>
+                <option value="archived">Archived / Closed</option>
+              </select>
+            </div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Post Title &amp; Organization</th>
+                  <th>Department / Qual</th>
+                  <th>Vacancies</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="published-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: ADD JOB MANUALLY -->
+      <section id="tab-manual" class="tab-panel hidden">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Add New Government Recruitment Manually</h2>
+            <span class="mono" style="font-size:11px;color:var(--ink-2)">Validated against src/content.config.ts Zod schema</span>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid">
+              <div>
+                <label>Post Classification * (Job vs Admission)</label>
+                <select id="m-post-type" onchange="toggleAdmissionFields('m')">
+                  <option value="job">Recruitment Job (src/data/jobs/)</option>
+                  <option value="admission">Entrance / Admission (src/data/admissions/)</option>
+                </select>
+              </div>
+              <div id="m-adm-fields-course" class="hidden"><label>Course / Programme Level *</label><input id="m-course-level" type="text" placeholder="e.g. Undergraduate (B.Tech / B.Sc.)" /></div>
+              <div id="m-adm-fields-exam" class="hidden"><label>Entrance Exam Date / Window</label><input id="m-exam-date" type="text" placeholder="e.g. 12 Dec 2026 or May 2027" onblur="normalizeTextDateInput(this)" /></div>
+              <div><label>Post / Exam Title *</label><input id="m-title" type="text" placeholder="e.g. Combined Graduate Level Examination 2026" /></div>
+              <div><label>Organization *</label><input id="m-org" type="text" placeholder="e.g. Staff Selection Commission (SSC)" /></div>
+              <div>
+                <label>Department *</label>
+                <input id="m-dept" type="text" placeholder="e.g. Banking & Finance, Civil Services" />
+              </div>
+              <div>
+                <label>Government Category *</label>
+                <select id="m-gov-level">
+                  <option value="">Auto-detect</option>
+                  <option value="central">Central Government / PSU</option>
+                  <option value="state">State Government</option>
+                </select>
+              </div>
+              <div>
+                <label>State Name (if State Govt)</label>
+                <input id="m-state-name" type="text" placeholder="e.g. Maharashtra, Uttar Pradesh" />
+              </div>
+              <div>
+                <label>Qualification Level *</label>
+                <select id="m-qual">
+                  <option>Graduate</option>
+                  <option>Post Graduate</option>
+                  <option>Engineering (B.E./B.Tech)</option>
+                  <option>12th Pass</option>
+                  <option>10th Pass</option>
+                  <option>Diploma / ITI</option>
+                  <option>Medical / Nursing</option>
+                  <option>Law (LL.B.)</option>
+                  <option>See Official Notification</option>
+                </select>
+              </div>
+              <div><label>Location *</label><input id="m-loc" type="text" value="All India" /></div>
+              <div><label>Total Vacancies</label><input id="m-vacancies" type="number" min="1" placeholder="Optional integer" /></div>
+              <div>
+                <label>Posted Date * (e.g. 12 Dec 2026)</label>
+                <div class="date-combo">
+                  <input id="m-posted" type="text" placeholder="12 Dec 2026" onblur="normalizeTextDateInput(this)" />
+                  <input type="date" class="date-picker-btn" title="Pick date" onchange="applyPickerDate(this, 'm-posted')" />
+                </div>
+              </div>
+              <div>
+                <label>Application Deadline (e.g. 12 Dec 2026)</label>
+                <div class="date-combo">
+                  <input id="m-deadline" type="text" placeholder="12 Dec 2026" onblur="normalizeTextDateInput(this)" />
+                  <input type="date" class="date-picker-btn" title="Pick date" onchange="applyPickerDate(this, 'm-deadline')" />
+                </div>
+              </div>
+              <div><label>Salary Range (Real amount/level only)</label><input id="m-salary" type="text" placeholder="e.g. Rs. 44,900 - 1,42,400 (Level 7)" /></div>
+              <div><label>Fee Notes / Payment Mode</label><input id="m-fee" type="text" placeholder="Optional payment mode / exemption notes" /></div>
+              <div><label>Age Limit</label><input id="m-age" type="text" placeholder="e.g. 18-30 years as on 01 Jan 2027" /></div>
+              <div><label>Notification Code</label><input id="m-code" type="text" placeholder="e.g. Advt. No. 05/2026" /></div>
+              <div><label>Official Apply URL *</label><input id="m-apply-url" type="url" placeholder="https://..." /></div>
+              <div><label>Official PDF URL</label><input id="m-pdf-url" type="url" placeholder="https://.../notice.pdf" /></div>
+            </div>
+
+            <div>
+              <label>Factual Summary * (min 20 chars)</label>
+              <textarea id="m-summary" placeholder="Concise 2-3 sentence summary of the official notification..."></textarea>
+            </div>
+
+            <div class="post-menu-bar">
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--ink);">Post This Notice on Homepage Menu</div>
+                <div class="mono" style="font-size:11px;color:var(--ink-2);">Highlight where this post appears in the right-rail menu tabs</div>
+              </div>
+              <div id="m-post-menus" class="menu-cat-group">
+                <button type="button" class="menu-cat-btn" data-cat="result" data-active="false" onclick="togglePostMenuButton('m', this)">Post on Result</button>
+                <button type="button" class="menu-cat-btn" data-cat="admit-card" data-active="false" onclick="togglePostMenuButton('m', this)">Post on Admit Card</button>
+                <button type="button" class="menu-cat-btn" data-cat="answer-key" data-active="false" onclick="togglePostMenuButton('m', this)">Post on Answer Key</button>
+              </div>
+            </div>
+
+            <div class="builder-box">
+              <div class="builder-head">
+                <label>Important Official Links (Link Title Left &rarr; Actual Link URL Right)</label>
+                <button type="button" class="btn btn-mini btn-primary" onclick="addOfficialLinkRow('m-links-list')">+ Add New Link</button>
+              </div>
+              <div class="col-labels col-labels-links"><span>Link Title (Displayed Left)</span><span>Actual Link URL (Displayed Right)</span><span>Order / Del</span></div>
+              <div id="m-links-list"></div>
+            </div>
+
+            <div class="grid-2">
+              <div class="builder-box">
+                <div class="builder-head">
+                  <label>Important Dates (Format: 12 Dec 2026)</label>
+                  <button type="button" class="btn btn-mini btn-primary" onclick="addDateItemRow('m-dates-list')">+ Add Date</button>
+                </div>
+                <div class="col-labels col-labels-dates"><span>Event / Milestone</span><span>Date (12 Dec 2026)</span><span>Order / Del</span></div>
+                <div id="m-dates-list"></div>
+              </div>
+
+              <div class="builder-box">
+                <div class="builder-head">
+                  <label>Organized Fee Structure (Category-Wise)</label>
+                  <button type="button" class="btn btn-mini btn-primary" onclick="addFeeRow('m-fees-list')">+ Add Fee Row</button>
+                </div>
+                <div class="col-labels col-labels-fees"><span>Category / Group</span><span>Fee / Amount</span><span>Del</span></div>
+                <div id="m-fees-list"></div>
+              </div>
+            </div>
+
+            <div class="builder-box">
+              <div class="builder-head">
+                <label>Vacancy Breakdown &amp; Per-Post Eligibility</label>
+                <button type="button" class="btn btn-mini btn-primary" onclick="addVacancyRow('m-vacs-list')">+ Add Post / Category</button>
+              </div>
+              <div class="col-labels col-labels-vacs"><span>Post / Category Name</span><span>Vacancies</span><span>Post Eligibility / Qualification</span><span>Pay Level / Notes</span><span>Del</span></div>
+              <div id="m-vacs-list"></div>
+            </div>
+
+            <div class="grid-2">
+              <div class="builder-box">
+                <div class="builder-head">
+                  <label>Eligibility Points (Cover Every Post)</label>
+                  <button type="button" class="btn btn-mini btn-primary" onclick="addTextRow('m-elig-list', 'e.g. Junior Clerk: Bachelor degree + typing speed...')">+ Add Eligibility Point</button>
+                </div>
+                <div id="m-elig-list"></div>
+              </div>
+
+              <div class="builder-box">
+                <div class="builder-head">
+                  <label>Step-by-Step How to Apply</label>
+                  <button type="button" class="btn btn-mini btn-primary" onclick="addTextRow('m-steps-list', 'e.g. Visit the official recruitment portal...')">+ Add Step</button>
+                </div>
+                <div id="m-steps-list"></div>
+              </div>
+            </div>
+
+            <div class="row-actions">
+              <button id="btn-manual-publish" type="button" class="btn btn-primary">Publish Directly to Live Site</button>
+              <button id="btn-manual-stage" type="button" class="btn">Save to Review Queue</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: NOTIFICATIONS -->
+      <section id="tab-notifications" class="tab-panel hidden">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Admin Alerts &amp; Pipeline Notifications</h2>
+            <button id="btn-mark-notifs-read" type="button" class="btn">Mark All Read</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Alert</th>
+                  <th>Timestamp (UTC)</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="notifs-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Flexible Full-Form Job Post Overlay Window (No JSON!) -->
+    <div id="review-editor-card" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="review-editor-title">
+      <div class="modal-dialog" onclick="event.stopPropagation()">
+        <div class="modal-head">
+          <div>
+            <h2 id="review-editor-title" class="card-title">Edit Job Post</h2>
+            <div class="mono" style="font-size:11px;color:var(--ink-2)">All dates use '12 Dec 2026' format · Zero JSON editing needed</div>
+          </div>
+          <button id="btn-close-editor" type="button" class="btn">Close &times;</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-grid">
+            <div>
+              <label>Post Classification * (Job vs Admission)</label>
+              <select id="ed-post-type" onchange="toggleAdmissionFields('ed')">
+                <option value="job">Recruitment Job (src/data/jobs/)</option>
+                <option value="admission">Entrance / Admission (src/data/admissions/)</option>
+              </select>
+            </div>
+            <div id="ed-adm-fields-course" class="hidden"><label>Course / Programme Level *</label><input id="ed-course-level" type="text" placeholder="e.g. Undergraduate / Diploma" /></div>
+            <div id="ed-adm-fields-exam" class="hidden"><label>Entrance Exam Date / Window</label><input id="ed-exam-date" type="text" placeholder="12 Dec 2026 or window" onblur="normalizeTextDateInput(this)" /></div>
+            <div><label>Post / Job Title *</label><input id="ed-title" type="text" /></div>
+            <div><label>Organization *</label><input id="ed-org" type="text" /></div>
+            <div><label>Department *</label><input id="ed-dept" type="text" /></div>
+            <div>
+              <label>Category *</label>
+              <select id="ed-gov-level">
+                <option value="">Auto-detect</option>
+                <option value="central">Central Government</option>
+                <option value="state">State Government</option>
+              </select>
+            </div>
+            <div><label>State Name (if State Govt)</label><input id="ed-state-name" type="text" placeholder="e.g. Maharashtra" /></div>
+            <div><label>Qualification Level *</label><input id="ed-qual" type="text" /></div>
+            <div><label>Location *</label><input id="ed-loc" type="text" /></div>
+            <div><label>Total Vacancies</label><input id="ed-vacancies" type="number" placeholder="Leave blank if Visit Official Site" /></div>
+            <div>
+              <label>Posted Date * (e.g. 12 Dec 2026)</label>
+              <div class="date-combo">
+                <input id="ed-posted" type="text" placeholder="12 Dec 2026" onblur="normalizeTextDateInput(this)" />
+                <input type="date" class="date-picker-btn" title="Pick date" onchange="applyPickerDate(this, 'ed-posted')" />
+              </div>
+            </div>
+            <div>
+              <label>Application Deadline (e.g. 12 Dec 2026)</label>
+              <div class="date-combo">
+                <input id="ed-deadline" type="text" placeholder="12 Dec 2026" onblur="normalizeTextDateInput(this)" />
+                <input type="date" class="date-picker-btn" title="Pick date" onchange="applyPickerDate(this, 'ed-deadline')" />
+              </div>
+            </div>
+            <div><label>Salary Range (Actual notice scale/amount only)</label><input id="ed-salary" type="text" placeholder="Leave blank if unspecified" /></div>
+            <div><label>Fee Summary / Payment Mode Notes</label><input id="ed-fee" type="text" placeholder="Optional mode/note alongside fee table below" /></div>
+            <div><label>Age Limit</label><input id="ed-age" type="text" /></div>
+            <div><label>Notification / Advt Code</label><input id="ed-code" type="text" /></div>
+            <div><label>Official Apply URL *</label><input id="ed-apply-url" type="url" /></div>
+            <div><label>Official Notification PDF URL</label><input id="ed-pdf-url" type="url" /></div>
+          </div>
+
+          <div><label>Factual Summary *</label><textarea id="ed-summary"></textarea></div>
+
+          <div class="post-menu-bar">
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--ink);">Post This Notice on Homepage Menu</div>
+              <div class="mono" style="font-size:11px;color:var(--ink-2);">Publish directly into Result, Admit Card, or Answer Key tabs on homepage</div>
+            </div>
+            <div id="ed-post-menus" class="menu-cat-group">
+              <button id="ed-menu-result" type="button" class="menu-cat-btn" data-cat="result" data-active="false" onclick="togglePostMenuButton('ed', this)">Post on Result</button>
+              <button id="ed-menu-admit-card" type="button" class="menu-cat-btn" data-cat="admit-card" data-active="false" onclick="togglePostMenuButton('ed', this)">Post on Admit Card</button>
+              <button id="ed-menu-answer-key" type="button" class="menu-cat-btn" data-cat="answer-key" data-active="false" onclick="togglePostMenuButton('ed', this)">Post on Answer Key</button>
+            </div>
+          </div>
+
+          <div class="builder-box">
+            <div class="builder-head">
+              <label>Important Official Links (Link Title Left | Actual Official URL Right)</label>
+              <button type="button" class="btn btn-mini btn-primary" onclick="addOfficialLinkRow('ed-links-list')">+ Add New Link</button>
+            </div>
+            <div class="col-labels col-labels-links"><span>Link Title (Displayed on Left)</span><span>Actual Official URL (Click Here on Right)</span><span>Order / Del</span></div>
+            <div id="ed-links-list"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="builder-box">
+              <div class="builder-head">
+                <label>Important Dates (12 Dec 2026 Format)</label>
+                <button type="button" class="btn btn-mini btn-primary" onclick="addDateItemRow('ed-dates-list')">+ Add Date</button>
+              </div>
+              <div class="col-labels col-labels-dates"><span>Event / Milestone</span><span>Date (12 Dec 2026)</span><span>Order / Del</span></div>
+              <div id="ed-dates-list"></div>
+            </div>
+
+            <div class="builder-box">
+              <div class="builder-head">
+                <label>Application Fee Structure (Organized Rows)</label>
+                <button type="button" class="btn btn-mini btn-primary" onclick="addFeeRow('ed-fees-list')">+ Add Fee Row</button>
+              </div>
+              <div class="col-labels col-labels-fees"><span>Category / Group</span><span>Fee / Amount</span><span>Del</span></div>
+              <div id="ed-fees-list"></div>
+            </div>
+          </div>
+
+          <div class="builder-box">
+            <div class="builder-head">
+              <label>Vacancy Breakdown &amp; Per-Post Eligibility</label>
+              <button type="button" class="btn btn-mini btn-primary" onclick="addVacancyRow('ed-vacs-list')">+ Add Post / Category Row</button>
+            </div>
+            <div class="col-labels col-labels-vacs"><span>Post / Category Name</span><span>Vacancies</span><span>Post Eligibility / Qualification</span><span>Pay Level / Notes</span><span>Del</span></div>
+            <div id="ed-vacs-list"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="builder-box">
+              <div class="builder-head">
+                <label>Eligibility Points (For Every Post)</label>
+                <button type="button" class="btn btn-mini btn-primary" onclick="addTextRow('ed-elig-list', 'Post Name: educational qualification, experience & age condition...')">+ Add Eligibility Point</button>
+              </div>
+              <div id="ed-elig-list"></div>
+            </div>
+
+            <div class="builder-box">
+              <div class="builder-head">
+                <label>Step-by-Step How to Apply</label>
+                <button type="button" class="btn btn-mini btn-primary" onclick="addTextRow('ed-steps-list', 'Visit official website and submit application form...')">+ Add Step</button>
+              </div>
+              <div id="ed-steps-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-foot">
+          <button id="btn-cancel-editor" type="button" class="btn">Cancel</button>
+          <div class="row-actions">
+            <button id="btn-reject-staged" type="button" class="btn btn-danger">Reject &amp; Discard</button>
+            <button id="btn-approve-staged" type="button" class="btn btn-primary">Save Changes to Live Site</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let state = {
+        overview: null,
+        published: [],
+        admissions: [],
+        staging: [],
+        pending: [],
+        notifications: [],
+        currentStagedSlug: null,
+        editorSourceKind: 'job',
+        wasRunning: false,
+        lastNotifCount: 0,
+      };
+
+      function showToast(msg, isErr = false) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.style.borderLeftColor = isErr ? '#991B1B' : '#1D4ED8';
+        el.classList.remove('hidden');
+        setTimeout(() => el.classList.add('hidden'), 4500);
+      }
+
+      async function api(url, opts = {}) {
+        const res = await fetch(url, {
+          headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
+          ...opts,
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || data.message || `HTTP ${res.status}`);
+        return data;
+      }
+
+      function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === tabId));
+        document.querySelectorAll('.tab-panel').forEach((p) => p.classList.toggle('hidden', p.id !== `tab-${tabId}`));
+      }
+
+      document.querySelectorAll('.tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+      });
+      document.getElementById('banner-goto-runner').addEventListener('click', () => switchTab('runner'));
+      document.getElementById('banner-goto-pending').addEventListener('click', () => switchTab('pending'));
+      document.getElementById('banner-goto-review').addEventListener('click', () => switchTab('review'));
+
+      function esc(str) {
+        return String(str ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      async function loadAll() {
+        const [ov, pub, adm, stg, pend, notifs] = await Promise.all([
+          api('/api/overview'),
+          api('/api/jobs'),
+          api('/api/admissions'),
+          api('/api/staging'),
+          api('/api/pending-pdfs'),
+          api('/api/notifications'),
+        ]);
+        state.overview = ov;
+        state.published = pub.jobs || [];
+        state.admissions = adm.admissions || [];
+        state.staging = stg.jobs || [];
+        state.pending = pend.items || [];
+        state.notifications = notifs.items || [];
+
+        renderOverview(ov);
+        renderSources(ov.sources || []);
+        renderPending();
+        renderStaging();
+        renderPublished();
+        renderNotifications();
+      }
+
+      function renderOverview(ov) {
+        document.getElementById('m-active').textContent = ov.active_count;
+        document.getElementById('m-closing').textContent = ov.closing_soon_count;
+        document.getElementById('m-staged').textContent = ov.staged_count;
+        document.getElementById('m-pending').textContent = ov.pending_pdf_count;
+        document.getElementById('m-keys').textContent = `${ov.active_gemini_keys ?? 0}/${ov.total_gemini_keys ?? 0}`;
+        document.getElementById('m-keys-sub').textContent =
+          ov.exhausted_gemini_keys > 0
+            ? `${ov.exhausted_gemini_keys} exhausted (failover ready)`
+            : 'Click to inspect limits';
+
+        const bp = document.getElementById('tab-badge-pending');
+        bp.textContent = ov.pending_pdf_count;
+        bp.className = `badge ${ov.pending_pdf_count > 0 ? 'badge-warn' : ''}`;
+
+        const br = document.getElementById('tab-badge-review');
+        br.textContent = ov.staged_count;
+        br.className = `badge ${ov.staged_count > 0 ? 'badge-active' : ''}`;
+
+        document.getElementById('tab-badge-published').textContent = (ov.published_count || 0) + (ov.admissions_count || 0);
+
+        const bn = document.getElementById('tab-badge-notifs');
+        bn.textContent = ov.unread_notifications;
+        bn.className = `badge ${ov.unread_notifications > 0 ? 'badge-urgent' : ''}`;
+
+        // Global action banner
+        const banner = document.getElementById('global-action-banner');
+        const bText = document.getElementById('global-action-text');
+        const btnP = document.getElementById('banner-goto-pending');
+        const btnR = document.getElementById('banner-goto-review');
+        const btnF = document.getElementById('banner-goto-runner');
+        const r = ov.runner || {};
+        const alerts = [];
+        if (!r.running && r.has_failure) {
+          const fsCount = (r.failed_states || []).length;
+          alerts.push(fsCount > 0 ? `${fsCount} state(s) failed during last run` : 'Last runner execution reported failure(s)');
+        }
+        if (ov.pending_pdf_count > 0) alerts.push(`${ov.pending_pdf_count} official PDF(s) require manual upload`);
+        if (ov.staged_count > 0) alerts.push(`${ov.staged_count} extracted job(s) waiting for admin review`);
+        if (alerts.length > 0) {
+          bText.textContent = `Admin Attention Needed: ${alerts.join(' · ')}.`;
+          banner.classList.remove('hidden');
+          btnF.classList.toggle('hidden', !(!r.running && r.has_failure));
+          btnP.classList.toggle('hidden', ov.pending_pdf_count === 0);
+          btnR.classList.toggle('hidden', ov.staged_count === 0);
+        } else {
+          banner.classList.add('hidden');
+        }
+
+        // Populate source dropdowns if empty
+        const runSel = document.getElementById('run-source');
+        const schedSel = document.getElementById('sched-source');
+        if (runSel.options.length <= 1) {
+          (ov.sources || []).forEach((s) => {
+            const opt1 = new Option(`${s.id} (${s.type})`, s.id);
+            const opt2 = new Option(`${s.id} (${s.type})`, s.id);
+            runSel.add(opt1);
+            schedSel.add(opt2);
+          });
+        }
+
+        const stateSel = document.getElementById('run-state');
+        if (stateSel && stateSel.options.length <= 2) {
+          (ov.state_options || []).forEach((st) => {
+            stateSel.add(new Option(`${st.name} (${st.code})`, st.code));
+          });
+        }
+        state.admissionPortals = ov.admission_portals || [];
+        populateAdmissionPortalDropdown(document.getElementById('run-portal-search')?.value || '');
+        toggleRunnerScopeUI();
+
+        // Scheduler fields
+        const sc = ov.scheduler || {};
+        document.getElementById('sched-enabled').checked = !!sc.enabled;
+        document.getElementById('sched-interval').value = sc.interval_hours || 12;
+        document.getElementById('sched-limit').value = sc.limit || 15;
+        document.getElementById('sched-source').value = sc.source || '';
+        document.getElementById('sched-stage').checked = sc.stage_for_review !== false;
+        document.getElementById('sched-last').textContent = sc.last_run_at || 'Never';
+        document.getElementById('sched-next').textContent = sc.next_run_at || 'Disabled';
+
+        updateRunnerUI(ov.runner);
+      }
+
+      function updateRunnerUI(r) {
+        if (!r) return;
+        const badge = document.getElementById('m-runner-badge');
+        const taskLbl = document.getElementById('m-runner-task');
+        const runBtn = document.getElementById('btn-run-fetch');
+        const rerunLastBtn = document.getElementById('btn-rerun-last');
+        const buildBtn = document.getElementById('btn-run-build');
+        const recoveryBox = document.getElementById('runner-recovery-box');
+        const rerunStatesBtn = document.getElementById('btn-rerun-failed-states');
+        const rerunCmdBtn = document.getElementById('btn-rerun-failed-cmd');
+        const recoveryDetails = document.getElementById('runner-recovery-details');
+        const chipsBox = document.getElementById('runner-failed-states-chips');
+
+        const failedStates = Array.isArray(r.failed_states) ? r.failed_states : [];
+        const failedSources = Array.isArray(r.failed_sources) ? r.failed_sources : [];
+        const failedCandidates = Array.isArray(r.failed_candidates) ? r.failed_candidates : [];
+        const hasFailure = !!r.has_failure || failedStates.length > 0 || failedSources.length > 0;
+
+        if (r.running) {
+          badge.textContent = 'Running';
+          badge.className = 'badge badge-warn';
+          taskLbl.textContent = r.task_name || 'Running';
+          runBtn.disabled = true;
+          buildBtn.disabled = true;
+          if (rerunLastBtn) rerunLastBtn.disabled = true;
+          if (rerunStatesBtn) rerunStatesBtn.disabled = true;
+          if (rerunCmdBtn) rerunCmdBtn.disabled = true;
+        } else {
+          if (hasFailure) {
+            badge.textContent = failedStates.length > 0
+              ? `Failed (${failedStates.length} state${failedStates.length > 1 ? 's' : ''})`
+              : (r.exit_code && r.exit_code !== 0 ? `Failed (Exit ${r.exit_code})` : 'Failed');
+            badge.className = 'badge badge-urgent';
+          } else {
+            badge.textContent = r.exit_code === 0 || r.exit_code === null ? 'Idle' : `Exit ${r.exit_code}`;
+            badge.className = 'badge badge-active';
+          }
+          taskLbl.textContent = r.finished_at ? `Last: ${r.finished_at}` : 'Idle';
+          runBtn.disabled = false;
+          buildBtn.disabled = false;
+          if (rerunLastBtn) rerunLastBtn.disabled = !r.can_rerun_last;
+          if (rerunStatesBtn) rerunStatesBtn.disabled = false;
+          if (rerunCmdBtn) rerunCmdBtn.disabled = false;
+        }
+
+        if (recoveryBox) {
+          if (!r.running && hasFailure) {
+            recoveryBox.classList.remove('hidden');
+            const parts = [];
+            if (r.exit_code && r.exit_code !== 0) parts.push(`Exit code ${r.exit_code}`);
+            if (failedStates.length > 0) parts.push(`${failedStates.length} state(s) failed: ${failedStates.map((s) => s.code || s.name).join(', ')}`);
+            if (failedSources.length > 0) parts.push(`Sources: ${failedSources.map((s) => s.source_id).join(', ')}`);
+            if (failedCandidates.length > 0) parts.push(`${failedCandidates.length} candidate error(s)`);
+            recoveryDetails.textContent = parts.join(' · ') || 'Run reported failures.';
+
+            if (rerunStatesBtn) {
+              rerunStatesBtn.classList.toggle('hidden', !r.can_rerun_failed_states);
+            }
+            if (chipsBox) {
+              chipsBox.innerHTML = failedStates.map((s) => {
+                const code = s.code || '';
+                const label = s.name ? `${s.name} (${code})` : (code || s.endpoint);
+                if (!code) return `<span class="badge badge-urgent">${esc(label)}: ${esc(s.error || 'Error')}</span>`;
+                return `<button type="button" class="btn btn-danger" title="${esc(s.error || '')}" onclick="rerunFailedStates(['${esc(code)}'])">Re-run ${esc(label)}</button>`;
+              }).join('');
+            }
+          } else {
+            recoveryBox.classList.add('hidden');
+          }
+        }
+        if (r.log_tail) {
+          const box = document.getElementById('run-log-box');
+          box.textContent = r.log_tail;
+          box.scrollTop = box.scrollHeight;
+        }
+        document.getElementById('run-summary-pill').textContent = r.last_summary || '';
+
+        if (state.wasRunning && !r.running) {
+          loadAll().then(() => {
+            if (Notification.permission === 'granted' && state.overview) {
+              const p = state.overview.pending_pdf_count;
+              const s = state.overview.staged_count;
+              if (p > 0 || s > 0) {
+                new Notification('ChayanDesk Admin', {
+                  body: `Run finished. Pending PDFs: ${p}, Staged for Review: ${s}.`,
+                });
+              }
+            }
+          });
+        }
+        state.wasRunning = !!r.running;
+      }
+
+      function toggleRunnerScopeUI() {
+        const srcVal = document.getElementById('run-source').value;
+        const isAdm = srcVal === 'Admission' || srcVal.toLowerCase() === 'admission';
+        const stateWrap = document.getElementById('run-state-wrap');
+        const portalWrap = document.getElementById('run-portal-wrap');
+        if (stateWrap) stateWrap.classList.toggle('hidden', isAdm);
+        if (portalWrap) portalWrap.classList.toggle('hidden', !isAdm);
+      }
+
+      function populateAdmissionPortalDropdown(query = '') {
+        const sel = document.getElementById('run-portal');
+        if (!sel) return;
+        const prev = sel.value;
+        const q = String(query || '').trim().toLowerCase();
+        const portals = Array.isArray(state.admissionPortals) ? state.admissionPortals : [];
+        const matched = q
+          ? portals.filter((p) =>
+              `${p.id} ${p.short_name} ${p.name} ${p.category} ${p.source_domain}`.toLowerCase().includes(q),
+            )
+          : portals;
+
+        sel.innerHTML = '';
+        const allLbl = q
+          ? `All Matching Organisations (${matched.length} of ${portals.length})`
+          : `All Admission Organisations (${portals.length})`;
+        sel.add(new Option(allLbl, ''));
+        matched.forEach((p) => {
+          sel.add(new Option(`${p.short_name} — ${p.category} (${p.source_domain})`, p.id));
+        });
+        if (prev && matched.some((p) => p.id === prev)) sel.value = prev;
+      }
+
+      function selectAdmissionOrg(portalId) {
+        const srcSel = document.getElementById('run-source');
+        if (srcSel) srcSel.value = 'Admission';
+        toggleRunnerScopeUI();
+        populateAdmissionPortalDropdown('');
+        const pSearch = document.getElementById('run-portal-search');
+        const pSel = document.getElementById('run-portal');
+        if (pSearch) pSearch.value = '';
+        if (pSel) pSel.value = portalId;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast(`Selected Admission organization '${portalId}' in runner.`);
+      }
+
+      function filterSourcePortals(inputEl) {
+        const q = (inputEl.value || '').trim().toLowerCase();
+        const list = inputEl.nextElementSibling;
+        if (!list) return;
+        Array.from(list.querySelectorAll('[data-portal-search]')).forEach((chip) => {
+          const hay = chip.getAttribute('data-portal-search') || '';
+          chip.style.display = !q || hay.includes(q) ? 'inline-flex' : 'none';
+        });
+      }
+
+      function renderSources(sources) {
+        const tbody = document.getElementById('sources-tbody');
+        tbody.innerHTML = sources.map((s) => {
+          let scopeHtml = esc(Array.isArray(s.endpoints) ? s.endpoints.join(', ') : (s.endpoint || s.url || s.source_domain));
+          if (s.type === 'admission_hub' && Array.isArray(s.portals)) {
+            const chips = s.portals.map((p) => {
+              const hay = `${p.id} ${p.short_name} ${p.name} ${p.category} ${p.source_domain}`.toLowerCase();
+              return `<button type="button" class="btn btn-mini" style="font-size:11px;margin:2px;" data-portal-search="${esc(hay)}" title="${esc(p.name)} (${esc(p.url)})" onclick="selectAdmissionOrg('${esc(p.id)}')">${esc(p.short_name || p.id)}</button>`;
+            }).join('');
+            scopeHtml = `
+              <input type="search" placeholder="Search ${s.portals.length} conducting organisations (NTA, DU, JMI, JEE, CLAT, JEECUP...)" oninput="filterSourcePortals(this)" style="margin-bottom:6px;font-size:11px;padding:4px 8px;" />
+              <div style="display:flex;flex-wrap:wrap;gap:2px;">${chips}</div>
+            `;
+          }
+          return `
+          <tr>
+            <td class="mono"><strong>${esc(s.id)}</strong><div style="font-size:11px;color:var(--ink-2)">${esc(s.name)}</div></td>
+            <td><span class="badge">${esc(s.type)}</span></td>
+            <td style="font-size:12px;">${scopeHtml}</td>
+            <td class="tabular">${esc(s.max_items || 10)}</td>
+            <td><span class="badge ${s.enabled !== false ? 'badge-active' : ''}">${s.enabled !== false ? 'Enabled' : 'Disabled'}</span></td>
+            <td>
+              <button class="btn" onclick="toggleSource('${esc(s.id)}', ${s.enabled === false})">
+                ${s.enabled === false ? 'Enable' : 'Disable'}
+              </button>
+            </td>
+          </tr>
+        `;
+        }).join('');
+      }
+
+      async function toggleSource(id, enabled) {
+        try {
+          await api('/api/sources/toggle', { method: 'POST', body: JSON.stringify({ id, enabled }) });
+          showToast(`Source '${id}' ${enabled ? 'enabled' : 'disabled'}.`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      function renderPending() {
+        const tbody = document.getElementById('pending-tbody');
+        const active = state.pending.filter((i) => i.status === 'pending');
+        if (active.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="color:var(--ink-2);text-align:center;padding:20px;">No pending PDFs waiting for admin upload.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = active.map((item) => {
+          const link = item.official_pdf_url || item.official_apply_url || '#';
+          return `
+            <tr>
+              <td>
+                <strong>${esc(item.title)}</strong>
+                <div style="font-size:12px;color:var(--ink-2)">${esc(item.organization)} &middot; <span class="mono">${esc(item.id)}</span></div>
+              </td>
+              <td class="mono tabular">${esc(item.application_deadline || 'Check Notice')}</td>
+              <td style="font-size:12px;color:var(--urgent-text);max-width:260px;">${esc(item.reason)}</td>
+              <td>
+                <a href="${esc(link)}" target="_blank" rel="noopener" class="btn">Download Official PDF &rarr;</a>
+              </td>
+              <td>
+                <div class="row-actions">
+                  <input id="up-${esc(item.id)}" type="file" accept="application/pdf" style="width:185px;padding:4px;" />
+                  <button class="btn btn-primary" onclick="uploadPendingPdf('${esc(item.id)}')">Upload &amp; Scan</button>
+                  <button class="btn btn-danger" onclick="dismissPending('${esc(item.id)}')">Dismiss</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function uploadPendingPdf(pendingId) {
+        const input = document.getElementById(`up-${pendingId}`);
+        if (!input || !input.files || !input.files[0]) {
+          showToast('Please select a PDF file first.', true);
+          return;
+        }
+        try {
+          const b64 = await fileToBase64(input.files[0]);
+          await api('/api/upload-pdf', {
+            method: 'POST',
+            body: JSON.stringify({
+              pending_id: pendingId,
+              filename: input.files[0].name,
+              pdf_base64: b64,
+              stage: true,
+            }),
+          });
+          showToast('PDF uploaded! Gemini extraction started (see Runner Logs).');
+          switchTab('runner');
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      async function dismissPending(id) {
+        try {
+          await api(`/api/pending-pdfs/${id}/dismiss`, { method: 'POST', body: '{}' });
+          showToast(`Dismissed '${id}'.`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      function renderStaging() {
+        const tbody = document.getElementById('staging-tbody');
+        if (state.staging.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="color:var(--ink-2);text-align:center;padding:20px;">Review queue is empty.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = state.staging.map((entry) => {
+          const d = entry.data;
+          const catLbl = d.government_level === 'state' ? `${d.state_name || 'State'} Govt` : 'Central Govt';
+          const isAdm = (d.post_type || 'job') === 'admission';
+          const ptBadge = isAdm
+            ? '<span class="badge badge-warn">Admission</span>'
+            : '<span class="badge badge-active">Job</span>';
+          return `
+            <tr>
+              <td>
+                <strong>${esc(d.title)}</strong>
+                <div style="font-size:12px;color:var(--ink-2)">${ptBadge} <span class="badge">${esc(catLbl)}</span> ${esc(d.organization)} &middot; <span class="mono">${esc(d.source_domain)}</span></div>
+              </td>
+              <td><span class="badge">${esc(d.qualification_level)}</span></td>
+              <td class="tabular"><strong>${esc(d.total_vacancies ?? 'Visit Official Site')}</strong></td>
+              <td class="mono tabular">${esc(fmtDisplayDate(d.application_deadline) || 'Visit Official Site')}</td>
+              <td>
+                <div class="row-actions">
+                  <button class="btn btn-primary" onclick="openReviewEditor('${esc(d.slug)}')">Review &amp; Edit</button>
+                  <button class="btn ${!isAdm ? 'btn-success' : ''}" onclick="quickApprove('${esc(d.slug)}', 'job')" title="Publish to Latest Jobs (src/data/jobs/)">Approve &rarr; Job</button>
+                  <button class="btn ${isAdm ? 'btn-success' : ''}" onclick="quickApprove('${esc(d.slug)}', 'admission')" title="Publish to Admissions (src/data/admissions/)">Approve &rarr; Admission</button>
+                  <button class="btn btn-danger" onclick="rejectStaged('${esc(d.slug)}')">Reject</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      const _MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const _MON_IDX = { jan:0, january:0, feb:1, february:1, mar:2, march:2, apr:3, april:3, may:4, jun:5, june:5, jul:6, july:6, aug:7, august:7, sep:8, sept:8, september:8, oct:9, october:9, nov:10, november:10, dec:11, december:11 };
+
+      function fmtDisplayDate(raw) {
+        const s = String(raw || '').trim().replace(/\s+/g, ' ');
+        if (!s) return '';
+        let y, m, d;
+        let match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+        if (match) {
+          y = Number(match[1]); m = Number(match[2]) - 1; d = Number(match[3]);
+        } else if ((match = /^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/.exec(s))) {
+          d = Number(match[1]); m = Number(match[2]) - 1; y = Number(match[3]);
+        } else if ((match = /^(\d{1,2})\s+([A-Za-z]+),?\s+(\d{4})$/.exec(s)) && match[2].toLowerCase() in _MON_IDX) {
+          d = Number(match[1]); m = _MON_IDX[match[2].toLowerCase()]; y = Number(match[3]);
+        } else if ((match = /^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/.exec(s)) && match[1].toLowerCase() in _MON_IDX) {
+          m = _MON_IDX[match[1].toLowerCase()]; d = Number(match[2]); y = Number(match[3]);
+        } else {
+          return s;
+        }
+        const dt = new Date(Date.UTC(y, m, d));
+        if (Number.isNaN(dt.getTime())) return s;
+        return `${dt.getUTCDate()} ${_MONTHS[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
+      }
+
+      function normalizeTextDateInput(el) {
+        if (!el || !el.value) return;
+        el.value = fmtDisplayDate(el.value);
+      }
+
+      function applyPickerDate(pickerEl, targetInputOrId) {
+        if (!pickerEl.value) return;
+        const formatted = fmtDisplayDate(pickerEl.value);
+        const target = typeof targetInputOrId === 'string' ? document.getElementById(targetInputOrId) : targetInputOrId;
+        if (target) target.value = formatted;
+      }
+
+      function moveRow(btn, dir) {
+        const row = btn.closest('.sub-row');
+        if (!row || !row.parentElement) return;
+        if (dir < 0 && row.previousElementSibling) row.parentElement.insertBefore(row, row.previousElementSibling);
+        else if (dir > 0 && row.nextElementSibling) row.parentElement.insertBefore(row.nextElementSibling, row);
+      }
+
+      function toggleAdmissionFields(prefix) {
+        const pt = document.getElementById(`${prefix}-post-type`).value;
+        const isAdm = pt === 'admission';
+        document.getElementById(`${prefix}-adm-fields-course`).classList.toggle('hidden', !isAdm);
+        document.getElementById(`${prefix}-adm-fields-exam`).classList.toggle('hidden', !isAdm);
+        if (prefix === 'ed') {
+          const saveBtn = document.getElementById('btn-approve-staged');
+          if (saveBtn) {
+            if (state.editorMode === 'published') {
+              saveBtn.textContent =
+                state.editorSourceKind !== pt
+                  ? `Move & Save to ${isAdm ? 'Admissions' : 'Jobs'}`
+                  : 'Save Changes to Live Site';
+            } else {
+              saveBtn.textContent = isAdm
+                ? 'Approve & Publish to Admissions'
+                : 'Approve & Publish to Jobs';
+            }
+          }
+        }
+      }
+
+      const MENU_BTN_LABELS = {
+        result: { off: 'Post on Result', on: '\u2713 Posted on Result' },
+        'admit-card': { off: 'Post on Admit Card', on: '\u2713 Posted on Admit Card' },
+        'answer-key': { off: 'Post on Answer Key', on: '\u2713 Posted on Answer Key' },
+      };
+
+      function syncPostMenuButtons(prefix, activeList = []) {
+        const container = document.getElementById(`${prefix}-post-menus`);
+        if (!container) return;
+        const activeSet = new Set((activeList || []).map((x) => String(x || '').trim().toLowerCase()));
+        container.querySelectorAll('.menu-cat-btn').forEach((btn) => {
+          const cat = btn.getAttribute('data-cat');
+          const isAct = activeSet.has(cat);
+          btn.setAttribute('data-active', isAct ? 'true' : 'false');
+          btn.textContent = MENU_BTN_LABELS[cat][isAct ? 'on' : 'off'];
+        });
+      }
+
+      function collectHomepageMenus(prefix) {
+        const container = document.getElementById(`${prefix}-post-menus`);
+        if (!container) return [];
+        return Array.from(container.querySelectorAll('.menu-cat-btn[data-active="true"]'))
+          .map((btn) => btn.getAttribute('data-cat'))
+          .filter(Boolean);
+      }
+
+      async function togglePostMenuButton(prefix, btn) {
+        const cat = btn.getAttribute('data-cat');
+        const nextAct = btn.getAttribute('data-active') !== 'true';
+        btn.setAttribute('data-active', nextAct ? 'true' : 'false');
+        btn.textContent = MENU_BTN_LABELS[cat][nextAct ? 'on' : 'off'];
+        if (!nextAct && prefix === 'ed') {
+          document.querySelectorAll('#ed-links-list .sub-row').forEach((r) => {
+            if ((r.dataset.category || '') === cat) {
+              r.dataset.category = '';
+              r.dataset.addedAt = '';
+            }
+          });
+        }
+        if (prefix === 'ed' && state.editorMode === 'published' && state.currentStagedSlug) {
+          try {
+            const endpoint = state.editorSourceKind === 'admission'
+              ? `/api/admissions/${state.currentStagedSlug}/menus`
+              : `/api/jobs/${state.currentStagedSlug}/menus`;
+            const res = await api(endpoint, {
+              method: 'POST',
+              body: JSON.stringify({ menu: cat, enabled: nextAct }),
+            });
+            showToast(nextAct ? `Posted '${state.currentStagedSlug}' onto ${cat} menu!` : `Removed from ${cat} menu.`);
+            await loadAll();
+            syncPostMenuButtons('ed', res.homepage_menus || collectHomepageMenus('ed'));
+          } catch (e) {
+            showToast(e.message, true);
+          }
+        }
+      }
+
+      async function quickToggleMenu(kind, slug, menu, currentlyOn) {
+        try {
+          const endpoint = kind === 'admission' ? `/api/admissions/${slug}/menus` : `/api/jobs/${slug}/menus`;
+          await api(endpoint, { method: 'POST', body: JSON.stringify({ menu, enabled: !currentlyOn }) });
+          showToast(!currentlyOn ? `Posted '${slug}' on ${menu}!` : `Removed '${slug}' from ${menu}.`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      function addOfficialLinkRow(listId, label = '', url = '', category = '', addedAt = '') {
+        const div = document.createElement('div');
+        div.className = 'sub-row';
+        div.style.display = 'grid';
+        div.style.gridTemplateColumns = '1fr 1.15fr 86px';
+        div.dataset.category = String(category || '').trim().toLowerCase();
+        div.dataset.addedAt = addedAt || '';
+        div.innerHTML = `
+          <input type="text" placeholder="Left label (e.g. Download Final Result)" value="${esc(label)}" class="b-lnk-lbl" />
+          <input type="url" placeholder="https://official-portal-url..." value="${esc(url)}" class="b-lnk-url" />
+          <div style="display:flex;gap:4px;">
+            <button type="button" class="btn btn-mini" title="Move Up" onclick="moveRow(this, -1)">&uarr;</button>
+            <button type="button" class="btn btn-mini" title="Move Down" onclick="moveRow(this, 1)">&darr;</button>
+            <button type="button" class="btn btn-mini btn-danger" title="Remove" onclick="this.closest('.sub-row').remove()">&times;</button>
+          </div>
+        `;
+        document.getElementById(listId).appendChild(div);
+      }
+
+      function addDateItemRow(listId, label = '', dateVal = '') {
+        const div = document.createElement('div');
+        div.className = 'sub-row';
+        div.style.display = 'grid';
+        div.style.gridTemplateColumns = '1fr 185px 68px';
+        div.innerHTML = `
+          <input type="text" placeholder="Event milestone (e.g. Exam Date)" value="${esc(label)}" class="b-dt-lbl" />
+          <div class="date-combo">
+            <input type="text" placeholder="12 Dec 2026" value="${esc(fmtDisplayDate(dateVal))}" class="b-dt-val" onblur="normalizeTextDateInput(this)" />
+            <input type="date" class="date-picker-btn" title="Pick date" onchange="applyPickerDate(this, this.previousElementSibling)" />
+          </div>
+          <div style="display:flex;gap:4px;">
+            <button type="button" class="btn btn-mini" title="Move Up" onclick="moveRow(this, -1)">&uarr;</button>
+            <button type="button" class="btn btn-mini btn-danger" title="Remove" onclick="this.closest('.sub-row').remove()">&times;</button>
+          </div>
+        `;
+        document.getElementById(listId).appendChild(div);
+      }
+
+      function addFeeRow(listId, category = '', amount = '') {
+        const div = document.createElement('div');
+        div.className = 'sub-row';
+        div.style.display = 'grid';
+        div.style.gridTemplateColumns = '1fr 1fr 40px';
+        div.innerHTML = `
+          <input type="text" placeholder="Category (e.g. General / OBC)" value="${esc(category)}" class="b-fee-cat" />
+          <input type="text" placeholder="Fee (e.g. Rs. 1000 / Exempted)" value="${esc(amount)}" class="b-fee-amt" />
+          <button type="button" class="btn btn-mini btn-danger" title="Remove" onclick="this.closest('.sub-row').remove()">&times;</button>
+        `;
+        document.getElementById(listId).appendChild(div);
+      }
+
+      function addVacancyRow(listId, cat = '', count = '', elig = '', notes = '') {
+        const div = document.createElement('div');
+        div.className = 'sub-row';
+        div.style.display = 'grid';
+        div.style.gridTemplateColumns = '1.1fr 88px 1.2fr 1fr 40px';
+        div.innerHTML = `
+          <input type="text" placeholder="Post / Category Name" value="${esc(cat)}" class="b-vc-cat" />
+          <input type="number" placeholder="Count" value="${esc(count ?? '')}" class="b-vc-cnt" />
+          <input type="text" placeholder="Post eligibility / qualification" value="${esc(elig || '')}" class="b-vc-elig" />
+          <input type="text" placeholder="Pay level / notes" value="${esc(notes || '')}" class="b-vc-not" />
+          <button type="button" class="btn btn-mini btn-danger" title="Remove" onclick="this.closest('.sub-row').remove()">&times;</button>
+        `;
+        document.getElementById(listId).appendChild(div);
+      }
+
+      function addTextRow(listId, placeholder = '', val = '') {
+        const div = document.createElement('div');
+        div.className = 'sub-row';
+        div.innerHTML = `
+          <input type="text" placeholder="${esc(placeholder)}" value="${esc(val)}" class="b-txt-val" style="flex:1" />
+          <button type="button" class="btn btn-mini" title="Move Up" onclick="moveRow(this, -1)">&uarr;</button>
+          <button type="button" class="btn btn-mini btn-danger" title="Remove" onclick="this.closest('.sub-row').remove()">&times;</button>
+        `;
+        document.getElementById(listId).appendChild(div);
+      }
+
+      function populateEditorBuilders(d) {
+        ['ed-links-list', 'ed-dates-list', 'ed-fees-list', 'ed-vacs-list', 'ed-elig-list', 'ed-steps-list'].forEach((id) => {
+          document.getElementById(id).innerHTML = '';
+        });
+        (d.important_links || []).forEach((item) => addOfficialLinkRow('ed-links-list', item.label || '', item.url || '', item.category || '', item.added_at || ''));
+        (d.important_dates || []).forEach((item) => addDateItemRow('ed-dates-list', item.label || '', item.date || ''));
+        (d.fee_structure || []).forEach((item) => addFeeRow('ed-fees-list', item.category || '', item.amount || ''));
+        (d.vacancy_breakdown || []).forEach((item) => addVacancyRow('ed-vacs-list', item.category || '', item.vacancies ?? '', item.eligibility || '', item.notes || ''));
+        (d.eligibility_bullets || []).forEach((txt) => addTextRow('ed-elig-list', 'Post Name: qualification requirement...', txt));
+        (d.how_to_apply_steps || []).forEach((txt) => addTextRow('ed-steps-list', 'Application step...', txt));
+      }
+
+      function collectOfficialLinks(listId, allowedMenus = null) {
+        const todayIso = new Date().toISOString().slice(0, 10);
+        const allowSet = Array.isArray(allowedMenus) ? new Set(allowedMenus) : null;
+        return Array.from(document.querySelectorAll(`#${listId} .sub-row`))
+          .map((r) => {
+            let category = String(r.dataset.category || '').trim().toLowerCase() || null;
+            if (category && allowSet && !allowSet.has(category)) {
+              category = null;
+            }
+            return {
+              label: r.querySelector('.b-lnk-lbl').value.trim(),
+              url: r.querySelector('.b-lnk-url').value.trim(),
+              category,
+              added_at: category ? (r.dataset.addedAt || todayIso) : null,
+            };
+          })
+          .filter((x) => x.label && x.url);
+      }
+
+      function collectDates(listId) {
+        return Array.from(document.querySelectorAll(`#${listId} .sub-row`))
+          .map((r) => ({ label: r.querySelector('.b-dt-lbl').value.trim(), date: fmtDisplayDate(r.querySelector('.b-dt-val').value.trim()) }))
+          .filter((x) => x.label && x.date);
+      }
+
+      function collectFees(listId) {
+        return Array.from(document.querySelectorAll(`#${listId} .sub-row`))
+          .map((r) => ({ category: r.querySelector('.b-fee-cat').value.trim(), amount: r.querySelector('.b-fee-amt').value.trim() }))
+          .filter((x) => x.category && x.amount);
+      }
+
+      function collectVacancies(listId) {
+        return Array.from(document.querySelectorAll(`#${listId} .sub-row`))
+          .map((r) => ({
+            category: r.querySelector('.b-vc-cat').value.trim(),
+            vacancies: r.querySelector('.b-vc-cnt').value ? Number(r.querySelector('.b-vc-cnt').value) : null,
+            eligibility: r.querySelector('.b-vc-elig').value.trim() || null,
+            notes: r.querySelector('.b-vc-not').value.trim() || null,
+          }))
+          .filter((x) => x.category);
+      }
+
+      function collectTextRows(listId) {
+        return Array.from(document.querySelectorAll(`#${listId} .sub-row`))
+          .map((r) => r.querySelector('.b-txt-val').value.trim())
+          .filter(Boolean);
+      }
+
+      function showEditorModal(d, mode, sourceKind = null) {
+        state.editorMode = mode;
+        state.currentStagedSlug = d.slug;
+        const resolvedPostType = sourceKind === 'admission' ? 'admission' : (d.post_type || 'job');
+        state.editorSourceKind = sourceKind || (resolvedPostType === 'admission' ? 'admission' : 'job');
+
+        document.getElementById('review-editor-title').textContent =
+          mode === 'published'
+            ? `Editing Published ${state.editorSourceKind === 'admission' ? 'Admission' : 'Job'}: ${d.slug}`
+            : `Reviewing Staged ${resolvedPostType === 'admission' ? 'Admission' : 'Job'}: ${d.slug}`;
+        document.getElementById('btn-approve-staged').textContent =
+          mode === 'published' ? 'Save Changes to Live Site' : 'Approve & Publish to Live Site';
+        document.getElementById('btn-reject-staged').classList.toggle('hidden', mode === 'published');
+
+        document.getElementById('ed-post-type').value = resolvedPostType;
+        document.getElementById('ed-course-level').value = d.course_level || '';
+        document.getElementById('ed-exam-date').value = fmtDisplayDate(d.exam_date || '');
+        toggleAdmissionFields('ed');
+
+        document.getElementById('ed-title').value = d.title || '';
+        document.getElementById('ed-org').value = d.organization || '';
+        document.getElementById('ed-dept').value = d.department || (resolvedPostType === 'admission' ? 'Admissions & Entrances' : '');
+        document.getElementById('ed-gov-level').value = d.government_level || '';
+        document.getElementById('ed-state-name').value = d.state_name || '';
+        document.getElementById('ed-qual').value = d.qualification_level || d.course_level || 'See Official Notification';
+        document.getElementById('ed-loc').value = d.location || '';
+        document.getElementById('ed-vacancies').value = d.total_vacancies ?? '';
+        document.getElementById('ed-deadline').value = fmtDisplayDate(d.application_deadline || '');
+        document.getElementById('ed-posted').value = fmtDisplayDate(d.posted_date || new Date().toISOString().slice(0, 10));
+        document.getElementById('ed-salary').value = d.salary_range || '';
+        document.getElementById('ed-fee').value = d.application_fee || '';
+        document.getElementById('ed-age').value = d.age_limit || '';
+        document.getElementById('ed-code').value = d.notification_code || '';
+        document.getElementById('ed-apply-url').value = d.official_apply_url || '';
+        document.getElementById('ed-pdf-url').value = d.official_pdf_url || d.official_brochure_pdf || '';
+        document.getElementById('ed-summary').value = d.summary || '';
+        const activeMenus = new Set(d.homepage_menus || []);
+        (d.important_links || []).forEach((l) => { if (l.category) activeMenus.add(l.category); });
+        syncPostMenuButtons('ed', Array.from(activeMenus));
+        populateEditorBuilders(d);
+
+        const overlay = document.getElementById('review-editor-card');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeEditorModal() {
+        document.getElementById('review-editor-card').classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      function openReviewEditor(slug) {
+        const entry = state.staging.find((x) => x.data.slug === slug);
+        if (entry) showEditorModal(entry.data, 'staging');
+      }
+
+      function openPublishedEditor(slug) {
+        const entry = state.published.find((x) => x.data.slug === slug);
+        if (entry) showEditorModal(entry.data, 'published', 'job');
+      }
+
+      function openAdmissionEditor(slug) {
+        const entry = state.admissions.find((x) => x.data.slug === slug);
+        if (entry) showEditorModal(entry.data, 'published', 'admission');
+      }
+
+      document.getElementById('btn-close-editor').addEventListener('click', closeEditorModal);
+      document.getElementById('btn-cancel-editor').addEventListener('click', closeEditorModal);
+      document.getElementById('review-editor-card').addEventListener('click', closeEditorModal);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !document.getElementById('review-editor-card').classList.contains('hidden')) {
+          closeEditorModal();
+        }
+      });
+
+      document.getElementById('btn-approve-staged').addEventListener('click', async () => {
+        const slug = state.currentStagedSlug;
+        if (!slug) return;
+        try {
+          const homepage_menus = collectHomepageMenus('ed');
+          const important_links = collectOfficialLinks('ed-links-list', homepage_menus);
+          const fee_structure = collectFees('ed-fees-list');
+          const payload = {
+            slug,
+            post_type: document.getElementById('ed-post-type').value || 'job',
+            course_level: document.getElementById('ed-course-level').value.trim() || null,
+            exam_date: document.getElementById('ed-exam-date').value.trim() || null,
+            title: document.getElementById('ed-title').value.trim(),
+            organization: document.getElementById('ed-org').value.trim(),
+            department: document.getElementById('ed-dept').value.trim(),
+            government_level: document.getElementById('ed-gov-level').value || undefined,
+            state_name: document.getElementById('ed-state-name').value.trim() || null,
+            qualification_level: document.getElementById('ed-qual').value.trim(),
+            location: document.getElementById('ed-loc').value.trim(),
+            total_vacancies: document.getElementById('ed-vacancies').value ? Number(document.getElementById('ed-vacancies').value) : null,
+            application_deadline: document.getElementById('ed-deadline').value.trim() || null,
+            posted_date: document.getElementById('ed-posted').value.trim(),
+            salary_range: document.getElementById('ed-salary').value.trim() || null,
+            application_fee: document.getElementById('ed-fee').value.trim() || null,
+            age_limit: document.getElementById('ed-age').value.trim() || null,
+            notification_code: document.getElementById('ed-code').value.trim() || null,
+            official_apply_url: document.getElementById('ed-apply-url').value.trim(),
+            official_pdf_url: document.getElementById('ed-pdf-url').value.trim() || null,
+            summary: document.getElementById('ed-summary').value.trim(),
+            important_dates: collectDates('ed-dates-list'),
+            fee_structure: fee_structure.length > 0 ? fee_structure : null,
+            vacancy_breakdown: collectVacancies('ed-vacs-list'),
+            eligibility_bullets: collectTextRows('ed-elig-list'),
+            how_to_apply_steps: collectTextRows('ed-steps-list'),
+            important_links: important_links.length > 0 ? important_links : null,
+            homepage_menus,
+          };
+          if (state.editorMode === 'published') {
+            const endpoint = state.editorSourceKind === 'admission' ? `/api/admissions/${slug}` : `/api/jobs/${slug}`;
+            await api(endpoint, { method: 'POST', body: JSON.stringify({ job: payload }) });
+            showToast(`Updated '${slug}'!`);
+          } else {
+            await api(`/api/staging/${slug}/approve`, { method: 'POST', body: JSON.stringify({ job: payload }) });
+            showToast(`Approved and published '${slug}'!`);
+          }
+          closeEditorModal();
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      });
+
+      document.getElementById('btn-reject-staged').addEventListener('click', () => rejectStaged(state.currentStagedSlug));
+
+      async function quickApprove(slug, postType = 'job') {
+        const pt = postType === 'admission' ? 'admission' : 'job';
+        try {
+          const res = await api(`/api/staging/${slug}/approve`, {
+            method: 'POST',
+            body: JSON.stringify({ post_type: pt }),
+          });
+          const destDir = res.post_type === 'admission' ? 'src/data/admissions/' : 'src/data/jobs/';
+          showToast(`Published '${slug}' to ${destDir}!`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      async function rejectStaged(slug) {
+        if (!slug) return;
+        try {
+          await api(`/api/staging/${slug}/reject`, { method: 'POST', body: '{}' });
+          closeEditorModal();
+          showToast(`Rejected '${slug}'.`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      function renderPublished() {
+        const q = (document.getElementById('pub-search').value || '').trim().toLowerCase();
+        const f = document.getElementById('pub-filter').value;
+
+        const jobRows = f === 'admissions' ? [] : state.published.filter((item) => {
+          const d = item.data;
+          const matchesQ = !q || `${d.title} ${d.organization} ${d.department} ${d.slug}`.toLowerCase().includes(q);
+          if (!matchesQ) return false;
+          if (f === 'active') return item.is_active;
+          if (f === 'closing') return item.is_closing_soon;
+          if (f === 'archived') return !item.is_active;
+          return true;
+        }).map((item) => {
+          const d = item.data;
+          const catLbl = d.government_level === 'state' ? `${d.state_name || 'State'} Govt` : 'Central Govt';
+          let badgeHtml = '<span class="badge badge-active">Active</span>';
+          if (!item.is_active) badgeHtml = '<span class="badge">Archived</span>';
+          else if (item.is_closing_soon) badgeHtml = `<span class="badge badge-urgent">${item.days_left}d Left</span>`;
+
+          const menuSet = new Set(d.homepage_menus || []);
+          (d.important_links || []).forEach((l) => { if (l.category) menuSet.add(l.category); });
+          const renderMenuPills = (kindName, slugStr) => {
+            const specs = [
+              { id: 'result', label: 'Result' },
+              { id: 'admit-card', label: 'Admit Card' },
+              { id: 'answer-key', label: 'Answer Key' },
+            ];
+            return specs.map((sp) => {
+              const on = menuSet.has(sp.id);
+              return `<button type="button" class="menu-cat-btn" style="padding:3px 7px;font-size:10px;" data-cat="${sp.id}" data-active="${on}" onclick="quickToggleMenu('${kindName}', '${esc(slugStr)}', '${sp.id}', ${on})">${on ? '\u2713 ' : '+ '}${sp.label}</button>`;
+            }).join(' ');
+          };
+
+          return `
+            <tr>
+              <td>
+                <strong>${esc(d.title)}</strong>
+                <div style="font-size:12px;color:var(--ink-2)"><span class="badge badge-active">Job</span> <span class="badge">${esc(catLbl)}</span> ${esc(d.organization)} &middot; <span class="mono">${esc(d.source_domain)}</span></div>
+                <div style="margin-top:5px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;"><span style="font-size:10px;color:var(--ink-2);font-weight:700;">POST ON:</span>${renderMenuPills('job', d.slug)}</div>
+              </td>
+              <td style="font-size:12px;">${esc(d.department)}<div class="badge" style="margin-top:3px;">${esc(d.qualification_level)}</div></td>
+              <td class="tabular"><strong>${esc(d.total_vacancies ?? 'Visit Official Site')}</strong></td>
+              <td class="mono tabular">${esc(fmtDisplayDate(d.application_deadline) || 'Visit Official Site')}</td>
+              <td>${badgeHtml}</td>
+              <td>
+                <div class="row-actions">
+                  <button class="btn btn-primary" onclick="openPublishedEditor('${esc(d.slug)}')">Edit</button>
+                  <a href="http://localhost:4321/jobs/${esc(d.slug)}" target="_blank" rel="noopener" class="btn">View</a>
+                  <button class="btn" onclick="toggleArchive('${esc(d.slug)}', ${!d.archived})">${d.archived ? 'Unarchive' : 'Archive'}</button>
+                  <button class="btn btn-danger" onclick="deletePublished('${esc(d.slug)}')">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+
+        const admRows = (f === 'all' || f === 'admissions') ? state.admissions.filter((item) => {
+          const d = item.data;
+          return !q || `${d.title} ${d.organization} ${d.course_level} ${d.slug}`.toLowerCase().includes(q);
+        }).map((item) => {
+          const d = item.data;
+          const admMenus = new Set(d.homepage_menus || []);
+          (d.important_links || []).forEach((l) => { if (l.category) admMenus.add(l.category); });
+          const admPills = [
+            { id: 'result', label: 'Result' },
+            { id: 'admit-card', label: 'Admit Card' },
+            { id: 'answer-key', label: 'Answer Key' },
+          ].map((sp) => {
+            const on = admMenus.has(sp.id);
+            return `<button type="button" class="menu-cat-btn" style="padding:3px 7px;font-size:10px;" data-cat="${sp.id}" data-active="${on}" onclick="quickToggleMenu('admission', '${esc(d.slug)}', '${sp.id}', ${on})">${on ? '\u2713 ' : '+ '}${sp.label}</button>`;
+          }).join(' ');
+          return `
+            <tr>
+              <td>
+                <strong>${esc(d.title)}</strong>
+                <div style="font-size:12px;color:var(--ink-2)"><span class="badge badge-warn">Admission</span> ${esc(d.organization)} &middot; <span class="mono">${esc(d.source_domain)}</span></div>
+                <div style="margin-top:5px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;"><span style="font-size:10px;color:var(--ink-2);font-weight:700;">POST ON:</span>${admPills}</div>
+              </td>
+              <td style="font-size:12px;">Admissions &amp; Entrances<div class="badge" style="margin-top:3px;">${esc(d.course_level)}</div></td>
+              <td class="tabular"><strong>&mdash;</strong></td>
+              <td class="mono tabular">${esc(fmtDisplayDate(d.application_deadline) || 'Visit Official Site')}</td>
+              <td><span class="badge badge-warn">Admission</span></td>
+              <td>
+                <div class="row-actions">
+                  <button class="btn btn-primary" onclick="openAdmissionEditor('${esc(d.slug)}')">Edit</button>
+                  <a href="http://localhost:4321/admissions/${esc(d.slug)}" target="_blank" rel="noopener" class="btn">View</a>
+                  <button class="btn btn-danger" onclick="deleteAdmission('${esc(d.slug)}')">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }) : [];
+
+        const tbody = document.getElementById('published-tbody');
+        const allRows = [...jobRows, ...admRows];
+        tbody.innerHTML = allRows.length > 0
+          ? allRows.join('')
+          : '<tr><td colspan="6" style="color:var(--ink-2);text-align:center;padding:20px;">No matching posts found.</td></tr>';
+      }
+
+      document.getElementById('pub-search').addEventListener('input', renderPublished);
+      document.getElementById('pub-filter').addEventListener('change', renderPublished);
+
+      async function toggleArchive(slug, archived) {
+        try {
+          await api(`/api/jobs/${slug}/archive`, { method: 'POST', body: JSON.stringify({ archived }) });
+          showToast(`${archived ? 'Archived' : 'Restored'} '${slug}'.`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      async function deletePublished(slug) {
+        if (!confirm(`Delete ${slug}.json permanently?`)) return;
+        try {
+          await api(`/api/jobs/${slug}`, { method: 'DELETE' });
+          showToast(`Deleted '${slug}'.`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      async function deleteAdmission(slug) {
+        if (!confirm(`Delete admission ${slug}.json permanently?`)) return;
+        try {
+          await api(`/api/admissions/${slug}`, { method: 'DELETE' });
+          showToast(`Deleted admission '${slug}'.`);
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      function renderNotifications() {
+        const tbody = document.getElementById('notifs-tbody');
+        if (state.notifications.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="color:var(--ink-2);text-align:center;padding:20px;">No notifications yet.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = state.notifications.map((n) => {
+          const cls = n.kind === 'action_required' || n.kind === 'run_error' ? 'badge-urgent' : (n.kind === 'review_required' ? 'badge-warn' : 'badge-active');
+          return `
+            <tr>
+              <td><span class="badge ${cls}">${n.read ? 'Read' : 'Unread'}</span></td>
+              <td><strong>${esc(n.title)}</strong><div style="font-size:12px;color:var(--ink-2)">${esc(n.message)}</div></td>
+              <td class="mono tabular" style="font-size:12px;">${esc(n.created_at)}</td>
+              <td>${n.action_tab ? `<button class="btn" onclick="switchTab('${esc(n.action_tab)}')">Open Tab</button>` : '—'}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      async function submitManualJob(target) {
+        const homepage_menus = collectHomepageMenus('m');
+        const important_links = collectOfficialLinks('m-links-list', homepage_menus);
+        const fee_structure = collectFees('m-fees-list');
+        const post_type = document.getElementById('m-post-type').value || 'job';
+        const job = {
+          post_type,
+          homepage_menus,
+          course_level: document.getElementById('m-course-level').value.trim() || null,
+          exam_date: document.getElementById('m-exam-date').value.trim() || null,
+          title: document.getElementById('m-title').value.trim(),
+          organization: document.getElementById('m-org').value.trim(),
+          department: document.getElementById('m-dept').value.trim(),
+          government_level: document.getElementById('m-gov-level').value || undefined,
+          state_name: document.getElementById('m-state-name').value.trim() || null,
+          qualification_level: document.getElementById('m-qual').value,
+          location: document.getElementById('m-loc').value.trim(),
+          total_vacancies: document.getElementById('m-vacancies').value ? Number(document.getElementById('m-vacancies').value) : null,
+          posted_date: document.getElementById('m-posted').value.trim(),
+          application_deadline: document.getElementById('m-deadline').value.trim() || null,
+          salary_range: document.getElementById('m-salary').value.trim() || null,
+          application_fee: document.getElementById('m-fee').value.trim() || null,
+          age_limit: document.getElementById('m-age').value.trim() || null,
+          notification_code: document.getElementById('m-code').value.trim() || null,
+          official_apply_url: document.getElementById('m-apply-url').value.trim(),
+          official_pdf_url: document.getElementById('m-pdf-url').value.trim() || null,
+          summary: document.getElementById('m-summary').value.trim(),
+          eligibility_bullets: collectTextRows('m-elig-list'),
+          how_to_apply_steps: collectTextRows('m-steps-list'),
+          important_dates: collectDates('m-dates-list'),
+          fee_structure: fee_structure.length > 0 ? fee_structure : null,
+          vacancy_breakdown: collectVacancies('m-vacs-list'),
+          important_links: important_links.length > 0 ? important_links : null,
+        };
+
+        try {
+          const res = await api('/api/jobs', { method: 'POST', body: JSON.stringify({ target, job }) });
+          showToast(target === 'stage' ? `Saved '${res.slug}' to Review Queue.` : `Published '${res.slug}' directly!`);
+          loadAll();
+          switchTab(target === 'stage' ? 'review' : 'published');
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      document.getElementById('btn-manual-publish').addEventListener('click', () => submitManualJob('publish'));
+      document.getElementById('btn-manual-stage').addEventListener('click', () => submitManualJob('stage'));
+
+      async function rerunFailedStates(codes = null) {
+        try {
+          const res = await api('/api/run/rerun-failed', {
+            method: 'POST',
+            body: JSON.stringify({ mode: 'states', states: codes }),
+          });
+          showToast(codes ? `Re-running state(s): ${codes.join(', ')}` : `Re-running failed states (${(res.states || []).join(', ')})...`);
+          pollStatus();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      async function rerunCommand(mode) {
+        try {
+          await api('/api/run/rerun-failed', {
+            method: 'POST',
+            body: JSON.stringify({ mode }),
+          });
+          showToast(mode === 'last' ? 'Re-running last command...' : 'Re-running failed run...');
+          pollStatus();
+        } catch (e) { showToast(e.message, true); }
+      }
+
+      document.getElementById('btn-rerun-failed-states').addEventListener('click', () => rerunFailedStates(null));
+      document.getElementById('btn-rerun-failed-cmd').addEventListener('click', () => rerunCommand('full'));
+      document.getElementById('btn-rerun-last').addEventListener('click', () => rerunCommand('last'));
+
+      document.getElementById('btn-run-fetch').addEventListener('click', async () => {
+        const src = document.getElementById('run-source').value;
+        const pSelVal = document.getElementById('run-portal')?.value || '';
+        const pSearchVal = (document.getElementById('run-portal-search')?.value || '').trim();
+        const portalFilter = (src === 'Admission' || src.toLowerCase() === 'admission') ? (pSelVal || pSearchVal) : '';
+        try {
+          await api('/api/run', {
+            method: 'POST',
+            body: JSON.stringify({
+              source: src,
+              state: document.getElementById('run-state').value,
+              portal: portalFilter,
+              limit: Number(document.getElementById('run-limit').value || 10),
+              dry_run: document.getElementById('run-dry').checked,
+              stage: document.getElementById('run-stage').checked,
+            }),
+          });
+          showToast('Collector script started.');
+          pollStatus();
+        } catch (e) { showToast(e.message, true); }
+      });
+
+      document.getElementById('btn-quick-add-key').addEventListener('click', async () => {
+        const rawText = document.getElementById('quick-keys-input').value.trim();
+        if (!rawText) return showToast('Paste at least one Gemini API key first.', true);
+        const btn = document.getElementById('btn-quick-add-key');
+        const statusEl = document.getElementById('quick-key-status');
+        btn.disabled = true;
+        try {
+          const res = await api('/api/keys', {
+            method: 'POST',
+            body: JSON.stringify({
+              api_keys_text: rawText,
+              label: document.getElementById('quick-key-label').value.trim(),
+              priority: Number(document.getElementById('quick-key-priority').value || 2),
+              daily_rpd_limit: Number(document.getElementById('quick-key-cap').value || 250),
+              test_now: true,
+            }),
+          });
+          document.getElementById('quick-keys-input').value = '';
+          document.getElementById('quick-key-label').value = '';
+          statusEl.textContent = `Saved ${res.added.length} key(s). Pool now has ${res.summary.active_count}/${res.summary.total_count} active key(s). Open /keys to inspect limits.`;
+          showToast(`Added ${res.added.length} key(s) & verified live!`);
+          loadAll();
+        } catch (e) {
+          showToast(e.message, true);
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      document.getElementById('btn-run-build').addEventListener('click', async () => {
+        try {
+          await api('/api/build', { method: 'POST', body: '{}' });
+          showToast('Running npx astro check && npm run build...');
+          pollStatus();
+        } catch (e) { showToast(e.message, true); }
+      });
+
+      document.getElementById('btn-refresh-status').addEventListener('click', pollStatus);
+
+      document.getElementById('btn-save-sched').addEventListener('click', async () => {
+        try {
+          await api('/api/scheduler', {
+            method: 'POST',
+            body: JSON.stringify({
+              enabled: document.getElementById('sched-enabled').checked,
+              interval_hours: Number(document.getElementById('sched-interval').value || 12),
+              limit: Number(document.getElementById('sched-limit').value || 15),
+              source: document.getElementById('sched-source').value,
+              stage_for_review: document.getElementById('sched-stage').checked,
+            }),
+          });
+          showToast('Auto-scheduler settings saved.');
+          loadAll();
+        } catch (e) { showToast(e.message, true); }
+      });
+
+      document.getElementById('btn-upload-custom-pdf').addEventListener('click', async () => {
+        const fileEl = document.getElementById('custom-pdf-file');
+        const applyUrl = document.getElementById('custom-pdf-apply-url').value.trim();
+        if (!fileEl.files || !fileEl.files[0]) return showToast('Select a PDF file first.', true);
+        if (!applyUrl) return showToast('Official Apply/Portal URL is required.', true);
+        try {
+          const b64 = await fileToBase64(fileEl.files[0]);
+          await api('/api/upload-pdf', {
+            method: 'POST',
+            body: JSON.stringify({
+              filename: fileEl.files[0].name,
+              pdf_base64: b64,
+              apply_url: applyUrl,
+              title: document.getElementById('custom-pdf-title').value.trim(),
+              organization: document.getElementById('custom-pdf-org').value.trim(),
+              stage: document.getElementById('custom-pdf-stage').checked,
+            }),
+          });
+          showToast('PDF uploaded! Gemini extraction started.');
+          switchTab('runner');
+          pollStatus();
+        } catch (e) { showToast(e.message, true); }
+      });
+
+      document.getElementById('btn-mark-notifs-read').addEventListener('click', async () => {
+        await api('/api/notifications/read', { method: 'POST', body: '{}' });
+        loadAll();
+      });
+
+      document.getElementById('enable-desktop-alerts-btn').addEventListener('click', async () => {
+        if (!('Notification' in window)) return showToast('Desktop notifications unsupported in this browser.', true);
+        const perm = await Notification.requestPermission();
+        showToast(perm === 'granted' ? 'Desktop alerts enabled.' : `Notification permission: ${perm}`, perm !== 'granted');
+      });
+
+      async function pollStatus() {
+        try {
+          const r = await api('/api/run/status');
+          updateRunnerUI(r);
+        } catch (_) {}
+      }
+
+      // Initialize defaults in DD Mon YYYY format with clean visual rows
+      document.getElementById('m-posted').value = fmtDisplayDate(new Date().toISOString().slice(0, 10));
+      addDateItemRow('m-dates-list', 'Online Application Start Date', '');
+      addDateItemRow('m-dates-list', 'Application Deadline', '');
+      addFeeRow('m-fees-list', 'General / OBC / EWS', '');
+      addVacancyRow('m-vacs-list', 'General / Unreserved', '', '', '');
+      addTextRow('m-elig-list', 'Post Name: qualification requirement...');
+      addTextRow('m-steps-list', 'Visit the official portal and fill out the online application...');
+
+      loadAll();
+      setInterval(pollStatus, 2000);
+    </script>
+  </body>
+</html>

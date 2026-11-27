@@ -1,0 +1,224 @@
+---
+import Badge from './Badge.astro';
+import AdSlot from './AdSlot.astro';
+import {
+  type JobEntry,
+  formatSalaryBadge,
+  getAuthorityLabel,
+  getAuthorityType,
+  getDeadlineBadge,
+  getDaysDifference,
+  getGovernmentLevel,
+  getGovernmentLevelLabel,
+  getSalarySortValue,
+  getSalaryTier,
+  getStateName,
+  slugify,
+} from '../lib/jobs';
+
+interface Props {
+  jobs: JobEntry[];
+  tableId?: string;
+  enableFilterTargets?: boolean;
+  emptyMessage?: string;
+  injectInFeedAdAfterIndex?: number;
+  defaultHiddenAfter?: number;
+  openInNewTab?: boolean;
+}
+
+const {
+  jobs,
+  tableId = 'job-registry-table',
+  enableFilterTargets = false,
+  emptyMessage = 'No matching recruitment notices found.',
+  injectInFeedAdAfterIndex,
+  defaultHiddenAfter,
+  openInNewTab = false,
+} = Astro.props;
+---
+
+<div id={tableId} class="bg-surface border border-border-strong rounded-[3px] divide-y divide-border">
+  {
+    jobs.map((job, idx) => {
+      const badge = getDeadlineBadge(
+        job.data.application_deadline,
+        new Date(),
+        Boolean(job.data.archived),
+      );
+      const daysLeft = job.data.application_deadline
+        ? getDaysDifference(job.data.application_deadline)
+        : null;
+      const showUrgentDeadlineTag =
+        !job.data.archived && daysLeft !== null && daysLeft >= 0 && daysLeft < 5;
+      const isClosedTag =
+        Boolean(job.data.archived) || (daysLeft !== null && daysLeft < 0);
+
+      const deptSlug = slugify(job.data.department);
+      const qualSlug = slugify(job.data.qualification_level);
+      const govLevel = getGovernmentLevel(job);
+      const govLabel = getGovernmentLevelLabel(govLevel);
+      const stateName = getStateName(job);
+      const stateSlug = stateName ? slugify(stateName) : '';
+      const authorityType = getAuthorityType(job);
+      const authorityLabel = getAuthorityLabel(authorityType);
+      const salaryTier = getSalaryTier(job);
+      const salaryBadge = formatSalaryBadge(job);
+      const salarySort = getSalarySortValue(job);
+      const vacSort = job.data.total_vacancies ?? 0;
+      const deadlineSort = job.data.application_deadline ?? '9999-12-31';
+
+      const searchBlob = [
+        job.data.title,
+        job.data.organization,
+        job.data.department,
+        govLabel,
+        authorityLabel,
+        stateName ?? '',
+        job.data.location,
+        job.data.qualification_level,
+        job.data.pay_level ?? '',
+        job.data.salary_range ?? '',
+        job.data.notification_code ?? '',
+        job.data.source_domain,
+      ]
+        .join(' ')
+        .toLowerCase();
+
+      const isOverDefaultLimit =
+        typeof defaultHiddenAfter === 'number' && idx >= defaultHiddenAfter;
+
+      return (
+        <>
+          <article
+            class:list={[
+              'px-3.5 py-3 hover:bg-canvas/70 transition-colors duration-75 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5',
+              isOverDefaultLimit && 'hidden default-overflow-row',
+            ]}
+            data-job-row={enableFilterTargets ? 'true' : undefined}
+            data-search={enableFilterTargets ? searchBlob : undefined}
+            data-department={enableFilterTargets ? deptSlug : undefined}
+            data-qualification={enableFilterTargets ? qualSlug : undefined}
+            data-government-level={enableFilterTargets ? govLevel : undefined}
+            data-state={enableFilterTargets ? stateSlug : undefined}
+            data-salary-tier={enableFilterTargets ? salaryTier : undefined}
+            data-authority={enableFilterTargets ? authorityType : undefined}
+            data-posted={enableFilterTargets ? job.data.posted_date : undefined}
+            data-deadline={enableFilterTargets ? deadlineSort : undefined}
+            data-salary-val={enableFilterTargets ? String(salarySort) : undefined}
+            data-vacancies={enableFilterTargets ? String(vacSort) : undefined}
+            data-closing-soon={
+              enableFilterTargets
+                ? badge.variant === 'urgent'
+                  ? 'true'
+                  : 'false'
+                : undefined
+            }
+            data-initial-order={enableFilterTargets ? String(idx) : undefined}
+          >
+            {/* Left Scan Block: Title + Organization + Qualification only */}
+            <div class="min-w-0 flex-1 space-y-1">
+              <h3 class="text-sm sm:text-[15px] font-bold leading-snug m-0">
+                <a
+                  href={`/jobs/${job.data.slug}`}
+                  target={openInNewTab ? '_blank' : undefined}
+                  rel={openInNewTab ? 'noopener noreferrer' : undefined}
+                  class="notice-link hover:underline"
+                >
+                  {job.data.title}
+                </a>
+              </h3>
+
+              <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-secondary">
+                <span class="font-medium text-ink/90">{job.data.organization}</span>
+                <span aria-hidden="true" class="text-border-strong">
+                  •
+                </span>
+                <a
+                  href={`/qualifications/${qualSlug}`}
+                  class="px-1.5 py-0.25 bg-canvas border border-border rounded-[3px] text-[11px] font-medium text-ink hover:border-navy no-underline"
+                >
+                  {job.data.qualification_level}
+                </a>
+              </div>
+            </div>
+
+            {/* Right Anchored Action Block: Near-deadline tag (<5d) + Salary + Bookmark Icon */}
+            <div class="flex items-center justify-end gap-2 shrink-0">
+              {showUrgentDeadlineTag && (
+                <Badge variant="urgent">{badge.label}</Badge>
+              )}
+              {!showUrgentDeadlineTag && isClosedTag && (
+                <Badge variant="neutral">Closed</Badge>
+              )}
+
+              {salaryBadge.isSpecified && (
+                <a
+                  href={`/jobs/salary/${salaryTier}`}
+                  class="inline-flex flex-col items-end px-2 py-1 bg-active-bg border border-active-border rounded-[3px] no-underline hover:border-active-text tabular-nums"
+                >
+                  <span class="font-mono text-xs font-bold text-active-text leading-tight">
+                    {salaryBadge.headline}
+                  </span>
+                  {salaryBadge.subline && (
+                    <span class="font-mono text-[10px] text-active-text/85 leading-tight">
+                      {salaryBadge.subline}
+                    </span>
+                  )}
+                </a>
+              )}
+
+              <button
+                type="button"
+                data-save-slug={job.data.slug}
+                data-icon-bookmark="true"
+                aria-label="Bookmark exam"
+                aria-pressed="false"
+                title="Bookmark exam"
+                class="w-8 h-8 inline-flex items-center justify-center bg-canvas text-ink-secondary border border-border rounded-[3px] hover:border-navy hover:text-navy transition-colors duration-75 cursor-pointer shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          {typeof injectInFeedAdAfterIndex === 'number' &&
+            idx === injectInFeedAdAfterIndex - 1 && (
+              <div class="px-3.5 py-1 bg-canvas/50 border-t border-border">
+                <AdSlot variant="in-feed" className="my-2" />
+              </div>
+            )}
+        </>
+      );
+    })
+  }
+
+  {
+    jobs.length === 0 && (
+      <div class="p-6 text-center text-sm text-ink-secondary">{emptyMessage}</div>
+    )
+  }
+
+  {
+    enableFilterTargets && (
+      <div
+        id="filter-empty-state"
+        class="hidden p-6 text-center text-sm text-ink-secondary"
+      >
+        {emptyMessage}
+      </div>
+    )
+  }
+</div>

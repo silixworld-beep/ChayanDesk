@@ -1,0 +1,113 @@
+{
+  "slug": "district-basic-education-office-lakhimpur-principal-teacher-warden",
+  "title": "Principal, Teacher, Warden, Accountant, Lab Assistant, Peon, Watchman, and Cook Posts",
+  "organization": "District Basic Education Office Lakhimpur",
+  "department": "Civil Services & Administration",
+  "government_level": "state",
+  "state_name": "Uttar Pradesh",
+  "location": "Lakhimpur Kheri, Uttar Pradesh",
+  "qualification_level": "Graduate",
+  "total_vacancies": 158,
+  "salary_range": "Rs. 6433 - 30000 per month",
+  "application_fee": "No application fee specified, but 2 self-addressed envelopes with Rs. 56-56 stamps required.",
+  "age_limit": "For Principal: 30-45 years as of 01.04.2026. For other posts: 25-45 years as of 01.04.2026. Maximum age limit is 60 years for service in Kasturba Gandhi Balika Vidyalaya.",
+  "important_dates": [
+    {
+      "label": "Notification Date",
+      "date": "28 Oct 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "30 Nov 2026"
+    }
+  ],
+  "application_deadline": "2026-11-30",
+  "posted_date": "2026-10-28",
+  "last_verified_at": "2026-11-26T13:36:30Z",
+  "summary": "The District Basic Education Office Lakhimpur has invited offline applications from eligible female candidates for various academic and non-academic positions on a contractual basis in Kasturba Gandhi Balika Vidyalayas for the academic session 2026-27. Interested candidates must submit their filled applications with self-attested documents via registered/speed post by 30.11.2026.",
+  "eligibility_bullets": [
+    "Only female candidates are eligible to apply for all posts.",
+    "Educational qualifications vary by post, ranging from 8th pass to Post Graduation with B.Ed. and relevant training.",
+    "Age limits: 30-45 years for Principal and 25-45 years for other posts as of 01.04.2026."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Principal (English/Maths/Biology/Physics/Chemistry)",
+      "vacancies": 10,
+      "notes": "Trained B.Ed/M.Ed/MA"
+    },
+    {
+      "category": "Part-Time Teacher (Maths/Science)",
+      "vacancies": 3,
+      "notes": "Trained (B.Ed)/Graduate"
+    },
+    {
+      "category": "Part-Time Teacher (Computer/Art/Home Science/Music/Physical Education)",
+      "vacancies": 5,
+      "notes": "Trained Graduate"
+    },
+    {
+      "category": "P.G.T. (Hindi/English/Maths/Biology/Chemistry/Physics)",
+      "vacancies": 50,
+      "notes": "Trained B.Ed"
+    },
+    {
+      "category": "Computer Science Teacher",
+      "vacancies": 11,
+      "notes": "Trained B.Ed"
+    },
+    {
+      "category": "Care Taker",
+      "vacancies": 7,
+      "notes": "Post Graduate and B.Ed"
+    },
+    {
+      "category": "Office Superintendent / Clerk",
+      "vacancies": 9,
+      "notes": "Intermediate"
+    },
+    {
+      "category": "Lab Assistant",
+      "vacancies": 27,
+      "notes": "Intermediate (Science stream)"
+    },
+    {
+      "category": "Peon (Chaprasi)",
+      "vacancies": 7,
+      "notes": "Class 8 Pass"
+    },
+    {
+      "category": "Watchman (Chowkidar)",
+      "vacancies": 7,
+      "notes": "Class 8 Pass"
+    },
+    {
+      "category": "Cook (Rasoiya)",
+      "vacancies": 25,
+      "notes": "Class 8 Pass"
+    },
+    {
+      "category": "Assistant Cook",
+      "vacancies": 3,
+      "notes": "Class 8 Pass"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Download the application format and details from the official website www.kheri.nic.in.",
+    "Fill out the application completely and attach self-attested copies of all required educational and supporting documents.",
+    "Include 2 self-addressed envelopes affixed with Rs. 56-56 postal stamps inside the application packet.",
+    "Send the completed application by Registered / Speed Post to the Office of District Basic Education Officer, Samagra Shiksha, District Lakhimpur Kheri, Pin Code-262701 latest by 30.11.2026 up to 05:00 PM."
+  ],
+  "official_apply_url": "https://kheri.nic.in/",
+  "official_pdf_url": "https://cdn.s3waas.gov.in/s3a2557a7b2e94197ff767970b67041697/uploads/2026/10/17931727196666.pdf",
+  "source_domain": "kheri.nic.in",
+  "source_url": "https://kheri.nic.in/",
+  "notification_code": "4858-64 / 2026-27",
+  "archived": false,
+  "salary_min": 6433,
+  "salary_max": 30000,
+  "pay_level": null,
+  "salary_tier": "up-to-25k",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

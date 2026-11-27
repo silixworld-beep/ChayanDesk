@@ -1,0 +1,89 @@
+{
+  "slug": "office-of-chief-medical-officer-budaun-medical-officer-and-general",
+  "title": "Medical Officer and General Physician",
+  "organization": "Office of Chief Medical Officer, Budaun",
+  "department": "Healthcare & Medical",
+  "government_level": "state",
+  "state_name": "Uttar Pradesh",
+  "location": "Budaun, Uttar Pradesh",
+  "qualification_level": "Medical / Nursing",
+  "total_vacancies": 30,
+  "salary_range": "Rs. 1,000,00/- or Rs. 80,000/- + PBI",
+  "application_fee": "Rs. 55/- postal stamp on envelope",
+  "age_limit": "Not more than 65 years as on notification date",
+  "important_dates": [
+    {
+      "label": "Notification Date",
+      "date": "5 Nov 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "27 Nov 2026"
+    }
+  ],
+  "application_deadline": "2026-11-27",
+  "posted_date": "2026-11-05",
+  "last_verified_at": "2026-11-26T13:36:27Z",
+  "summary": "Office of the Chief Medical Officer, Budaun has announced recruitment for 30 contractual positions including Medical Officers and General Physicians under various National Health Mission (NHM) programs for the financial year 2026-27. Interested candidates must submit their applications via registered or speed post by 27th November 2026.",
+  "eligibility_bullets": [
+    "Must hold an MBBS degree or equivalent as required per specific program post, registered with the Medical Council.",
+    "Maximum age limit is 65 years as of the notification date.",
+    "Relevant professional experience preferred for specific physician/specialist roles."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Telemedicine/Tele Consultation HUB District Hospital Budaun",
+      "vacancies": 1,
+      "notes": "Medical Officer (MBBS)"
+    },
+    {
+      "category": "NP-NCD (NPCDCS)",
+      "vacancies": 5,
+      "notes": "General Physician"
+    },
+    {
+      "category": "Maternal Health",
+      "vacancies": 1,
+      "notes": "MBBS Lady Medical Officer"
+    },
+    {
+      "category": "District Hospital Strengthening Programme (DHS)",
+      "vacancies": 13,
+      "notes": "EMO"
+    },
+    {
+      "category": "NUHM PM-ABHIM",
+      "vacancies": 6,
+      "notes": "Medical Officer (MBBS)"
+    },
+    {
+      "category": "NUHM 15-FC U-AAM",
+      "vacancies": 4,
+      "notes": "Medical Officer (MBBS)"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Download the application format from the official website budaun.nic.in.",
+    "Fill out the application form with required details and attach self-attested copies of educational certificates, caste certificate, registration proof, and experience certificates.",
+    "Enclose a self-addressed envelope affixed with a postal stamp of Rs. 55/-.",
+    "Send the completed application exclusively via registered or speed post to the Office of the Chief Medical Officer, Budaun, on or before 27-11-2026 by 5:00 PM."
+  ],
+  "official_apply_url": "https://budaun.nic.in/",
+  "official_pdf_url": "https://cdn.s3waas.gov.in/s36c9882bbac1c7093bd25041881277658/uploads/2026/11/17939559114908.pdf",
+  "source_domain": "budaun.nic.in",
+  "source_url": "https://budaun.nic.in/",
+  "notification_code": "3370 / NHM/MBS/Niyu/2026-27",
+  "fee_structure": [
+    {
+      "category": "Postal Stamp",
+      "amount": "Rs. 55/- on return envelope"
+    }
+  ],
+  "archived": false,
+  "salary_min": 80000,
+  "salary_max": 100000,
+  "pay_level": null,
+  "salary_tier": "70k-1l",
+  "authority_type": "state",
+  "exam_group_id": null
+}

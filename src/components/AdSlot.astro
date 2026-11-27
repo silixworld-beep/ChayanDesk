@@ -1,0 +1,67 @@
+---
+type SlotVariant =
+  | 'leaderboard'
+  | 'in-feed'
+  | 'sidebar-sticky'
+  | 'detail-mid'
+  | 'header'
+  | 'mid-article'
+  | 'sidebar';
+
+interface Props {
+  variant?: SlotVariant;
+  position?: SlotVariant;
+  className?: string;
+}
+
+const { variant, position, className = '' } = Astro.props;
+const activeVariant: SlotVariant = variant ?? position ?? 'in-feed';
+
+const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === 'true';
+const adsPreview = import.meta.env.PUBLIC_ADS_PREVIEW === 'true';
+const shouldRender = adsEnabled || adsPreview;
+
+const slotClasses: Record<SlotVariant, string> = {
+  leaderboard: 'min-h-[90px] my-4',
+  header: 'min-h-[90px] my-3',
+  'in-feed': 'min-h-[100px] my-4',
+  'sidebar-sticky': 'min-h-[250px] lg:sticky lg:top-[108px]',
+  sidebar: 'min-h-[250px]',
+  'detail-mid': 'min-h-[250px] my-8',
+  'mid-article': 'min-h-[250px] my-8',
+};
+
+const slotLabels: Record<SlotVariant, string> = {
+  leaderboard: 'Leaderboard Sponsorship Slot (728x90)',
+  header: 'Header Sponsorship Slot (728x90)',
+  'in-feed': 'In-Feed Editorial Sponsorship Slot',
+  'sidebar-sticky': 'Sticky Action Rail Sponsorship (300x250)',
+  sidebar: 'Sidebar Sponsorship (300x250)',
+  'detail-mid': 'Detail Mid-Content Sponsorship (300x250 / Responsive)',
+  'mid-article': 'Mid-Article Sponsorship (300x250 / Responsive)',
+};
+---
+
+{
+  shouldRender && (
+    <aside
+      aria-label="Advertisement"
+      data-ad-variant={activeVariant}
+      class:list={[
+        'w-full bg-surface rounded-[3px] flex flex-col items-center justify-center p-2.5 text-center',
+        adsPreview && !adsEnabled
+          ? 'border border-dashed border-border-strong bg-canvas/70'
+          : 'border border-border',
+        slotClasses[activeVariant],
+        className,
+      ]}
+    >
+      <span class="font-mono text-[10px] uppercase tracking-wider text-ink-secondary">
+        Advertisement
+      </span>
+      <span class="text-xs text-ink-secondary mt-1">
+        {slotLabels[activeVariant]}
+      </span>
+    </aside>
+  )
+}

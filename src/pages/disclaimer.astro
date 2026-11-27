@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_NAME } from '../lib/jobs';
+---
+
+<BaseLayout
+  title="Non-Government Disclaimer"
+  description={`Official non-affiliation notice and source verification disclaimer for ${SITE_NAME}.`}
+  canonicalPath="/disclaimer"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Disclaimer</li>
+    </ol>
+  </nav>
+
+  <article class="max-w-3xl bg-surface border border-border-strong rounded-[3px] p-5 sm:p-7 space-y-5">
+    <header class="border-b border-border pb-4 space-y-2">
+      <h1 class="text-2xl font-bold text-ink tracking-tight">
+        Non-Government Affiliation Disclaimer
+      </h1>
+      <p class="font-mono text-xs text-ink-secondary">Last Reviewed: 25 Nov 2026</p>
+    </header>
+
+    <div class="bg-urgent-bg border border-urgent-border rounded-sm p-4 text-sm text-urgent-text leading-[1.6]">
+      <strong>Important Notice:</strong> {SITE_NAME} is an independent informational
+      directory and is <strong>not affiliated with, endorsed by, or connected to</strong>{' '}
+      any central or state government ministry, UPSC, SSC, Railway Recruitment Board,
+      RBI, ISRO, DRDO, AIIMS, or any other public-sector organization.
+    </div>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">1. Informational Summary Only</h2>
+      <p>
+        Recruitment summaries, vacancy breakdowns, and date tables published on{' '}
+        {SITE_NAME} are compiled strictly for quick reference from publicly released
+        official circulars. While we verify entries carefully, official gazette
+        notifications and subsequent corrigendums issued by the recruiting authority
+        always prevail.
+      </p>
+    </section>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">2. Verify Before Applying</h2>
+      <p>
+        Before paying any fee or submitting personal information, candidates must read
+        the complete official PDF notification and verify that the browser address bar
+        matches the authentic institutional domain (such as{' '}
+        <span class="font-mono text-xs">.gov.in</span>,{' '}
+        <span class="font-mono text-xs">.nic.in</span>,{' '}
+        <span class="font-mono text-xs">.ac.in</span>, or{' '}
+        <span class="font-mono text-xs">.org.in</span>).
+      </p>
+    </section>
+
+    <section class="space-y-2.5 text-sm text-ink leading-[1.6]">
+      <h2 class="text-base font-bold text-ink">3. No Fee Collection</h2>
+      <p>
+        {SITE_NAME} never charges applicants to access listings and never requests
+        payment via bank transfer, UPI, or third-party wallets.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

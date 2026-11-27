@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatVacancies, getQualificationFacets, isJobActive } from '../../lib/jobs';
+
+const allJobs = await getCollection('jobs');
+const qualifications = getQualificationFacets(allJobs);
+
+const vacanciesByQual = new Map<string, number>();
+for (const job of allJobs) {
+  if (!isJobActive(job)) continue;
+  const current = vacanciesByQual.get(job.data.qualification_level) ?? 0;
+  vacanciesByQual.set(
+    job.data.qualification_level,
+    current + (job.data.total_vacancies ?? 0),
+  );
+}
+---
+
+<BaseLayout
+  title="Qualifications Directory"
+  description="Browse verified government job openings filtered by required academic qualification: 10th Pass, 12th Pass, Diploma/ITI, Graduate, Engineering, and Post Graduate."
+  canonicalPath="/qualifications"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Qualifications</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5">
+    <h1 class="text-xl font-bold text-ink tracking-tight">
+      Browse Recruitments by Qualification Level
+    </h1>
+    <p class="text-xs text-ink-secondary mt-1">
+      Select your academic or trade eligibility level to view matching public-sector
+      openings.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {
+      qualifications.map((qual) => (
+        <a
+          href={`/qualifications/${qual.slug}`}
+          class="bg-surface border border-border-strong rounded-[3px] p-4 hover:border-accent no-underline transition-colors duration-75 flex flex-col justify-between gap-3"
+        >
+          <div class="text-sm font-bold text-ink">{qual.name}</div>
+          <div class="flex items-center justify-between text-xs text-ink-secondary border-t border-border pt-2.5 tabular-nums">
+            <span>
+              Active Notices: <strong class="text-ink">{qual.activeCount}</strong>
+            </span>
+            <span>
+              Vacancies:{' '}
+              <strong class="text-ink">
+                {formatVacancies(vacanciesByQual.get(qual.name) ?? 0)}
+              </strong>
+            </span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>

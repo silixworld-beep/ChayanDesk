@@ -1,0 +1,74 @@
+{
+  "slug": "jammu-and-kashmir-services-selection-board-jkssb-junior-engineer",
+  "title": "Junior Engineer (Mechanical)",
+  "organization": "Jammu and Kashmir Services Selection Board (JKSSB)",
+  "department": "State PSU & Infrastructure",
+  "location": "Jammu & Kashmir",
+  "qualification_level": "Engineering (B.E./B.Tech)",
+  "total_vacancies": 127,
+  "salary_range": null,
+  "application_fee": "Rs. 600 for OM; Rs. 500 for SC, ST-1, ST-2, EWS, and PwBD",
+  "age_limit": "40 years for Open Merit, 43 years for reserved categories, as on 01.01.2026",
+  "important_dates": [
+    {
+      "label": "Notification Date",
+      "date": "21 Oct 2026"
+    },
+    {
+      "label": "Online Application Commencement Date",
+      "date": "16 Nov 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "15 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-15",
+  "posted_date": "2026-10-21",
+  "last_verified_at": "2026-11-26T12:36:02Z",
+  "summary": "The Jammu and Kashmir Services Selection Board (JKSSB) has issued Advertisement Notification No. 10 of 2026 inviting online applications to fill 127 Junior Engineer (Mechanical) posts in the Public Works (R&B) Department. Eligible candidates who are J&K domiziles can apply online through the official JKSSB website until December 15, 2026. Selection will be based on an objective-type written examination involving negative marking.",
+  "eligibility_bullets": [
+    "Must be a domicile of the Union Territory of Jammu & Kashmir with a valid Domicile Certificate.",
+    "Must possess the required educational qualification in Mechanical Engineering as specified in the official notification by the cut-off date.",
+    "Age must be within the prescribed limits (e.g., up to 40 years for Open Merit and 43 years for reserved categories as of 01.01.2026)."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Junior Engineer (Mechanical)",
+      "vacancies": 127,
+      "notes": "Public Works (R&B) Department"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Visit the official JKSSB website at www.jkssb.nic.in.",
+    "Go to the online application portal and register/log in.",
+    "Fill out the application form with accurate personal and educational details.",
+    "Upload required documents, including category certificates and domicile certificate, in the prescribed formats.",
+    "Pay the application fee online via Net Banking, Credit Card, or Debit Card.",
+    "Review the filled form carefully and submit it before the closing date of 15.12.2026, keeping a printout for future reference."
+  ],
+  "official_apply_url": "https://www.jkssb.nic.in/",
+  "official_pdf_url": "https://jkssb.nic.in/Pdf/Advt_notification_10OF2026_21102026.pdf",
+  "source_domain": "jkssb.nic.in",
+  "source_url": "https://www.jkssb.nic.in/",
+  "notification_code": "Advertisement Notification No. 10 of 2026",
+  "fee_structure": [
+    {
+      "category": "General / Open Merit (OM)",
+      "amount": "Rs. 600"
+    },
+    {
+      "category": "SC, ST-1, ST-2, EWS, PwBD",
+      "amount": "Rs. 500"
+    }
+  ],
+  "archived": false,
+  "government_level": "state",
+  "state_name": "Jammu & Kashmir",
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "not-specified",
+  "authority_type": "state",
+  "exam_group_id": null
+}

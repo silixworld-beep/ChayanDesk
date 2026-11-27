@@ -1,0 +1,91 @@
+{
+  "slug": "rani-lakshmi-bai-central-agricultural-university-rlbcau-professor",
+  "title": "Professor, Associate Professor, Assistant Professor and Comptroller",
+  "organization": "Rani Lakshmi Bai Central Agricultural University (RLBCAU)",
+  "department": "Civil Services & Administration",
+  "government_level": "central",
+  "state_name": null,
+  "location": "Jhansi, Uttar Pradesh",
+  "qualification_level": "Post Graduate",
+  "total_vacancies": 82,
+  "salary_range": "7th CPC Pay Matrix Level 10A, 13A, 14",
+  "application_fee": "Rs 1000 for General/OBC, Rs 500 for ST/SC/PwBD, Women candidates exempted",
+  "age_limit": "Preferably below 57 years for Professor/Comptroller, 47 years for Associate Professor, and 40 years for Assistant Professor as on last date of advertisement",
+  "important_dates": [
+    {
+      "label": "Date of commencement of online application",
+      "date": "18 Nov 2026"
+    },
+    {
+      "label": "Last date of online application",
+      "date": "24 Dec 2026"
+    },
+    {
+      "label": "Last date of receiving print out of application with documents",
+      "date": "31 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-24",
+  "posted_date": "2026-11-17",
+  "last_verified_at": "2026-11-26T13:36:22Z",
+  "summary": "Rani Lakshmi Bai Central Agricultural University (RLBCAU) has issued an advertisement for regular Statutory and Teaching positions including Professor, Associate Professor, Assistant Professor, and Comptroller across various disciplines. Eligible candidates must apply online through the official website and submit the printed hard copy along with supporting documents by post before the stipulated deadline.",
+  "eligibility_bullets": [
+    "Comptroller: Master's degree with at least 55% marks and requisite years of administrative/teaching experience.",
+    "Professor/Associate Professor: Doctoral degree in relevant subject with extensive research/teaching experience and published works.",
+    "Assistant Professor: Master's degree with at least 60% marks along with NET qualification or Ph.D. degree in the relevant discipline."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Professor",
+      "vacancies": 33,
+      "notes": "Pay Level 14"
+    },
+    {
+      "category": "Associate Professor",
+      "vacancies": 27,
+      "notes": "Pay Level 13A"
+    },
+    {
+      "category": "Assistant Professor",
+      "vacancies": 21,
+      "notes": "Pay Level 10A"
+    },
+    {
+      "category": "Comptroller",
+      "vacancies": 1,
+      "notes": "Pay Level 14, Statutory Position"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Visit the official university website at www.rlbcau.ac.in and read the detailed notification.",
+    "Fill out the online application form for the desired post with correct details and pay the application fee online.",
+    "Take a printout of the completed online application form along with all uploaded enclosures and required documents.",
+    "Send the hard copy through Indian postal service to the Registrar, Rani Lakshmi Bai Central Agricultural University, Gwalior Road, Jhansi-284003, superscribing the envelope with the post name and post code."
+  ],
+  "official_apply_url": "https://rlbcau.ac.in/",
+  "official_pdf_url": "https://rlbcau.ac.in/wp-content/uploads/2026/11/Advt_09_26.pdf",
+  "source_domain": "rlbcau.ac.in",
+  "source_url": "https://rlbcau.ac.in/wp-content/uploads/2026/11/Advt_09_26.pdf",
+  "notification_code": "Advt. No. RLBCAU/09/2026",
+  "fee_structure": [
+    {
+      "category": "General / OBC",
+      "amount": "Rs. 1000/-"
+    },
+    {
+      "category": "SC / ST / PwBD",
+      "amount": "Rs. 500/-"
+    },
+    {
+      "category": "Women Candidates",
+      "amount": "Exempted"
+    }
+  ],
+  "archived": false,
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": "Pay Matrix Level 10A (7th CPC)",
+  "salary_tier": "not-specified",
+  "authority_type": "teaching",
+  "exam_group_id": null
+}

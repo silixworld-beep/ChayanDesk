@@ -1,0 +1,70 @@
+{
+  "slug": "jammu-and-kashmir-services-selection-board-jkssb-junior-engineer-2",
+  "title": "Junior Engineer (Mechanical)",
+  "organization": "Jammu and Kashmir Services Selection Board (JKSSB)",
+  "department": "State PSU & Infrastructure",
+  "government_level": "state",
+  "state_name": "Jammu & Kashmir",
+  "location": "Jammu and Kashmir",
+  "qualification_level": "Engineering (B.E./B.Tech)",
+  "total_vacancies": 127,
+  "salary_range": null,
+  "application_fee": "Rs. 600 for General; Rs. 500 for SC, ST-1, ST-2, EWS, and PwBD",
+  "age_limit": "40 years for OM; 43 years for reserved categories; 42 years for PwBD (as of 01.01.2026)",
+  "important_dates": [
+    {
+      "label": "Online Application Commencement",
+      "date": "16 Nov 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "15 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-15",
+  "posted_date": "2026-10-21",
+  "last_verified_at": "2026-11-26T12:53:31Z",
+  "summary": "The JKSSB invites online applications for 127 Junior Engineer (Mechanical) posts in the Public Works (R&B) Department. Selection will be based on an objective-type written examination with negative marking.",
+  "eligibility_bullets": [
+    "Must be a Domicile of the Union Territory of Jammu & Kashmir.",
+    "Must possess the prescribed educational qualification by the cut-off date.",
+    "Age limit varies by category (40-43 years) as of 01.01.2026.",
+    "Valid category certificates must be uploaded at the time of application."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Junior Engineer (Mechanical)",
+      "vacancies": 127,
+      "notes": "Public Works (R&B) Department"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Visit the official JKSSB website at www.jkssb.nic.in.",
+    "Register and fill out the online application form carefully.",
+    "Upload required documents and certificates in the prescribed format.",
+    "Pay the application fee through online modes (Net Banking, Credit/Debit cards).",
+    "Review and submit the application before the deadline."
+  ],
+  "official_apply_url": "https://www.jkssb.nic.in/",
+  "official_pdf_url": "https://jkssb.nic.in/Pdf/Advt_notification_10OF2026_21102026.pdf",
+  "source_domain": "jkssb.nic.in",
+  "source_url": "https://www.jkssb.nic.in/",
+  "notification_code": "10 of 2026",
+  "fee_structure": [
+    {
+      "category": "General",
+      "amount": "Rs. 600"
+    },
+    {
+      "category": "SC, ST-1, ST-2, EWS, PwBD",
+      "amount": "Rs. 500"
+    }
+  ],
+  "archived": false,
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "not-specified",
+  "authority_type": "state",
+  "exam_group_id": null
+}

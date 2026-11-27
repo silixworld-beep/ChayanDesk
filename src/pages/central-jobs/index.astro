@@ -1,0 +1,180 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JobTable from '../../components/JobTable.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import {
+  formatVacancies,
+  getDepartmentFacets,
+  getGovernmentLevel,
+  getJurisdictionSummary,
+  getQualificationFacets,
+  isJobActive,
+  sortJobsByPostedDesc,
+} from '../../lib/jobs';
+
+const allJobs = sortJobsByPostedDesc(await getCollection('jobs'));
+const centralJobs = allJobs.filter((job) => getGovernmentLevel(job) === 'central');
+const activeCentralJobs = centralJobs.filter((job) => isJobActive(job));
+const archivedCentralJobs = centralJobs.filter((job) => !isJobActive(job));
+
+const summary = getJurisdictionSummary(allJobs);
+const departments = getDepartmentFacets(activeCentralJobs);
+const qualifications = getQualificationFacets(activeCentralJobs);
+const totalVacancies = activeCentralJobs.reduce(
+  (sum, job) => sum + (job.data.total_vacancies ?? 0),
+  0,
+);
+---
+
+<BaseLayout
+  title="Central Government & PSU Recruitment Notices"
+  description={`Verified Central Government, UPSC, SSC, Railway, Public Sector Bank, and Central PSU recruitment notifications. Currently ${activeCentralJobs.length} active notices covering ${formatVacancies(totalVacancies)} vacancies.`}
+  canonicalPath="/central-jobs"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Central Jobs</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div>
+      <h1 class="text-xl font-bold text-ink tracking-tight">
+        Central Government &amp; PSU Recruitments
+      </h1>
+      <p class="text-xs text-ink-secondary mt-1">
+        Union ministries, Central PSUs, public-sector banks, AIIMS, defense, railways, and statutory commissions.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2.5 text-xs tabular-nums">
+      <span class="bg-canvas border border-border rounded-[3px] px-2.5 py-1 font-medium text-ink">
+        Active: <strong>{activeCentralJobs.length}</strong>
+      </span>
+      <span class="bg-canvas border border-border rounded-[3px] px-2.5 py-1 font-medium text-ink">
+        Open Vacancies: <strong>{formatVacancies(totalVacancies)}</strong>
+      </span>
+      <a
+        href="/states"
+        class="bg-canvas border border-border rounded-[3px] px-2.5 py-1 font-medium text-accent hover:border-accent no-underline"
+      >
+        State Govt Jobs ({summary.stateActive}) &rarr;
+      </a>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-5 items-start">
+    <section aria-label="Central Recruitment Table" class="lg:col-span-7 space-y-4">
+      <JobTable
+        jobs={activeCentralJobs}
+        tableId="central-jobs-table"
+        emptyMessage="No active Central Government recruitment notices currently open."
+      />
+
+      {
+        archivedCentralJobs.length > 0 && (
+          <div class="space-y-2 pt-2">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-ink-secondary">
+              Expired / Archived Central Notices ({archivedCentralJobs.length})
+            </h2>
+            <JobTable jobs={archivedCentralJobs} tableId="archived-central-jobs-table" />
+          </div>
+        )
+      }
+
+      <AdSlot position="in-feed" />
+    </section>
+
+    <aside class="lg:col-span-3 space-y-4">
+      <div class="bg-surface border border-border-strong rounded-[3px]">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-ink">
+            Browse Jurisdiction
+          </h2>
+          <a href="/jobs" class="text-xs font-medium text-accent hover:underline">
+            All
+          </a>
+        </div>
+        <ul class="divide-y divide-border text-xs">
+          <li>
+            <a
+              href="/central-jobs"
+              aria-current="page"
+              class="px-3.5 py-2 flex items-center justify-between bg-canvas font-semibold text-accent no-underline"
+            >
+              <span>Central Government</span>
+              <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                {activeCentralJobs.length}
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/states"
+              class="px-3.5 py-2 flex items-center justify-between text-ink hover:bg-canvas hover:text-accent no-underline"
+            >
+              <span>State Governments Directory</span>
+              <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                {summary.stateActive}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-surface border border-border-strong rounded-[3px]">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-ink">
+            Central Sectors
+          </h2>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            departments.map((dept) => (
+              <li>
+                <a
+                  href={`/departments/${dept.slug}`}
+                  class="px-3.5 py-2 flex items-center justify-between text-xs text-ink hover:bg-canvas hover:text-accent no-underline"
+                >
+                  <span>{dept.name}</span>
+                  <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                    {dept.count}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="bg-surface border border-border-strong rounded-[3px]">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-ink">
+            Central Qualifications
+          </h2>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            qualifications.map((qual) => (
+              <li>
+                <a
+                  href={`/qualifications/${qual.slug}`}
+                  class="px-3.5 py-2 flex items-center justify-between text-xs text-ink hover:bg-canvas hover:text-accent no-underline"
+                >
+                  <span>{qual.name}</span>
+                  <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                    {qual.count}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <AdSlot position="sidebar" />
+    </aside>
+  </div>
+</BaseLayout>

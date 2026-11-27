@@ -1,0 +1,212 @@
+{
+  "slug": "district-basic-education-office-lakhimpur-kheri-kasturba-gandhi-balika",
+  "title": "Kasturba Gandhi Balika Vidyalaya Teacher and Staff Recruitment 2026",
+  "organization": "District Basic Education Office Lakhimpur Kheri",
+  "department": "Civil Services & Administration",
+  "government_level": "state",
+  "state_name": "Uttar Pradesh",
+  "location": "Lakhimpur Kheri, Uttar Pradesh",
+  "qualification_level": "Graduate",
+  "total_vacancies": 158,
+  "salary_range": "Rs. 6,433 to Rs. 30,000 per month",
+  "salary_min": 6433,
+  "salary_max": 30000,
+  "pay_level": null,
+  "salary_tier": "up-to-25k",
+  "authority_type": "teaching",
+  "exam_group_id": null,
+  "application_fee": "Rs. 56-56 stamp fee on envelope",
+  "age_limit": "Principal: 30 to 45 years; Other posts: 25 to 45 years as on 01 Apr 2026",
+  "important_dates": [
+    {
+      "label": "Notification Date",
+      "date": "28 Oct 2026"
+    },
+    {
+      "label": "Online Application Deadline",
+      "date": "30 Nov 2026"
+    }
+  ],
+  "application_deadline": "2026-11-30",
+  "posted_date": "2026-10-28",
+  "last_verified_at": "2026-11-27T07:08:00Z",
+  "summary": "The District Basic Education Office Lakhimpur Kheri invites applications from female candidates only for various academic and non-academic positions on a contractual basis in Kasturba Gandhi Balika Vidyalayas for the academic session 2026-27. Eligible candidates must submit their filled applications via registered or speed post by 30 November 2026 up to 05:00 PM.",
+  "eligibility_bullets": [
+    "Pradhanacharya (Principal): Trained graduate (B.Ed.), M.Ed. or M.A. with required teaching experience.",
+    "P.G.T. (Trained Graduate Teacher): B.Ed. and Master's degree in respective subject.",
+    "Computer Teacher / Computer Science: B.Tech, BCA, or B.Sc. in Computer Science, or 'O'/'A' level certification.",
+    "Kair Taker: Post Graduate with B.Ed. and mandatory night stay at school.",
+    "Office Superintendent / Clerk: Intermediate pass with typing speed and computer knowledge.",
+    "Lab Assistant: Intermediate with Science stream.",
+    "Peon / Watchman / Cook: Class 8th passed and physically fit.",
+    "Full-time / Part-time Teachers (Classes 6 to 8): Graduation with B.Ed. or D.El.Ed. in relevant subjects."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Pradhanacharya English",
+      "vacancies": 2,
+      "eligibility": "Trained Graduate (B.Ed.), M.Ed. or M.A.",
+      "notes": "Rs. 30,000/-"
+    },
+    {
+      "category": "Pradhanacharya Maths",
+      "vacancies": 2,
+      "eligibility": "Trained Graduate (B.Ed.), M.Ed. or M.A.",
+      "notes": "Rs. 30,000/-"
+    },
+    {
+      "category": "Pradhanacharya Biology",
+      "vacancies": 2,
+      "eligibility": "Trained Graduate (B.Ed.), M.Ed. or M.A.",
+      "notes": "Rs. 30,000/-"
+    },
+    {
+      "category": "Pradhanacharya Physics",
+      "vacancies": 2,
+      "eligibility": "Trained Graduate (B.Ed.), M.Ed. or M.A.",
+      "notes": "Rs. 30,000/-"
+    },
+    {
+      "category": "Pradhanacharya Chemistry",
+      "vacancies": 1,
+      "eligibility": "Trained Graduate (B.Ed.), M.Ed. or M.A.",
+      "notes": "Rs. 30,000/-"
+    },
+    {
+      "category": "T.G.T. Hindi",
+      "vacancies": 8,
+      "eligibility": "Trained Graduate (B.Ed.)",
+      "notes": "Rs. 22,000/-"
+    },
+    {
+      "category": "T.G.T. English",
+      "vacancies": 6,
+      "eligibility": "Trained Graduate (B.Ed.)",
+      "notes": "Rs. 22,000/-"
+    },
+    {
+      "category": "T.G.T. Maths",
+      "vacancies": 8,
+      "eligibility": "Trained Graduate (B.Ed.)",
+      "notes": "Rs. 22,000/-"
+    },
+    {
+      "category": "T.G.T. Biology",
+      "vacancies": 8,
+      "eligibility": "Trained Graduate (B.Ed.)",
+      "notes": "Rs. 22,000/-"
+    },
+    {
+      "category": "T.G.T. Chemistry",
+      "vacancies": 8,
+      "eligibility": "Trained Graduate (B.Ed.)",
+      "notes": "Rs. 22,000/-"
+    },
+    {
+      "category": "T.G.T. Physics",
+      "vacancies": 9,
+      "eligibility": "Trained Graduate (B.Ed.)",
+      "notes": "Rs. 22,000/-"
+    },
+    {
+      "category": "Computer Science",
+      "vacancies": 11,
+      "eligibility": "Trained Graduate (B.Ed.) / BCA / B.Tech",
+      "notes": "Rs. 22,000/-"
+    },
+    {
+      "category": "Care Taker",
+      "vacancies": 7,
+      "eligibility": "Post Graduate and B.Ed.",
+      "notes": "Rs. 24,200/-"
+    },
+    {
+      "category": "Office Superintendent / Clerk",
+      "vacancies": 9,
+      "eligibility": "Intermediate with computer skills",
+      "notes": "Rs. 12,430/-"
+    },
+    {
+      "category": "Lab Assistant",
+      "vacancies": 27,
+      "eligibility": "Intermediate Science stream",
+      "notes": "Rs. 7,147/-"
+    },
+    {
+      "category": "Peon (Chaprasi)",
+      "vacancies": 7,
+      "eligibility": "Class 8th passed",
+      "notes": "Rs. 7,147/-"
+    },
+    {
+      "category": "Watchman (Chowkidar)",
+      "vacancies": 7,
+      "eligibility": "Class 8th passed",
+      "notes": "Rs. 7,147/-"
+    },
+    {
+      "category": "Cook (Rsoiya)",
+      "vacancies": 25,
+      "eligibility": "Class 8th passed",
+      "notes": "Rs. 6,433/-"
+    },
+    {
+      "category": "Full-Time Teacher - Maths (Classes 6-8)",
+      "vacancies": 2,
+      "eligibility": "B.Ed. and Graduation",
+      "notes": "Rs. 25,410/-"
+    },
+    {
+      "category": "Full-Time Teacher - Science (Classes 6-8)",
+      "vacancies": 1,
+      "eligibility": "B.Ed. and Graduation",
+      "notes": "Rs. 25,410/-"
+    },
+    {
+      "category": "Part-Time Teacher - Computer (Classes 6-8)",
+      "vacancies": 1,
+      "eligibility": "B.Ed. / Graduation",
+      "notes": "Rs. 12,790/-"
+    },
+    {
+      "category": "Part-Time Teacher - Physical Education",
+      "vacancies": 1,
+      "eligibility": "Graduation with B.Ed.",
+      "notes": "Rs. 12,790/-"
+    },
+    {
+      "category": "Part-Time Teacher - Art, Craft, Home Science, Music",
+      "vacancies": 1,
+      "eligibility": "Graduation with B.Ed. in respective subject",
+      "notes": "Rs. 12,790/-"
+    },
+    {
+      "category": "Assistant Cook (Classes 6-8)",
+      "vacancies": 3,
+      "eligibility": "Class 8th passed",
+      "notes": "Rs. 6,755/-"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Download the application form format from the official website kheri.nic.in.",
+    "Fill in all required details completely in your own handwriting and self-attest all educational and supporting documents.",
+    "Attach two self-addressed envelopes affixed with Rs. 56 postal stamps.",
+    "Send the completed application packet via Speed Post or Registered Post to the Office of the District Basic Education Officer, Samagra Shiksha, District Lakhimpur Kheri, PIN - 262701 before 30 November 2026 (05:00 PM)."
+  ],
+  "official_apply_url": "https://kheri.nic.in/",
+  "official_pdf_url": "https://cdn.s3waas.gov.in/s3a2557a7b2e94197ff767970b67041697/uploads/2026/10/17931727196666.pdf",
+  "important_links": [
+    {
+      "label": "Official Notification PDF",
+      "url": "https://cdn.s3waas.gov.in/s3a2557a7b2e94197ff767970b67041697/uploads/2026/10/17931727196666.pdf"
+    },
+    {
+      "label": "District Website",
+      "url": "https://kheri.nic.in/"
+    }
+  ],
+  "source_domain": "kheri.nic.in",
+  "source_url": "https://kheri.nic.in/",
+  "notification_code": "4855-64 / 2026-27",
+  "archived": false
+}

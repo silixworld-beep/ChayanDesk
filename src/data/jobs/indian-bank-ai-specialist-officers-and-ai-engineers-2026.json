@@ -1,0 +1,83 @@
+{
+  "slug": "indian-bank-ai-specialist-officers-and-ai-engineers-2026",
+  "title": "AI Specialist Officers and AI Engineers",
+  "organization": "Indian Bank",
+  "department": "Banking & Finance",
+  "location": "Chennai",
+  "qualification_level": "Graduate",
+  "total_vacancies": 8,
+  "salary_range": null,
+  "application_fee": "₹175/- (Inclusive of GST) for SC/ST/PwBD candidates; ₹1,000/- (Inclusive of GST) for all other candidates",
+  "age_limit": "28 to 45 years depending on the post",
+  "important_dates": [
+    {
+      "label": "Online Application Deadline",
+      "date": "1 Dec 2026"
+    }
+  ],
+  "application_deadline": "2026-12-01",
+  "posted_date": "2026-11-20",
+  "last_verified_at": "2026-11-26T07:28:29Z",
+  "summary": "Indian Bank has invited applications from eligible Indian citizens for the recruitment of AI Specialist Officers and AI Engineers on a contractual basis for its AI Cell. A total of 8 vacancies are available across various senior roles such as Assistant Vice President, Vice President, and Deputy Vice President. The last date to submit offline applications along with fee details is December 1, 2026.",
+  "eligibility_bullets": [
+    "Must possess required educational qualifications in Engineering, Technology, Data Science, MBA, PGDM, or relevant post-graduate degrees depending on the post.",
+    "Must possess relevant post-qualification work experience in public sector banks, private sector banks, foreign banks, IT firms, or analytics firms within the BFSI vertical.",
+    "Age limits range from 28 to 45 years with applicable relaxations for reserved categories as per government guidelines."
+  ],
+  "vacancy_breakdown": [
+    {
+      "category": "Assistant Vice President - AI Product Manager (Business & Use-Case Leadership)",
+      "vacancies": 2,
+      "notes": "Post Code 01"
+    },
+    {
+      "category": "Vice President - AI Engineer/AI Architect",
+      "vacancies": 1,
+      "notes": "Post Code 02"
+    },
+    {
+      "category": "Deputy Vice President - AI Engineer/AI Architect",
+      "vacancies": 1,
+      "notes": "Post Code 03"
+    },
+    {
+      "category": "Assistant Vice President - AI Engineer/AI Architect",
+      "vacancies": 3,
+      "notes": "Post Code 04"
+    },
+    {
+      "category": "Assistant Vice President - Responsible AI Officer",
+      "vacancies": 1,
+      "notes": "Post Code 05"
+    }
+  ],
+  "how_to_apply_steps": [
+    "Verify eligibility criteria, age, and required certifications before applying.",
+    "Fill out the application form with accurate details and attach a passport-size photograph and signature.",
+    "Pay the applicable application fee/intimation charges.",
+    "Submit the completed offline application form along with fee payment details on or before the specified deadline."
+  ],
+  "official_apply_url": "https://www.indianbank.bank.in/",
+  "official_pdf_url": "https://indianbank.bank.in/documents/20117/34414/Hindi%2022026_11_20_12_59_24.pdf/e024939c-5e3c-d3e0-ff68-51b78721caea",
+  "source_domain": "indianbank.bank.in",
+  "source_url": "https://indianbank.bank.in/documents/20117/34414/Hindi%2022026_11_20_12_59_24.pdf/e024939c-5e3c-d3e0-ff68-51b78721caea",
+  "fee_structure": [
+    {
+      "category": "SC / ST / PwBD",
+      "amount": "₹175/-"
+    },
+    {
+      "category": "All Other Candidates",
+      "amount": "₹1,000/-"
+    }
+  ],
+  "archived": false,
+  "government_level": "central",
+  "state_name": null,
+  "salary_min": null,
+  "salary_max": null,
+  "pay_level": null,
+  "salary_tier": "not-specified",
+  "authority_type": "psu-bank",
+  "exam_group_id": null
+}

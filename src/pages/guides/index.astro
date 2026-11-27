@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { formatDisplayDate, parseCalendarDateUtc } from '../../lib/jobs';
+
+const guides = (await getCollection('guides')).sort(
+  (a, b) =>
+    parseCalendarDateUtc(b.data.published_date) -
+    parseCalendarDateUtc(a.data.published_date),
+);
+---
+
+<BaseLayout
+  title="Applicant Guides & Reference Handbooks"
+  description="Practical documentation and verification guides for government job applicants: official domain verification, pay matrix levels, and crucial eligibility dates."
+  canonicalPath="/guides"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Guides</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5">
+    <h1 class="text-xl font-bold text-ink tracking-tight">
+      Applicant Reference &amp; Verification Guides
+    </h1>
+    <p class="text-xs text-ink-secondary mt-1">
+      Structured reference briefs covering official circular verification, pay scales,
+      and application compliance.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {
+      guides.map((guide) => (
+        <article class="bg-surface border border-border-strong rounded-[3px] p-5 flex flex-col justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2 text-xs">
+              <span class="font-mono text-[11px] uppercase tracking-wider text-accent font-semibold">
+                {guide.data.category}
+              </span>
+              <span class="font-mono text-[11px] text-ink-secondary tabular-nums">
+                {guide.data.reading_time}
+              </span>
+            </div>
+            <h2 class="text-base font-bold text-ink leading-snug">
+              <a
+                href={`/guides/${guide.id}`}
+                class="text-ink hover:text-accent hover:underline"
+              >
+                {guide.data.title}
+              </a>
+            </h2>
+            <p class="text-sm text-ink-secondary leading-[1.6]">
+              {guide.data.description}
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-border flex items-center justify-between text-xs text-ink-secondary">
+            <span class="font-mono tabular-nums">
+              Published {formatDisplayDate(guide.data.published_date)}
+            </span>
+            <a
+              href={`/guides/${guide.id}`}
+              class="font-semibold text-accent hover:underline"
+            >
+              Read guide &rarr;
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <AdSlot position="in-feed" className="mt-6" />
+</BaseLayout>

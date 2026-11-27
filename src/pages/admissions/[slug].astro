@@ -1,0 +1,487 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/Badge.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import OfficialShareActions from '../../components/OfficialShareActions.astro';
+import { SITE_CONFIG } from '../../config/site';
+import {
+  displayOrFallback,
+  FALLBACK_TEXT,
+  formatDisplayDate,
+  formatFlexibleDisplayDate,
+  getDeadlineBadge,
+} from '../../lib/jobs';
+
+export async function getStaticPaths() {
+  const admissions = await getCollection('admissions');
+  return admissions.map((item) => ({
+    params: { slug: item.data.slug },
+    props: { item, allAdmissions: admissions },
+  }));
+}
+
+const { item, allAdmissions } = Astro.props;
+const d = item.data;
+
+const siteOrigin = Astro.site ?? new URL(SITE_CONFIG.siteUrl);
+const canonicalPath = `/admissions/${d.slug}`;
+const canonicalUrl = new URL(canonicalPath, siteOrigin).toString();
+const otherAdmissions = allAdmissions.filter((a) => a.data.slug !== d.slug).slice(0, 5);
+const badge = getDeadlineBadge(d.application_deadline);
+
+const customLinks = (d.important_links ?? []).map((lnk) => ({
+  label: lnk.label.trim(),
+  url: lnk.url.trim(),
+}));
+const hasFeeTable = Boolean(d.fee_structure && d.fee_structure.length > 0);
+const howToApplySteps = d.how_to_apply_steps ?? [];
+
+const extraDates = d.important_dates.filter(
+  (row) => !row.label.toLowerCase().includes('deadline') && !row.label.toLowerCase().includes('last date'),
+);
+
+function splitEligibilityPrefix(bullet: string): { prefix: string | null; rest: string } {
+  const colonIdx = bullet.indexOf(':');
+  if (colonIdx > 2 && colonIdx <= 60) {
+    return {
+      prefix: bullet.slice(0, colonIdx).trim(),
+      rest: bullet.slice(colonIdx + 1).trim(),
+    };
+  }
+  return { prefix: null, rest: bullet };
+}
+---
+
+<BaseLayout
+  title={`${d.title} — ${d.organization}`}
+  description={`${d.organization} entrance admission notice (${d.course_level}). Application deadline: ${formatDisplayDate(d.application_deadline)}.`}
+  canonicalPath={canonicalPath}
+  ogType="article"
+>
+  <nav aria-label="Breadcrumb" class="mb-3 text-[13px] text-ink-secondary">
+    <ol class="flex flex-wrap items-center gap-1.5">
+      <li><a href="/" class="hover:text-navy hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li><a href="/admissions" class="hover:text-navy hover:underline">Admissions</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium truncate max-w-xs sm:max-w-md">
+        {d.title}
+      </li>
+    </ol>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[64fr_36fr] gap-5 items-start">
+    <article class="space-y-5 min-w-0">
+      <!-- 1. Header Card matching Job Detail (Bookmark Icon + Share top-right) -->
+      <header class="bg-surface border border-border-strong rounded-[3px] p-4 sm:p-5 space-y-3">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <Badge variant={badge.variant}>{badge.label}</Badge>
+            <a
+              href="/admissions"
+              class="text-xs font-semibold text-navy bg-canvas border border-border rounded-[3px] px-2 py-0.5 hover:border-navy no-underline"
+            >
+              Admissions &amp; Entrances
+            </a>
+            <span class="text-xs font-medium text-ink bg-canvas border border-border rounded-[3px] px-2 py-0.5">
+              {d.course_level}
+            </span>
+            {
+              d.notification_code && (
+                <span class="font-mono text-xs text-ink-secondary">
+                  Advt: {d.notification_code}
+                </span>
+              )
+            }
+          </div>
+
+          <OfficialShareActions
+            slug={d.slug}
+            iconBookmark={true}
+            shareTitle={d.title}
+            shareMeta={`Programme: ${d.course_level} | Last Date: ${formatDisplayDate(d.application_deadline)}`}
+            canonicalUrl={canonicalUrl}
+          />
+        </div>
+
+        <h1 class="text-xl sm:text-2xl font-bold text-ink tracking-tight leading-snug m-0">
+          {d.title}
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] text-ink-secondary">
+          <span class="font-semibold text-ink">{d.organization}</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>{d.location}</span>
+          <span aria-hidden="true">&middot;</span>
+          <a href="/admissions" class="text-accent font-medium hover:underline">
+            All Entrances
+          </a>
+        </div>
+
+        {d.summary && (
+          <p class="text-[15px] text-ink-secondary leading-[1.65] m-0">{d.summary}</p>
+        )}
+      </header>
+
+      <!-- 2. Organized 2-Column Tables: Important Dates | Application Fee & Age Limit -->
+      <section aria-label="Important Dates, Fee and Age Summary" class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+        <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden flex flex-col">
+          <div class="px-3.5 py-2.5 bg-navy text-white flex items-center justify-between gap-2">
+            <h2 class="text-[13px] font-bold uppercase tracking-wider m-0">
+              Important Dates
+            </h2>
+            <span class="font-mono text-[11px] opacity-85">IST Schedule</span>
+          </div>
+          <table class="w-full border-collapse text-[13px]">
+            <tbody class="divide-y divide-border">
+              {d.posted_date && (
+                <tr class="hover:bg-canvas/50">
+                  <th scope="row" class="py-2.5 px-3.5 text-left font-medium text-ink-secondary">
+                    Notice Published Date
+                  </th>
+                  <td class="py-2.5 px-3.5 text-right font-mono font-semibold text-ink tabular-nums whitespace-nowrap">
+                    {formatDisplayDate(d.posted_date)}
+                  </td>
+                </tr>
+              )}
+              <tr class="hover:bg-canvas/50">
+                <th scope="row" class="py-2.5 px-3.5 text-left font-semibold text-ink">
+                  Application Last Date
+                </th>
+                <td class="py-2.5 px-3.5 text-right font-mono font-bold text-urgent-text tabular-nums whitespace-nowrap">
+                  {formatDisplayDate(d.application_deadline)}
+                </td>
+              </tr>
+              <tr class="hover:bg-canvas/50">
+                <th scope="row" class="py-2.5 px-3.5 text-left font-medium text-ink-secondary">
+                  Entrance / Exam Window
+                </th>
+                <td class="py-2.5 px-3.5 text-right font-mono font-semibold text-ink tabular-nums whitespace-nowrap">
+                  {formatFlexibleDisplayDate(d.exam_date)}
+                </td>
+              </tr>
+              {
+                extraDates.map((row) => (
+                  <tr class="hover:bg-canvas/50">
+                    <th scope="row" class="py-2.5 px-3.5 text-left font-medium text-ink-secondary">
+                      {row.label}
+                    </th>
+                    <td class="py-2.5 px-3.5 text-right font-mono font-semibold text-ink tabular-nums whitespace-nowrap">
+                      {formatFlexibleDisplayDate(row.date)}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden flex flex-col">
+          <div class="px-3.5 py-2.5 bg-navy text-white">
+            <h2 class="text-[13px] font-bold uppercase tracking-wider m-0">
+              Application Fee &amp; Age Limit
+            </h2>
+          </div>
+
+          <div class="divide-y divide-border text-[13px] flex-1">
+            {
+              hasFeeTable ? (
+                <div>
+                  <table class="w-full border-collapse text-[13px]">
+                    <thead class="bg-canvas border-b border-border">
+                      <tr>
+                        <th scope="col" class="py-2 px-3.5 text-left text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                          Category / Group
+                        </th>
+                        <th scope="col" class="py-2 px-3.5 text-right text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                          Application Fee
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-border">
+                      {d.fee_structure!.map((f) => (
+                        <tr class="hover:bg-canvas/50">
+                          <td class="py-2 px-3.5 text-ink font-medium">{f.category}</td>
+                          <td class="py-2 px-3.5 text-right font-mono font-bold text-ink tabular-nums whitespace-nowrap">
+                            {f.amount}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {d.application_fee && (
+                    <div class="px-3.5 py-2 bg-canvas/50 border-t border-border text-xs text-ink-secondary leading-relaxed">
+                      <strong class="text-ink">Note:</strong> {d.application_fee}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div class="px-3.5 py-3 space-y-1">
+                  <div class="text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                    Examination / Application Fee
+                  </div>
+                  <div class="text-ink font-medium leading-relaxed">
+                    {displayOrFallback(d.application_fee)}
+                  </div>
+                </div>
+              )
+            }
+
+            <div class="px-3.5 py-3 space-y-1">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-ink-secondary">
+                Age Limit &amp; Campus Scope
+              </div>
+              <div class="text-ink font-medium leading-relaxed tabular-nums">
+                {d.age_limit ? d.age_limit : d.location}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Ad Slot (detail-mid) with generous buffer -->
+      <AdSlot variant="detail-mid" />
+
+      <!-- 4. Programme & Exam Callout Summary Box (Directly Above Eligibility Section) -->
+      <section
+        aria-labelledby="admission-callout-heading"
+        class="bg-active-bg border border-border-strong rounded-[3px] p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5"
+      >
+        <div>
+          <div id="admission-callout-heading" class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Programme Level
+          </div>
+          <div class="text-[15px] font-bold text-ink mt-1 leading-snug">
+            {d.course_level}
+          </div>
+        </div>
+
+        <div>
+          <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Entrance / Exam Date
+          </div>
+          <div class="font-mono text-[15px] font-bold text-ink mt-1 leading-snug tabular-nums">
+            {formatFlexibleDisplayDate(d.exam_date)}
+          </div>
+        </div>
+
+        <div>
+          <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Application Last Date
+          </div>
+          <div class="font-mono text-lg font-bold text-urgent-text tabular-nums mt-0.5">
+            {formatDisplayDate(d.application_deadline)}
+          </div>
+        </div>
+
+        <div>
+          <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-active-text">
+            Exam Body / Scope
+          </div>
+          <div class="text-[15px] font-bold text-ink mt-1 leading-snug">{d.organization}</div>
+          <div class="text-xs text-ink-secondary mt-0.5">{d.location}</div>
+        </div>
+      </section>
+
+      <!-- 5. Eligibility Criteria -->
+      <section aria-labelledby="eligibility-heading" class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-4 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between gap-2">
+          <h2 id="eligibility-heading" class="text-[13px] font-bold uppercase tracking-wider text-navy m-0">
+            Eligibility Criteria (Entrance &amp; Academic Points)
+          </h2>
+          <span class="font-mono text-xs text-ink-secondary">{d.course_level}</span>
+        </div>
+        <ul class="p-4 space-y-2.5 text-[15px] text-ink leading-[1.65] m-0">
+          {
+            d.eligibility_bullets.length > 0 ? (
+              d.eligibility_bullets.map((bullet) => {
+                const { prefix, rest } = splitEligibilityPrefix(bullet);
+                return (
+                  <li class="flex items-start gap-2.5">
+                    <span aria-hidden="true" class="mt-2.5 w-1.5 h-1.5 rounded-[2px] bg-navy shrink-0" />
+                    <span>
+                      {prefix ? (
+                        <>
+                          <strong class="text-navy">{prefix}:</strong> {rest}
+                        </>
+                      ) : (
+                        bullet
+                      )}
+                    </span>
+                  </li>
+                );
+              })
+            ) : (
+              <li class="text-[13px] text-ink-secondary">
+                {FALLBACK_TEXT} for detailed academic, minimum marks, and entrance eligibility rules.
+              </li>
+            )
+          }
+        </ul>
+      </section>
+
+      <!-- 6. Step-by-Step How to Apply -->
+      <section aria-labelledby="how-to-apply-heading" class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-4 py-2.5 bg-canvas border-b border-border-strong">
+          <h2 id="how-to-apply-heading" class="text-[13px] font-bold uppercase tracking-wider text-navy m-0">
+            Step-by-Step How to Apply
+          </h2>
+        </div>
+        <ol class="p-4 space-y-2.5 text-[15px] text-ink leading-[1.65] m-0">
+          {
+            howToApplySteps.length > 0 ? (
+              howToApplySteps.map((step, index) => (
+                <li class="flex items-start gap-3">
+                  <span class="w-6 h-6 rounded-[3px] bg-canvas border border-border text-xs font-mono font-bold text-navy flex items-center justify-center shrink-0 tabular-nums">
+                    {index + 1}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))
+            ) : (
+              <li class="text-[13px] text-ink-secondary">
+                Visit <a href={`https://${d.source_domain}`} target="_blank" rel="noopener noreferrer" class="text-accent font-semibold hover:underline">{d.source_domain}</a>, register using candidate details, upload required photographs and certificates, pay the examination fee online, and download the confirmation slip.
+              </li>
+            )
+          }
+        </ol>
+      </section>
+    </article>
+
+    <!-- Right Action Rail Sidebar: Important Official Links FIRST, then Other Active Admissions, then AdSlot -->
+    <aside class="space-y-4">
+      <section aria-labelledby="official-links-heading" class="bg-surface border-2 border-navy rounded-[3px] overflow-hidden">
+        <div class="px-3.5 py-2.5 bg-navy text-white flex items-center justify-between gap-2">
+          <h2 id="official-links-heading" class="text-[13px] font-bold uppercase tracking-wider m-0">
+            Important Official Links
+          </h2>
+          <span class="font-mono text-xs opacity-90">{d.source_domain}</span>
+        </div>
+        <table class="w-full border-collapse text-[14px]">
+          <tbody class="divide-y divide-border">
+            {
+              customLinks.map((link) => (
+                <tr class="hover:bg-canvas/60">
+                  <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink leading-snug">
+                    {link.label}
+                  </th>
+                  <td class="py-2.5 px-3.5 text-right whitespace-nowrap align-middle">
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-bold text-accent visited:text-visited hover:underline"
+                    >
+                      Click Here &rarr;
+                    </a>
+                  </td>
+                </tr>
+              ))
+            }
+            <tr class="hover:bg-canvas/60">
+              <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink">
+                Apply Online for Admission
+              </th>
+              <td class="py-2.5 px-3.5 text-right whitespace-nowrap">
+                <a
+                  href={d.official_apply_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-bold text-accent visited:text-visited hover:underline"
+                >
+                  Click Here &rarr;
+                </a>
+              </td>
+            </tr>
+            <tr class="hover:bg-canvas/60">
+              <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink">
+                Download Information Brochure
+              </th>
+              <td class="py-2.5 px-3.5 text-right whitespace-nowrap">
+                {
+                  d.official_brochure_pdf ? (
+                    <a
+                      href={d.official_brochure_pdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-bold text-accent visited:text-visited hover:underline"
+                    >
+                      Click Here &rarr;
+                    </a>
+                  ) : (
+                    <a
+                      href={`https://${d.source_domain}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-semibold text-ink-secondary hover:text-navy hover:underline text-[13px]"
+                    >
+                      {FALLBACK_TEXT} &rarr;
+                    </a>
+                  )
+                }
+              </td>
+            </tr>
+            <tr class="hover:bg-canvas/60">
+              <th scope="row" class="py-2.5 px-3.5 text-left font-bold text-ink">
+                Official Website
+              </th>
+              <td class="py-2.5 px-3.5 text-right whitespace-nowrap">
+                <a
+                  href={`https://${d.source_domain}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-bold text-accent visited:text-visited hover:underline"
+                >
+                  Click Here &rarr;
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="px-3.5 py-2 bg-canvas border-t border-border text-[11px] text-ink-secondary leading-snug">
+          Not affiliated with any university, testing board, or {d.organization}. Apply solely on official source links above.
+        </div>
+      </section>
+
+      <div class="bg-surface border border-border-strong rounded-[3px] overflow-hidden">
+        <div class="px-3.5 py-2.5 bg-canvas border-b border-border-strong flex items-center justify-between gap-2">
+          <h2 class="text-[13px] font-bold uppercase tracking-wider text-navy m-0">
+            Related Active Admissions
+          </h2>
+          <a href="/admissions" class="text-xs font-semibold text-accent hover:underline">
+            All &rarr;
+          </a>
+        </div>
+        <ul class="divide-y divide-border">
+          {
+            otherAdmissions.map((rel) => {
+              const relBadge = getDeadlineBadge(rel.data.application_deadline);
+              return (
+                <li class="px-3.5 py-3 space-y-1">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="font-mono text-[11px] text-ink-secondary truncate">
+                      {rel.data.course_level}
+                    </span>
+                    <Badge variant={relBadge.variant}>{relBadge.label}</Badge>
+                  </div>
+                  <a
+                    href={`/admissions/${rel.data.slug}`}
+                    class="block text-[13px] font-semibold notice-link hover:underline leading-snug"
+                  >
+                    {rel.data.title}
+                  </a>
+                  <div class="text-xs text-ink-secondary truncate">
+                    {rel.data.organization} &middot; {formatDisplayDate(rel.data.application_deadline)}
+                  </div>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+
+      <AdSlot variant="sidebar-sticky" />
+    </aside>
+  </div>
+</BaseLayout>

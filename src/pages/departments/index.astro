@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatVacancies, getDepartmentFacets, isJobActive } from '../../lib/jobs';
+
+const allJobs = await getCollection('jobs');
+const departments = getDepartmentFacets(allJobs);
+
+const vacanciesByDept = new Map<string, number>();
+for (const job of allJobs) {
+  if (!isJobActive(job)) continue;
+  const current = vacanciesByDept.get(job.data.department) ?? 0;
+  vacanciesByDept.set(job.data.department, current + (job.data.total_vacancies ?? 0));
+}
+---
+
+<BaseLayout
+  title="Departments Directory"
+  description="Browse verified government and public-sector job openings grouped by issuing ministry, commission, and department."
+  canonicalPath="/departments"
+>
+  <nav aria-label="Breadcrumb" class="mb-4 text-xs text-ink-secondary">
+    <ol class="flex items-center gap-1.5">
+      <li><a href="/" class="hover:text-accent hover:underline">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-ink font-medium">Departments</li>
+    </ol>
+  </nav>
+
+  <header class="bg-surface border border-border-strong rounded-[3px] p-4 mb-5">
+    <h1 class="text-xl font-bold text-ink tracking-tight">
+      Browse Recruitments by Department
+    </h1>
+    <p class="text-xs text-ink-secondary mt-1">
+      Select a sector or commission category to view active and archived notices.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {
+      departments.map((dept) => (
+        <a
+          href={`/departments/${dept.slug}`}
+          class="bg-surface border border-border-strong rounded-[3px] p-4 hover:border-accent no-underline transition-colors duration-75 flex flex-col justify-between gap-3"
+        >
+          <div class="text-sm font-bold text-ink">{dept.name}</div>
+          <div class="flex items-center justify-between text-xs text-ink-secondary border-t border-border pt-2.5 tabular-nums">
+            <span>
+              Active Notices: <strong class="text-ink">{dept.activeCount}</strong>
+            </span>
+            <span>
+              Vacancies:{' '}
+              <strong class="text-ink">
+                {formatVacancies(vacanciesByDept.get(dept.name) ?? 0)}
+              </strong>
+            </span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>
