@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import AdSlot from '../components/AdSlot.astro';
 import { SITE_CONFIG } from '../config/site';
 
 interface Props {
@@ -40,6 +41,11 @@ function isCurrentRoute(href: string): boolean {
 
 const isSalaryRoute =
   currentPath === '/jobs/by-salary' || currentPath.startsWith('/jobs/salary/');
+
+const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === 'true';
+const adsPreview = import.meta.env.PUBLIC_ADS_PREVIEW === 'true';
+const adsActive = adsEnabled || adsPreview;
+const adsenseClient = (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim();
 ---
 
 <!doctype html>
@@ -68,6 +74,16 @@ const isSalaryRoute =
       href="/rss.xml"
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {
+      adsEnabled && adsenseClient.startsWith('ca-pub-') && (
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+          crossorigin="anonymous"
+        />
+      )
+    }
 
     {
       jsonLd && (
@@ -239,9 +255,27 @@ const isSalaryRoute =
       </nav>
     </header>
 
-    <main id="main-content" class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 py-4 sm:py-5">
-      <slot />
-    </main>
+    {
+      adsActive ? (
+        <div class="flex-1 w-full max-w-[1680px] mx-auto px-2 sm:px-4 flex items-start justify-center gap-3 2xl:gap-5">
+          <div class="hidden xl:block w-[162px] shrink-0 sticky top-[108px] py-4 sm:py-5">
+            <AdSlot variant="rail-left" />
+          </div>
+
+          <main id="main-content" class="flex-1 min-w-0 max-w-7xl w-full py-4 sm:py-5">
+            <slot />
+          </main>
+
+          <div class="hidden xl:block w-[162px] shrink-0 sticky top-[108px] py-4 sm:py-5">
+            <AdSlot variant="rail-right" />
+          </div>
+        </div>
+      ) : (
+        <main id="main-content" class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 py-4 sm:py-5">
+          <slot />
+        </main>
+      )
+    }
 
     <!-- 3-Column Authoritative Utility Footer -->
     <footer class="bg-surface border-t border-border-strong mt-10">

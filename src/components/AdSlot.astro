@@ -6,39 +6,67 @@ type SlotVariant =
   | 'detail-mid'
   | 'header'
   | 'mid-article'
-  | 'sidebar';
+  | 'sidebar'
+  | 'rail-left'
+  | 'rail-right';
 
 interface Props {
   variant?: SlotVariant;
   position?: SlotVariant;
+  adSlot?: string;
   className?: string;
 }
 
-const { variant, position, className = '' } = Astro.props;
+const { variant, position, adSlot, className = '' } = Astro.props;
 const activeVariant: SlotVariant = variant ?? position ?? 'in-feed';
 
 const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === 'true';
 const adsPreview = import.meta.env.PUBLIC_ADS_PREVIEW === 'true';
 const shouldRender = adsEnabled || adsPreview;
 
+const adsenseClient = (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim();
+
+const envSlotByVariant: Record<SlotVariant, string | undefined> = {
+  leaderboard: import.meta.env.PUBLIC_ADSENSE_SLOT_LEADERBOARD,
+  header: import.meta.env.PUBLIC_ADSENSE_SLOT_LEADERBOARD,
+  'in-feed': import.meta.env.PUBLIC_ADSENSE_SLOT_IN_FEED,
+  'sidebar-sticky': import.meta.env.PUBLIC_ADSENSE_SLOT_SIDEBAR,
+  sidebar: import.meta.env.PUBLIC_ADSENSE_SLOT_SIDEBAR,
+  'detail-mid': import.meta.env.PUBLIC_ADSENSE_SLOT_DETAIL_MID,
+  'mid-article': import.meta.env.PUBLIC_ADSENSE_SLOT_DETAIL_MID,
+  'rail-left': import.meta.env.PUBLIC_ADSENSE_SLOT_LEFT_RAIL,
+  'rail-right': import.meta.env.PUBLIC_ADSENSE_SLOT_RIGHT_RAIL,
+};
+
+const resolvedAdSlot = (adSlot ?? envSlotByVariant[activeVariant] ?? '').trim();
+const isSideRail = activeVariant === 'rail-left' || activeVariant === 'rail-right';
+const renderLiveAdSense =
+  adsEnabled &&
+  adsenseClient.startsWith('ca-pub-') &&
+  /^\d+$/.test(resolvedAdSlot);
+
 const slotClasses: Record<SlotVariant, string> = {
-  leaderboard: 'min-h-[90px] my-4',
-  header: 'min-h-[90px] my-3',
-  'in-feed': 'min-h-[100px] my-4',
-  'sidebar-sticky': 'min-h-[250px] lg:sticky lg:top-[108px]',
-  sidebar: 'min-h-[250px]',
-  'detail-mid': 'min-h-[250px] my-8',
-  'mid-article': 'min-h-[250px] my-8',
+  leaderboard: 'w-full min-h-[90px] my-4',
+  header: 'w-full min-h-[90px] my-3',
+  'in-feed': 'w-full min-h-[100px] my-4',
+  'sidebar-sticky': 'w-full min-h-[250px] lg:sticky lg:top-[108px]',
+  sidebar: 'w-full min-h-[250px]',
+  'detail-mid': 'w-full min-h-[250px] my-8',
+  'mid-article': 'w-full min-h-[250px] my-8',
+  'rail-left': 'w-[162px] min-h-[622px]',
+  'rail-right': 'w-[162px] min-h-[622px]',
 };
 
 const slotLabels: Record<SlotVariant, string> = {
-  leaderboard: 'Leaderboard Sponsorship Slot (728x90)',
-  header: 'Header Sponsorship Slot (728x90)',
+  leaderboard: 'Leaderboard Sponsorship Slot (728×90)',
+  header: 'Header Sponsorship Slot (728×90)',
   'in-feed': 'In-Feed Editorial Sponsorship Slot',
-  'sidebar-sticky': 'Sticky Action Rail Sponsorship (300x250)',
-  sidebar: 'Sidebar Sponsorship (300x250)',
-  'detail-mid': 'Detail Mid-Content Sponsorship (300x250 / Responsive)',
-  'mid-article': 'Mid-Article Sponsorship (300x250 / Responsive)',
+  'sidebar-sticky': 'Sticky Action Rail Sponsorship (300×250)',
+  sidebar: 'Sidebar Sponsorship (300×250)',
+  'detail-mid': 'Detail Mid-Content Sponsorship (300×250 / Responsive)',
+  'mid-article': 'Mid-Article Sponsorship (300×250 / Responsive)',
+  'rail-left': 'Left Skyscraper Ad Unit (160×600)',
+  'rail-right': 'Right Skyscraper Ad Unit (160×600)',
 };
 ---
 
@@ -48,7 +76,8 @@ const slotLabels: Record<SlotVariant, string> = {
       aria-label="Advertisement"
       data-ad-variant={activeVariant}
       class:list={[
-        'w-full bg-surface rounded-[3px] flex flex-col items-center justify-center p-2.5 text-center',
+        'bg-surface rounded-[3px] flex flex-col items-center justify-center text-center overflow-hidden',
+        renderLiveAdSense ? 'p-0' : 'p-2.5',
         adsPreview && !adsEnabled
           ? 'border border-dashed border-border-strong bg-canvas/70'
           : 'border border-border',
@@ -56,12 +85,42 @@ const slotLabels: Record<SlotVariant, string> = {
         className,
       ]}
     >
-      <span class="font-mono text-[10px] uppercase tracking-wider text-ink-secondary">
-        Advertisement
-      </span>
-      <span class="text-xs text-ink-secondary mt-1">
-        {slotLabels[activeVariant]}
-      </span>
+      {renderLiveAdSense ? (
+        <>
+          <span class="w-full py-0.5 bg-canvas border-b border-border font-mono text-[9px] uppercase tracking-wider text-ink-secondary">
+            Advertisement
+          </span>
+          {isSideRail ? (
+            <ins
+              class="adsbygoogle"
+              style="display:inline-block;width:160px;height:600px"
+              data-ad-client={adsenseClient}
+              data-ad-slot={resolvedAdSlot}
+            />
+          ) : (
+            <ins
+              class="adsbygoogle"
+              style="display:block;width:100%"
+              data-ad-client={adsenseClient}
+              data-ad-slot={resolvedAdSlot}
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
+          )}
+          <script is:inline>
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </>
+      ) : (
+        <>
+          <span class="font-mono text-[10px] uppercase tracking-wider text-ink-secondary">
+            Advertisement
+          </span>
+          <span class="text-xs text-ink-secondary mt-1">
+            {slotLabels[activeVariant]}
+          </span>
+        </>
+      )}
     </aside>
   )
 }
