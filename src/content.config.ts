@@ -47,6 +47,7 @@ const jobs = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/data/jobs' }),
   schema: z.object({
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    chayandesk_url: z.url().nullish(),
     title: z.string().min(3),
     organization: z.string().min(2),
     department: z.string().min(2),
@@ -89,6 +90,7 @@ const admissions = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/data/admissions' }),
   schema: z.object({
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    chayandesk_url: z.url().nullish(),
     title: z.string().min(3),
     organization: z.string().min(2),
     course_level: z.string().min(2),

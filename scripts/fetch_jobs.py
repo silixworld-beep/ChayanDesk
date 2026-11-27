@@ -56,6 +56,7 @@ ADMISSIONS_DIR = REPO_ROOT / "src" / "data" / "admissions"
 DEFAULT_USER_AGENT = (
     "ChayanDeskBot/1.0 (+https://chayandesk.in/about; desk@chayandesk.in)"
 )
+SITE_BASE_URL = os.getenv("PUBLIC_SITE_URL", "https://chayandesk.in").rstrip("/")
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 FALLBACK_GEMINI_MODELS = [
     "gemini-2.5-flash",
@@ -1942,7 +1943,15 @@ def serialize_job_payload(record: ValidatedJobRecord, *, for_staging: bool = Fal
                 vb_item.pop("notes", None)
             if vb_item.get("eligibility") is None:
                 vb_item.pop("eligibility", None)
-    return payload
+    route_prefix = "admissions" if (for_staging and record.post_type == "admission") else "jobs"
+    ordered: dict[str, Any] = {
+        "slug": payload["slug"],
+        "chayandesk_url": f"{SITE_BASE_URL}/{route_prefix}/{record.slug}",
+    }
+    for k, v in payload.items():
+        if k not in ordered:
+            ordered[k] = v
+    return ordered
 
 
 def serialize_admission_payload(record: ValidatedJobRecord) -> dict[str, Any]:
@@ -1992,7 +2001,14 @@ def serialize_admission_payload(record: ValidatedJobRecord) -> dict[str, Any]:
             payload.pop(opt_k, None)
     if not payload.get("homepage_menus"):
         payload.pop("homepage_menus", None)
-    return payload
+    ordered: dict[str, Any] = {
+        "slug": payload["slug"],
+        "chayandesk_url": f"{SITE_BASE_URL}/admissions/{record.slug}",
+    }
+    for k, v in payload.items():
+        if k not in ordered:
+            ordered[k] = v
+    return ordered
 
 
 def archive_expired_jobs(jobs_dir: Path, today_utc: date, dry_run: bool) -> int:
